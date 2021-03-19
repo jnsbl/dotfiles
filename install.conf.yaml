@@ -46,4 +46,15 @@
       path: iterm2/com.googlecode.iterm2.plist
 
 - shell:
-  - ["yes | ./ext/fzf/install", "Installing fzf"]
+  - 
+    command: "./ext/fzf/install"
+    description: "Installing fzf"
+    quiet: true
+  - 
+    command: "fish -c 'fisher install matchai/spacefish'"
+    description: "Installing fisher plugin spacefish"
+    quiet: true
+  - 
+    command: "fish -c 'fisher install barnybug/docker-fish-completion'"
+    description: "Installing fisher plugin docker-fish-completion"
+    quiet: true
