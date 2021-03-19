@@ -34,6 +34,7 @@
     ~/.pryrc: ruby/pryrc
     ~/.tmux.conf:
     ~/.uu/config/uu-client: uu/uu-client
+    ~/.vim: neovim
     '~/Library/Application Support/Code/User/settings.json':
       if: '[ `uname` = Darwin ]'
       path: vscode/settings-mac.json
