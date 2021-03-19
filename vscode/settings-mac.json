@@ -1,0 +1,31 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "editor.tabSize": 2,
+    "editor.rulers": [
+    ],
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "git.path": "/usr/local/bin/git",
+    "workbench.colorTheme": "Ayu Mirage",
+    "ruby.lint": {
+        "ruby": true
+    },
+    "editor.fontFamily": "'SFMono Nerd Font', 'JetBrains Mono Regular', 'Hack Nerd Font Mono', 'Input Nerd Font', 'Fira Code', 'Iosevka', 'Input Mono Narrow', 'FantasqueSansMono Nerd Font', 'Fira Code', 'Fira Mono', 'Input Mono Narrow', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 13,
+    "window.zoomLevel": 0,
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.iconTheme": "ayu",
+    "vsicons.dontShowNewVersionMessage": true,
+    "editor.minimap.enabled": false,
+    "vim.leader": ",",
+    "breadcrumbs.enabled": false,
+    "editor.renderIndentGuides": false,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
+    "vim.neovimPath": "/usr/local/bin/nvim",
+    "vim.enableNeovim": true,
+    "gitProjectManager.baseProjectsFolders": [
+      "/Users/jnsbl/code/work/git"
+    ],
+    "gitProjectManager.storeRepositoriesBetweenSessions": true
+}

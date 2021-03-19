@@ -1,0 +1,49 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean: ['~', '~/.config']
+
+- link:
+    ~/.bashrc:
+    ~/.config/fish/config.fish: fish/config.fish
+    ~/.config/fish/conf.d: fish/conf.d
+    ~/.config/fish/functions: fish/functions
+    ~/.config/nvim: neovim
+    ~/.config/karabiner/karabiner.json:
+      if: '[ `uname` = Darwin ]'
+      path: karabiner.json
+    ~/.dotfiles: ''
+    ~/.gemrc: ruby/gemrc
+    ~/.gitconfig:
+      if: '[ `uname` = Darwin ]'
+      path: git/gitconfig-mac
+    ~/.gitconfig:
+      if: '[ `uname` = Linux ]'
+      path: git/gitconfig-linux
+    ~/.gitignore_global:
+    ~/.git_template: git/git_template
+    ~/.hammerspoon:
+      if: '[ `uname` = Darwin ]'
+      path: hammerspoon
+    ~/.ideavimrc:
+    ~/.jrubyrc: ruby/jrubyrc
+    ~/.pryrc: ruby/pryrc
+    ~/.tmux.conf:
+    ~/.uu/config/uu-client: uu/uu-client
+    '~/Library/Application Support/Code/User/settings.json':
+      if: '[ `uname` = Darwin ]'
+      path: vscode/settings-mac.json
+    '~/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings':
+      if: '[ `uname` = Darwin ]'
+      path: 'sublime/Package Control.sublime-settings'
+    '~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings':
+      if: '[ `uname` = Darwin ]'
+      path: 'sublime/Preferences.sublime-settings'
+    ~/Library/Preferences/com.googlecode.iterm2.plist:
+      if: '[ `uname` = Darwin ]'
+      path: iterm2/com.googlecode.iterm2.plist
+
+- shell:
+  - ["yes | ./ext/fzf/install", "Installing fzf"]

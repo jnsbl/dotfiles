@@ -1,0 +1,3 @@
+#!/bin/bash
+# https://dmitryfrank.com/articles/shell_shortcuts
+cat $1 | sed 's/#.*//g' | sed '/^\s*$/d'
