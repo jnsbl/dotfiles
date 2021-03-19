@@ -10,10 +10,12 @@
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/conf.d: fish/conf.d
     ~/.config/fish/functions: fish/functions
-    ~/.config/nvim: neovim
     ~/.config/karabiner/karabiner.json:
       if: '[ `uname` = Darwin ]'
       path: karabiner.json
+    ~/.config/nvim: neovim
+    ~/.config/ranger/rc.conf: ranger/rc.conf
+    ~/.config/ranger/scope.sh: ranger/scope.sh
     ~/.dotfiles: ''
     ~/.gemrc: ruby/gemrc
     ~/.gitconfig:
