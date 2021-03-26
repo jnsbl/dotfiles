@@ -2,15 +2,16 @@
 {
     "editor.tabSize": 2,
     "editor.rulers": [
+      80, 100
     ],
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
     "git.path": "/usr/local/bin/git",
-    "workbench.colorTheme": "Ayu Mirage",
+    "workbench.colorTheme": "Monokai",
     "ruby.lint": {
         "ruby": true
     },
-    "editor.fontFamily": "'SFMono Nerd Font', 'JetBrains Mono Regular', 'Hack Nerd Font Mono', 'Input Nerd Font', 'Fira Code', 'Iosevka', 'Input Mono Narrow', 'FantasqueSansMono Nerd Font', 'Fira Code', 'Fira Mono', 'Input Mono Narrow', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontFamily": "'Victor Mono', 'SFMono Nerd Font', 'JetBrains Mono Regular', 'Hack Nerd Font Mono', 'Input Nerd Font', 'Fira Code', 'Iosevka', 'Input Mono Narrow', 'FantasqueSansMono Nerd Font', 'Fira Code', 'Fira Mono', 'Input Mono Narrow', Menlo, Monaco, 'Courier New', monospace",
     "editor.fontSize": 13,
     "window.zoomLevel": 0,
     "workbench.startupEditor": "newUntitledFile",
@@ -27,5 +28,8 @@
     "gitProjectManager.baseProjectsFolders": [
       "/Users/jnsbl/code/work/git"
     ],
-    "gitProjectManager.storeRepositoriesBetweenSessions": true
+    "gitProjectManager.storeRepositoriesBetweenSessions": true,
+    "gitlens.defaultTimeFormat": "HH:mm",
+    "gitlens.defaultDateShortFormat": "DD.MM.YYYY",
+    "gitlens.defaultDateFormat": "DD.MM.YYYY HH:mm"
 }
