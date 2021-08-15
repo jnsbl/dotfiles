@@ -7,6 +7,9 @@
 
 - link:
     ~/.bashrc:
+    '~/.config/Code - OSS/User/settings.json':
+      if: '[ `uname` = Linux ]'
+      path: vscode/settings-linux.json
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/conf.d: fish/conf.d
     ~/.config/fish/functions: fish/functions
@@ -49,15 +52,15 @@
       path: iterm2/com.googlecode.iterm2.plist
 
 - shell:
-  - 
+  -
     command: "./ext/fzf/install"
     description: "Installing fzf"
     quiet: true
-  - 
+  -
     command: "fish -c 'fisher install matchai/spacefish'"
     description: "Installing fisher plugin spacefish"
     quiet: true
-  - 
+  -
     command: "fish -c 'fisher install barnybug/docker-fish-completion'"
     description: "Installing fisher plugin docker-fish-completion"
     quiet: true
