@@ -18,7 +18,7 @@ _Note: Dotfiles are symlinked to `~/.dotfiles` after installation._
 
 ## Features
 
-- [fish](https://fishshell.com/) (default shell) configured with [fisher](https://github.com/jorgebucaran/fisher), using [spacefish](https://spacefish.matchai.dev/) prompt and lots of [abbreviations](https://github.com/jnsbl/dotfiles/blob/master/fish/config.fish) for less typing
+- [fish](https://fishshell.com/) (default shell) configured with [fisher](https://github.com/jorgebucaran/fisher), using [starship](https://starship.rs/) prompt and lots of [abbreviations](https://github.com/jnsbl/dotfiles/blob/master/fish/config.fish) for less typing
 - [neovim](https://neovim.io/) as the main editor with a bunch of [plugins](https://github.com/jnsbl/dotfiles/blob/master/neovim/settings/main.vimrc)
 - [fzf](https://github.com/junegunn/fzf) fuzzy finder for shell and [(neo)vim](https://github.com/junegunn/fzf.vim)
   - w/ custom [fuz](https://github.com/jnsbl/dotfiles/blob/master/bin/fuz) script for [simple note-taking with fzf and (neo)vim](https://medium.com/adorableio/simple-note-taking-with-fzf-and-vim-2a647a39cfa)
