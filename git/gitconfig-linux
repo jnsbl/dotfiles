@@ -1,6 +1,9 @@
 [user]
         name = Jan Sibil
-        email = jnsbldev@gmail.com
+[includeIf "gitdir:hobby/"]
+        path = .gitconfig-hobby
+[includeIf "gitdir:work/"]
+        path = .gitconfig-work
 [alias]
         # add
         a = add                           # add
