@@ -1,0 +1,1 @@
+set guifont=Input_Nerd_Font,FiraCode_Nerd_Font,Noto_Mono,DejaVu_Sans_Mono
