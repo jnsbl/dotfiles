@@ -100,7 +100,7 @@ if not set -q abbrs_initialized
   abbr rbvs 'rbenv versions'
   abbr rgr 'ranger'
 
-  abbr sc 'e ~/.ssh/config'
+  abbr sc 'nvim ~/.ssh/config'
   abbr smtr 'sudo mtr'
 
   abbr sud 'softwareupdate'
