@@ -62,8 +62,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
 " Plug 'rakr/vim-one'
 Plug 'powerman/vim-plugin-AnsiEsc'
-" Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'chuling/ci_dark'
+Plug 'dracula/vim', { 'as': 'dracula' }
+" Plug 'chuling/ci_dark'
 Plug 'luochen1990/rainbow'
 
 " Languages and Syntax highlighting

@@ -4,7 +4,7 @@
 set background=dark
 set termguicolors
 let base16colorspace=256
-colorscheme ci_dark
+colorscheme dracula
 
 " -----------------------------------------------------------------------------
 " Plugin Settings - vim-one
@@ -27,7 +27,7 @@ endtry
 let g:airline_powerline_fonts = 0
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-let g:airline_theme = 'ci_dark'
+let g:airline_theme = 'dracula'
 let g:airline#extensions#tmuxline#enabled = 0
 
 " -----------------------------------------------------------------------------
