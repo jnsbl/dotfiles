@@ -6,7 +6,6 @@
 - clean: ['~', '~/.config']
 
 - link:
-    ~/.bashrc:
     '~/.config/Code - OSS/User/settings.json':
       if: '[ `uname` = Linux ]'
       path: vscode/settings-linux.json
