@@ -89,8 +89,6 @@ if not set -q abbrs_initialized
     end
   end
 
-  abbr mux 'tmuxinator'
-
   abbr py 'python'
 
   abbr rb 'ruby'

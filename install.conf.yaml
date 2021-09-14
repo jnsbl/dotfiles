@@ -21,6 +21,7 @@
     ~/.config/nvim: neovim
     ~/.config/ranger/rc.conf: ranger/rc.conf
     ~/.config/ranger/scope.sh: ranger/scope.sh
+    ~/.config/starship.toml: starship.toml
     ~/.dotfiles: ''
     ~/.gemrc: ruby/gemrc
     ~/.gitconfig:
