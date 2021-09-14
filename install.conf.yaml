@@ -22,6 +22,8 @@
     ~/.config/ranger/rc.conf: ranger/rc.conf
     ~/.config/ranger/scope.sh: ranger/scope.sh
     ~/.config/starship.toml: starship.toml
+    ~/.config/ulauncher/extensions.json: ulauncher/extensions.json
+    ~/.config/ulauncher/settings.json: ulauncher/settings.json
     ~/.dotfiles: ''
     ~/.gemrc: ruby/gemrc
     ~/.gitconfig:
