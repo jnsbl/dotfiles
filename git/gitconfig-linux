@@ -173,3 +173,5 @@
         enabled = true
 [init]
         templatedir = ~/.git_template/
+[gui]
+	editor = nvim-qt
