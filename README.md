@@ -38,12 +38,10 @@ Testing is easy with Docker:
 ```bash
 $ docker build . --tag dotfiles
 $ docker run --rm -it dotfiles
-           .
-          ":"
-        ___:____     |"\/"|
-      ,'        `.    \  /
-      |  O        \___/  |
-    ~^~^~^~^~^~^~^~^~^~^~^~^~
+  _____ _     _
+ |   __|_|___| |_
+ |   __| |_ -|   |
+ |__|  |_|___|_|_|
 
 root in /
 $
