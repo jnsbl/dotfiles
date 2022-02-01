@@ -1,10 +1,14 @@
 " -----------------------------------------------------------------------------
 " Plugin Settings - Colorscheme
 
-set background=dark
 set termguicolors
 let base16colorspace=256
-colorscheme dracula
+if filereadable(expand("~/.vimrc_background"))
+  source ~/.vimrc_background
+else
+  set background=dark
+  colorscheme base16-tomorrow-night
+endif
 
 " -----------------------------------------------------------------------------
 " Plugin Settings - vim-one
@@ -27,7 +31,7 @@ endtry
 let g:airline_powerline_fonts = 0
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-let g:airline_theme = 'dracula'
+let g:airline_theme = 'base16_gruvbox_dark_medium'
 let g:airline#extensions#tmuxline#enabled = 0
 
 " -----------------------------------------------------------------------------
@@ -60,7 +64,7 @@ let g:startify_bookmarks = [
   \ {'p': '~/.config/nvim/settings/plugins.vimrc'},
   \ {'m': '~/.config/nvim/settings/keymap.vimrc'},
   \ {'h': '~/.hammerspoon/init.lua'},
-  \ {'t': '~/.tmux.conf'},
+  \ {'t': '~/.config/qtile/config.py'},
   \ {'d': '~/.cdg_paths'},
   \ ]
 let g:startify_list_order = ['files', 'bookmarks', 'sessions', 'commands']

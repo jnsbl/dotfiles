@@ -50,7 +50,7 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'timakro/vim-searchant'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-" Plug 'rizzatti/dash.vim'
+Plug 'jremmen/vim-ripgrep'
 
 " Appearance
 Plug 'chriskempson/base16-vim'
@@ -59,12 +59,14 @@ Plug 'xsunsmile/showmarks'
 Plug 'godlygeek/csapprox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'dawikur/base16-vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
 " Plug 'rakr/vim-one'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'dracula/vim', { 'as': 'dracula' }
 " Plug 'chuling/ci_dark'
 Plug 'luochen1990/rainbow'
+Plug 'ap/vim-css-color'
 
 " Languages and Syntax highlighting
 " Plug 'vim-ruby/vim-ruby'
@@ -86,6 +88,7 @@ Plug 'dag/vim-fish'
 " Plug 'kchmck/vim-coffee-script'
 Plug 'elzr/vim-json'
 Plug 'pangloss/vim-javascript'
+Plug 'fladson/vim-kitty'
 
 " Text objects
 Plug 'kana/vim-textobj-user'
