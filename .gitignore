@@ -79,4 +79,11 @@ Temporary Items
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
+### Custom
 
+*.old
+*.json__
+fish/functions/__z.fish
+fish/functions/__z_*.fish
+fish/functions/fish_user_key_bindings.fish
+fish/functions/fzf*.fish
