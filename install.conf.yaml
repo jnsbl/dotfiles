@@ -12,6 +12,7 @@
     '~/.config/VSCodium/User/settings.json':
       if: '[ `uname` = Linux ]'
       path: vscode/settings-linux.json
+    ~/.config/base16-shell: ext/base16-shell
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/conf.d: fish/conf.d
     ~/.config/fish/functions: fish/functions
