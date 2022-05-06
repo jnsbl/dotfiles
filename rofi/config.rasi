@@ -1,0 +1,12 @@
+/** Basic config file **/
+
+configuration {
+  show-icons:         true;
+  icon-theme:         "Gruvgox-Material-Dark";
+  font:               "mononoki Nerd Font Mono 12";
+  terminal:           "kitty";
+}
+@theme "/usr/share/rofi/themes/gruvbox-dark.rasi"
+window {
+  width: 600px;
+}
