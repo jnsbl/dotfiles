@@ -7,6 +7,9 @@ if not set -q abbrs_initialized
   set -U abbrs_initialized
   echo -n Setting abbreviations...
 
+  abbr 1mon 'mons -o'
+  abbr 2mon 'mons -e top'
+
   abbr apl 'ansible-playbook'
 
   abbr bci 'brew cask install'
@@ -99,6 +102,7 @@ if not set -q abbrs_initialized
   abbr rgr 'ranger'
 
   abbr sc 'nvim ~/.ssh/config'
+  abbr sloc 'tokei'
   abbr smtr 'sudo mtr'
 
   abbr sud 'softwareupdate'
