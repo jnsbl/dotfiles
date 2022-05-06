@@ -2,64 +2,57 @@
     "com.github.mikebarkmin.ulauncher-duckduckgo": {
         "id": "com.github.mikebarkmin.ulauncher-duckduckgo",
         "url": "https://github.com/mikebarkmin/ulauncher-duckduckgo",
-        "updated_at": "2021-08-08T17:14:18.818058",
+        "updated_at": "2021-09-14T18:34:49.115895",
         "last_commit": "f2ea6a187082c600a59acc9cca6e288d96f66cc0",
         "last_commit_time": "2021-08-07T18:51:44"
     },
     "com.github.isacikgoz.ukill": {
         "id": "com.github.isacikgoz.ukill",
         "url": "https://github.com/isacikgoz/ukill",
-        "updated_at": "2021-08-08T19:59:00.517287",
+        "updated_at": "2021-09-14T18:34:50.059803",
         "last_commit": "bc50d9f41d46b6813a5aeebddd15734dcdb9d8db",
         "last_commit_time": "2019-05-28T18:30:00"
     },
     "com.github.brpaz.ulauncher-devdocs": {
         "id": "com.github.brpaz.ulauncher-devdocs",
         "url": "https://github.com/brpaz/ulauncher-devdocs",
-        "updated_at": "2021-08-08T19:59:47.726921",
+        "updated_at": "2021-09-14T18:34:53.439569",
         "last_commit": "4dd8476d68dfa8c4c68a0e31fbcbec8b2ad769d1",
         "last_commit_time": "2019-12-03T20:00:41"
     },
     "com.github.iboyperson.ulauncher-system": {
         "id": "com.github.iboyperson.ulauncher-system",
         "url": "https://github.com/iboyperson/ulauncher-system",
-        "updated_at": "2021-08-08T20:01:15.980145",
-        "last_commit": "639facd8be9208afde0371def31913b0804709e8",
-        "last_commit_time": "2021-06-01T14:45:38"
+        "updated_at": "2022-01-12T13:41:20.088157",
+        "last_commit": "667613bf7bb6b4affa4f2121b58589477cd89829",
+        "last_commit_time": "2021-11-08T18:16:55"
     },
     "com.github.manahter.ulauncher-ip-analysis": {
         "id": "com.github.manahter.ulauncher-ip-analysis",
         "url": "https://github.com/manahter/ulauncher-IP-Analysis",
-        "updated_at": "2021-08-08T20:01:51.375440",
-        "last_commit": "c4e51706049eb4d59378a6029ef87058e8624101",
-        "last_commit_time": "2021-02-26T14:59:36"
+        "updated_at": "2022-01-12T13:40:42.772636",
+        "last_commit": "ea408404cd5c860664e770bd49c03fcaa3681116",
+        "last_commit_time": "2021-12-29T16:25:34"
     },
     "com.github.noam09.ulauncher-units": {
         "id": "com.github.noam09.ulauncher-units",
         "url": "https://github.com/noam09/ulauncher-units",
-        "updated_at": "2021-08-08T20:03:44.042212",
-        "last_commit": "b7cf2e51dbf23854f116a1e2157563d749bfb63c",
-        "last_commit_time": "2020-10-06T08:38:12"
-    },
-    "com.github.brpaz.ulauncher-faker": {
-        "id": "com.github.brpaz.ulauncher-faker",
-        "url": "https://github.com/brpaz/ulauncher-faker",
-        "updated_at": "2021-08-08T20:08:48.243731",
-        "last_commit": "45b7d1e505104a3ad6b7d3f7474b8b1726957b8d",
-        "last_commit_time": "2021-06-13T13:30:34"
+        "updated_at": "2022-01-12T13:40:05.036055",
+        "last_commit": "0b0a5f8c760b9b369baac1499484c0d00847e349",
+        "last_commit_time": "2021-12-21T06:32:17"
     },
     "com.github.fsevenm.ulauncher-uuid": {
         "id": "com.github.fsevenm.ulauncher-uuid",
         "url": "https://github.com/fsevenm/ulauncher-uuid",
-        "updated_at": "2021-08-08T20:09:39.108035",
+        "updated_at": "2021-09-14T18:36:27.967176",
         "last_commit": "2fbb70fd2af246277b2baff03465bc8bd971c85f",
         "last_commit_time": "2021-01-14T04:26:08"
     },
     "com.github.brpaz.ulauncher-encoder": {
         "id": "com.github.brpaz.ulauncher-encoder",
         "url": "https://github.com/brpaz/ulauncher-encoder",
-        "updated_at": "2021-08-08T20:10:18.638429",
-        "last_commit": "89c96c7ae8f5965a7a5dd01a87cb7eadf34bc611",
-        "last_commit_time": "2019-12-03T20:18:35"
+        "updated_at": "2022-01-12T13:40:24.870465",
+        "last_commit": "71a01779907ec8de5a66e6305a1b941cadcbe226",
+        "last_commit_time": "2021-12-12T15:46:01"
     }
 }
