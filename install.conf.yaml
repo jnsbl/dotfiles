@@ -66,3 +66,6 @@
     command: "fish -c 'fisher install barnybug/docker-fish-completion'"
     description: "Installing fisher plugin docker-fish-completion"
     quiet: true
+  -
+    command: "git submodule update --init --recursive"
+    description: "Installing submodules"
