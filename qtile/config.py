@@ -92,6 +92,20 @@ def save_screenshot(qtile):
     cmd   = "shotgun " + fpath + fname
     qtile.cmd_spawn(cmd)
 
+@hook.subscribe.screen_change
+def update_monitors(event):
+    qtile.restart()
+
+def check_monitor_status():
+    # TODO Getting output from xrandr takes 2-3 seconds :/
+    monitor_count = subprocess.check_output('xrandr --listactivemonitors | wc -l', shell=True).decode().strip("\n")
+    # xrandr prints two lines for each monitor
+    if monitor_count == '2':
+        return "\uf878" # nf-mdi-monitor
+    else:
+        return "\uf879" # nf-mdi-monitor_multiple
+
+
 def check_notifications_status():
     # is_paused = qtile.cmd_spawn('dunstctl is-paused')
     is_paused = subprocess.check_output('dunstctl is-paused', shell=True).decode().strip("\n")
@@ -219,6 +233,10 @@ for i in groups:
             Key([mod, "shift"], i.name,
                 lazy.window.togroup(i.name, switch_group=True),
                 desc="Switch to & move focused window to group {}".format(i.name),
+            ),
+            Key([mod, "shift", "control"], i.name,
+                lazy.window.togroup(i.name, switch_group=False),
+                desc="Move focused window to group {}".format(i.name),
             ),
         ]
     )
@@ -352,6 +370,15 @@ screens = [
                 widget.KeyboardLayout(configured_keyboards=['cz','us'], foreground=AQUA),
                 widget.Spacer(length=10),
 
+                # widget.GenPollText(
+                #     update_interval=5,
+                #     func=check_monitor_status,
+                #     # mouse_callbacks={'Button1': lambda:qtile.cmd_spawn('dunstctl set-paused toggle')},
+                #     foreground=GRAY,
+                #     **icon_defaults
+                # ),
+                # widget.Spacer(length=10),
+
                 widget.GenPollText(
                     update_interval=1,
                     func=check_notifications_status,
@@ -482,5 +509,5 @@ auto_minimize = True
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "LG3D"
+wmname = "qtile"
 # }}}
