@@ -7,11 +7,10 @@
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
     "git.path": "/usr/bin/git",
-    "workbench.colorTheme": "Default Light+",
     "ruby.lint": {
         "ruby": true
     },
-    "editor.fontFamily": "'Input Nerd Font', 'FiraCode Nerd Font', Hack, 'Noto Mono', 'DejaVu Sans Mono', 'Courier New', monospace",
+    "editor.fontFamily": "'JetBrainsMono Nerd Font','FantasqueSansMono Nerd Font', 'Input Nerd Font', 'FiraCode Nerd Font', Hack, 'Noto Mono', 'DejaVu Sans Mono', 'Courier New', monospace",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.iconTheme": "ayu",
     "vsicons.dontShowNewVersionMessage": true,
@@ -30,6 +29,10 @@
     "gitlens.defaultTimeFormat": "HH:mm",
     "gitlens.defaultDateShortFormat": "DD.MM.YYYY",
     "gitlens.defaultDateFormat": "DD.MM.YYYY HH:mm",
-    "editor.fontSize": 15,
-    "workbench.editor.untitled.hint": "hidden"
+    "workbench.editor.untitled.hint": "hidden",
+    "gitlens.codeLens.enabled": false,
+    "workbench.colorTheme": "Default Light+",
+    "terminal.external.linuxExec": "kitty",
+    "terminal.integrated.defaultProfile.linux": "fish",
+    "editor.fontSize": 15
 }
