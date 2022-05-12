@@ -17,7 +17,6 @@
     "editor.minimap.enabled": false,
     "vim.leader": ",",
     "breadcrumbs.enabled": false,
-    "editor.renderIndentGuides": false,
     "vscode-neovim.neovimExecutablePaths.darwin": "/usr/bin/nvim",
     "vim.neovimPath": "/usr/bin/nvim",
     "vim.enableNeovim": true,
@@ -34,5 +33,6 @@
     "workbench.colorTheme": "Default Light+",
     "terminal.external.linuxExec": "kitty",
     "terminal.integrated.defaultProfile.linux": "fish",
-    "editor.fontSize": 15
+    "editor.fontSize": 15,
+    "editor.guides.indentation": false
 }
