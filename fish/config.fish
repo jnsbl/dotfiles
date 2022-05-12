@@ -1,4 +1,4 @@
-set -x -g TERM "xterm-256color"
+set -x -g TERM "xterm-kitty"
 set -x -g EDITOR "nvim"
 set -x -g VISUAL "nvim"
 set -g fish_user_paths "$HOME/dotfiles/bin" "/usr/local/sbin" $fish_user_paths
