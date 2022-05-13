@@ -85,6 +85,15 @@ theme.base0F        = xrdb.color17
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
 
+theme.tasklist_fg_focus  = theme.color10
+theme.tasklist_bg_focus  = theme.bg_normal
+theme.tasklist_disable_icon  = true
+
+theme.taglist_fg_focus   = theme.color11
+theme.taglist_bg_focus   = theme.bg_normal
+theme.taglist_fg_urgent  = theme.color1
+theme.taglist_bg_urgent  = theme.bg_normal
+
 theme.tooltip_fg = theme.fg_normal
 theme.tooltip_bg = theme.bg_normal
 
