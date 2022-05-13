@@ -18,13 +18,14 @@ local lain          = require("lain")
 
 local markup        = lain.util.markup
 
-local battery_widget    = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
-local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
-local cpu_widget        = require("awesome-wm-widgets.cpu-widget.cpu-widget")
-local ram_widget        = require("awesome-wm-widgets.ram-widget.ram-widget")
-local todo_widget       = require("awesome-wm-widgets.todo-widget.todo")
-local volume_widget     = require('awesome-wm-widgets.volume-widget.volume')
-local weather_widget    = require("awesome-wm-widgets.weather-widget.weather")
+local battery_widget     = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
+local brightness_widget  = require("awesome-wm-widgets.brightness-widget.brightness")
+local cpu_widget         = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
+local ram_widget         = require("awesome-wm-widgets.ram-widget.ram-widget")
+local todo_widget        = require("awesome-wm-widgets.todo-widget.todo")
+local volume_widget      = require('awesome-wm-widgets.volume-widget.volume')
+local weather_widget     = require("awesome-wm-widgets.weather-widget.weather")
 -- }}}
 
 -- {{{ Error handling
@@ -90,12 +91,10 @@ local browser           = "brave"
 local modkey            = "Mod4"
 local altkey            = "Mod1"
 
-local vi_focus          = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev        = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local titlebars_enabled = false
 
 local textclock_format  = "%H:%M:%S"
--- local textclock_format  = markup(beautiful.fg_normal, "%a %d.%m.") .. " " .. markup(beautiful.color2, "%H:%M")
 local weather_apikey    = "c5e50bc0db6ab3cc521106ae455cbd34"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -137,6 +136,8 @@ awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8" }
 -- awful.util.tagnames = { "1 main", "2 work", "3 dev", "4 term", "5 chat", "6 media", "7 doc", "8 notes" }
 
 awful.util.terminal = terminal
+
+naughty.config.defaults.screen = 1 -- primary screen only; set to awful.screen.focused if you want notifications to display on the active screen
 -- }}}
 
 -- {{{ Menu
@@ -196,7 +197,6 @@ local tasklist_buttons = gears.table.join(
 -- Create a textclock widget
 local mytextclock = wibox.widget.textclock(textclock_format, 1)
 mytextclock.font = beautiful.font
--- TODO Update textclock widget each second
 beautiful.cal = lain.widget.cal({
   attach_to = { mytextclock },
   notification_preset = {
@@ -211,71 +211,6 @@ local kbdcolor = beautiful.color6 -- TODO Use the color in the widget
 local mykeyboardlayout = awful.widget.keyboardlayout()
 
 local separator = wibox.widget.textbox(markup(beautiful.color8, " "))
-
--- MEM
-local memcolor = beautiful.color3
-local memory = lain.widget.mem({
-  settings = function()
-    widget:set_markup(markup.fontfg(beautiful.font, memcolor, "Mem " .. mem_now.perc .. "% "))
-  end
-})
-
--- -- CPU
--- local cpucolor = beautiful.color11
--- local cpu = lain.widget.cpu({
---   settings = function()
---     widget:set_markup(markup.fontfg(beautiful.font, cpucolor, "CPU " .. cpu_now.usage .. "% "))
---   end
--- })
-
--- Battery
-local batcolor = beautiful.color2
-local bat = lain.widget.bat({
-  settings = function()
-    local perc = bat_now.perc ~= "N/A" and bat_now.perc .. "%" or bat_now.perc
-
-    if bat_now.ac_status == 1 then
-        perc = perc .. " plug"
-    end
-
-    widget:set_markup(markup.fontfg(beautiful.font, batcolor, "Bat " .. perc .. " "))
-  end
-})
-
--- ALSA volume
-local volcolor = beautiful.color13
-beautiful.volume = lain.widget.alsa({
-  settings = function()
-    if volume_now.status == "off" then
-      volume_now.level = volume_now.level .. "M"
-    end
-
-    widget:set_markup(markup.fontfg(beautiful.font, volcolor, "Vol " .. volume_now.level .. "% "))
-  end
-})
-
--- Wi-Fi
--- TODO Add widget (beautiful.color12)
-
--- Brightness
--- TODO Add widget
-
--- Notifications
--- TODO Add widget (or at least a key binding to toggle notifications)
-
--- -- Weather
--- local weathercolor = beautiful.fg_normal
--- beautiful.weather = lain.widget.weather({
---   APPID = weather_apikey,
---   city_id = 3067696, -- placeholder (Prague, CZ)
---   notification_preset = { font = beautiful.font, fg = beautiful.fg_normal },
---   weather_na_markup = markup.fontfg(beautiful.font, weathercolor, "N/A "),
---   settings = function()
---     descr = weather_now["weather"][1]["description"]:lower()
---     units = math.floor(weather_now["main"]["temp"])
---     widget:set_markup(markup.fontfg(beautiful.font, weathercolor, descr .. " @ " .. units .. "°C "))
---   end
--- })
 
 local function set_wallpaper(s)
   if beautiful.wallpaper then
@@ -343,17 +278,14 @@ awful.screen.connect_for_each_screen(function(s)
       layout = wibox.layout.fixed.horizontal,
       wibox.widget.systray(),
       -- separator,
-      -- bat.widget,
       battery_widget({
         show_current_level = true,
         arc_thickness = 1,
       }),
       -- separator,
-      -- memory.widget,
       ram_widget(),
       cpu_widget(),
       -- separator,
-      -- cpu.widget,
       brightness_widget({
         type = 'icon_and_text',
         program = 'brightnessctl',
@@ -361,10 +293,8 @@ awful.screen.connect_for_each_screen(function(s)
         percentage = true,
       }),
       separator,
-      -- beautiful.volume.widget,
       volume_widget(),
       -- separator,
-      -- beautiful.weather.widget,
       todo_widget(),
       weather_widget({
         api_key = weather_apikey,
@@ -376,8 +306,11 @@ awful.screen.connect_for_each_screen(function(s)
       mykeyboardlayout,
       -- separator,
       mytextclock,
-      -- separator,
+      separator,
       -- s.mylayoutbox,
+      logout_menu_widget({
+        onlock = function() awful.spawn.with_shell('betterlockscreen -l dim') end
+      }),
     },
   }
 end)
@@ -399,6 +332,17 @@ local globalkeys = gears.table.join(
   -- awful.key({ modkey, "Shift"   }, "c",
   --     function () mymainmenu:show() end,
   --     {description = "show main menu", group = "awesome"}),
+  awful.key({ modkey, "Shift"   }, "n",
+      function ()
+        if not naughty.is_suspended() then
+          naughty.notify({ title = "Naughty", text = "Disabling notifications" })
+        end
+        naughty.toggle()
+        if not naughty.is_suspended() then
+          naughty.notify({ title = "Naughty", text = "Notifications enabled" })
+        end
+      end,
+      {description = "toggle notifications", group = "awesome"}),
 
   awful.key({ modkey,           }, "Left",
       awful.tag.viewprev,
@@ -577,9 +521,6 @@ local globalkeys = gears.table.join(
   awful.key({ altkey, "Control" }, "space",
       function () if beautiful.cal then beautiful.cal.show(7) end end,
       {description = "show calendar", group = "widgets"}),
-  awful.key({ altkey }, "w",
-      function () if beautiful.weather then beautiful.weather.show(7) end end,
-      {description = "show weather", group = "widgets"}),
 
   -- Screen brightness
   -- awful.key({ }, "XF86MonBrightnessUp",
@@ -597,49 +538,25 @@ local globalkeys = gears.table.join(
 
   -- ALSA volume control
   awful.key({ }, "XF86AudioRaiseVolume",
-      function ()
-        -- os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
-        -- beautiful.volume.update()
-        volume_widget:inc(5)
-      end,
+      function () volume_widget:inc(5) end,
       {description = "volume up", group = "hotkeys"}),
   awful.key({ }, "XF86AudioLowerVolume",
-      function ()
-        -- os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
-        -- beautiful.volume.update()
-        volume_widget:dec(5)
-      end,
+      function () volume_widget:dec(5) end,
       {description = "volume down", group = "hotkeys"}),
   awful.key({ }, "XF86AudioMute",
-      function ()
-        -- os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-        -- beautiful.volume.update()
-        volume_widget:toggle()
-      end,
+      function () volume_widget:toggle() end,
       {description = "toggle mute", group = "hotkeys"}),
   awful.key({ }, "XF86AudioPlay",
-      function ()
-        os.execute("playerctl play-pause")
-        beautiful.volume.update()
-      end,
+      function () os.execute("playerctl play-pause") end,
       {description = "play/pause audio", group = "hotkeys"}),
   awful.key({ }, "XF86AudioStop",
-      function ()
-        os.execute("playerctl stop")
-        beautiful.volume.update()
-      end,
+      function () os.execute("playerctl stop") end,
       {description = "stop audio", group = "hotkeys"}),
   awful.key({ }, "XF86AudioPrev",
-      function ()
-        os.execute("playerctl previous")
-        beautiful.volume.update()
-      end,
+      function () os.execute("playerctl previous") end,
       {description = "play previous audio", group = "hotkeys"}),
   awful.key({ }, "XF86AudioNext",
-      function ()
-        os.execute("playerctl next")
-        beautiful.volume.update()
-      end,
+      function () os.execute("playerctl next") end,
       {description = "play next audio", group = "hotkeys"}),
 
   -- Destroy all notifications
