@@ -95,7 +95,7 @@ local cycle_prev        = true  -- cycle with only the previously focused client
 local titlebars_enabled = false
 
 local textclock_format  = "%H:%M:%S"
-local weather_apikey    = "c5e50bc0db6ab3cc521106ae455cbd34"
+local weather_apikey    = os.getenv("OPEN_WEATHER_API_KEY")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
