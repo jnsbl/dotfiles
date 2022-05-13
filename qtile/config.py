@@ -40,7 +40,7 @@ import time
 # }}}
 
 mod = "mod4"
-terminal = "kitty"
+terminal = "alacritty"
 font_name = 'mononoki Nerd Font Mono'
 home = os.path.expanduser('~')
 
@@ -223,6 +223,8 @@ groups = [
          ),
     Group("p", label="\ue29a"), # nf-fae-checklist_o
 ]
+# from libqtile.dgroups import simple_key_binder
+# dgroups_key_binder = simple_key_binder(mod)
 for i in groups:
     keys.extend(
         [

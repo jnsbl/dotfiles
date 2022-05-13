@@ -3,11 +3,13 @@
 
 set termguicolors
 let base16colorspace=256
-if filereadable(expand("~/.vimrc_background"))
+if filereadable(expand("~/.config/nvim/colors/base16.vim"))
+  source ~/.config/nvim/colors/base16.vim
+elseif filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 else
   set background=dark
-  colorscheme base16-tomorrow-night
+  colorscheme base16-gruvbox-dark-medium
 endif
 
 " -----------------------------------------------------------------------------
@@ -31,7 +33,7 @@ endtry
 let g:airline_powerline_fonts = 0
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-let g:airline_theme = 'base16_gruvbox_dark_medium'
+" let g:airline_theme = 'base16_gruvbox_dark_medium' " managed by base16-vim-airline-themes
 let g:airline#extensions#tmuxline#enabled = 0
 
 " -----------------------------------------------------------------------------
@@ -403,8 +405,8 @@ nmap gc <Plug>(coc-git-commit)
 " -----------------------------------------------------------------------------
 " Plugin Settings - sideways.vim
 
-nnoremap <c-h> :SidewaysLeft<cr>
-nnoremap <c-l> :SidewaysRight<cr>
+" nnoremap <c-h> :SidewaysLeft<cr>
+" nnoremap <c-l> :SidewaysRight<cr>
 
 " -----------------------------------------------------------------------------
 " Plugin Settings - Aerojump
@@ -419,3 +421,8 @@ nmap <Leader><space> <Plug>(AerojumpSpace)
 " Plugin Settings - winresizer
 
 let g:winresizer_start_key = '<C-T>'
+
+" -----------------------------------------------------------------------------
+" Plugin Settings - vim-css-color
+
+autocmd FileType lua call css_color#init('hex', 'extended', 'luaString')

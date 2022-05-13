@@ -1,0 +1,37 @@
+shell = "bash -c '{}'"
+
+[[item]]
+file = "~/.config/nvim/colors/base16.vim"
+template = "vim"
+rewrite = true
+hook = "~/bin/reloadnvim"
+
+[[item]]
+file = "~/.config/kitty/base16.conf"
+template = "kitty"
+subtemplate = "default-256"
+rewrite = true
+
+[[item]]
+file = "~/.config/alacritty/alacritty.yml"
+template = "alacritty"
+subtemplate = "default-256"
+
+[[item]]
+file = "~/.Xresources"
+template = "xresources"
+subtemplate = "default-256"
+hook = "xrdb -merge ~/.Xresources"
+start = "! Start flavours"
+end = "! End flavours"
+
+[[item]]
+file = "~/.base16_theme"
+template = "shell"
+rewrite = true
+
+[[item]]
+file = "~/.config/rofi/base16_colors.rasi"
+template = "rofi"
+subtemplate = "colors"
+rewrite = true
