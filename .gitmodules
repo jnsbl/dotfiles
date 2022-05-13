@@ -8,3 +8,7 @@
 [submodule "ext/base16-shell"]
 	path = ext/base16-shell
 	url = https://github.com/chriskempson/base16-shell
+[submodule "awesome/awesome-wm-widgets"]
+	path = awesome/awesome-wm-widgets
+	url = https://github.com/streetturtle/awesome-wm-widgets.git
+	ignore = dirty

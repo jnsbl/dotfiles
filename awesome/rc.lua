@@ -17,6 +17,14 @@ local freedesktop   = require("freedesktop")
 local lain          = require("lain")
 
 local markup        = lain.util.markup
+
+local battery_widget    = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+local cpu_widget        = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+local ram_widget        = require("awesome-wm-widgets.ram-widget.ram-widget")
+local todo_widget       = require("awesome-wm-widgets.todo-widget.todo")
+local volume_widget     = require('awesome-wm-widgets.volume-widget.volume')
+local weather_widget    = require("awesome-wm-widgets.weather-widget.weather")
 -- }}}
 
 -- {{{ Error handling
@@ -324,7 +332,9 @@ awful.screen.connect_for_each_screen(function(s)
     layout = wibox.layout.align.horizontal,
     { -- Left widgets
       layout = wibox.layout.fixed.horizontal,
-      mylauncher,
+      -- mylauncher,
+      s.mylayoutbox,
+      separator,
       s.mytaglist,
       s.mypromptbox,
     },
@@ -332,24 +342,42 @@ awful.screen.connect_for_each_screen(function(s)
     { -- Right widgets
       layout = wibox.layout.fixed.horizontal,
       wibox.widget.systray(),
-      separator,
-      bat.widget,
-      separator,
-      memory.widget,
+      -- separator,
+      -- bat.widget,
+      battery_widget({
+        show_current_level = true,
+        arc_thickness = 1,
+      }),
+      -- separator,
+      -- memory.widget,
+      ram_widget(),
+      cpu_widget(),
       -- separator,
       -- cpu.widget,
-      -- TODO Add brightness widget
+      brightness_widget({
+        type = 'icon_and_text',
+        program = 'brightnessctl',
+        step = 3,
+        percentage = true,
+      }),
       separator,
-      beautiful.volume.widget,
-      -- TODO Add wifi/network widget
+      -- beautiful.volume.widget,
+      volume_widget(),
       -- separator,
       -- beautiful.weather.widget,
-      separator,
+      todo_widget(),
+      weather_widget({
+        api_key = weather_apikey,
+        coordinates = {50.088, 14.4208},
+        show_hourly_forecast = true,
+        show_daily_forecast = true,
+      }),
+      -- separator,
       mykeyboardlayout,
-      separator,
+      -- separator,
       mytextclock,
-      separator,
-      s.mylayoutbox,
+      -- separator,
+      -- s.mylayoutbox,
     },
   }
 end)
@@ -554,30 +582,39 @@ local globalkeys = gears.table.join(
       {description = "show weather", group = "widgets"}),
 
   -- Screen brightness
+  -- awful.key({ }, "XF86MonBrightnessUp",
+  --     function () os.execute("brightnessctl --device=intel_backlight set +3%") end,
+  --     {description = "increase brightness +3%", group = "hotkeys"}),
+  -- awful.key({ }, "XF86MonBrightnessDown",
+  --     function () os.execute("brightnessctl --device=intel_backlight set 3%-") end,
+  --     {description = "decrease brightness -3%", group = "hotkeys"}),
   awful.key({ }, "XF86MonBrightnessUp",
-      function () os.execute("brightnessctl --device=intel_backlight set +3%") end,
-      {description = "increase brightness +3%", group = "hotkeys"}),
+      function () brightness_widget:inc() end,
+      {description = "increase brightness", group = "hotkeys"}),
   awful.key({ }, "XF86MonBrightnessDown",
-      function () os.execute("brightnessctl --device=intel_backlight set 3%-") end,
-      {description = "decrease brightness -3%", group = "hotkeys"}),
+      function () brightness_widget:dec() end,
+      {description = "decrease brightness", group = "hotkeys"}),
 
   -- ALSA volume control
   awful.key({ }, "XF86AudioRaiseVolume",
       function ()
-        os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
-        beautiful.volume.update()
+        -- os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
+        -- beautiful.volume.update()
+        volume_widget:inc(5)
       end,
       {description = "volume up", group = "hotkeys"}),
   awful.key({ }, "XF86AudioLowerVolume",
       function ()
-        os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
-        beautiful.volume.update()
+        -- os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
+        -- beautiful.volume.update()
+        volume_widget:dec(5)
       end,
       {description = "volume down", group = "hotkeys"}),
   awful.key({ }, "XF86AudioMute",
       function ()
-        os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-        beautiful.volume.update()
+        -- os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
+        -- beautiful.volume.update()
+        volume_widget:toggle()
       end,
       {description = "toggle mute", group = "hotkeys"}),
   awful.key({ }, "XF86AudioPlay",
