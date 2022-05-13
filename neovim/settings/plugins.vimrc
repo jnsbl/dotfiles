@@ -67,6 +67,7 @@ let g:startify_bookmarks = [
   \ {'m': '~/.config/nvim/settings/keymap.vimrc'},
   \ {'h': '~/.hammerspoon/init.lua'},
   \ {'t': '~/.config/qtile/config.py'},
+  \ {'w': '~/.config/awesome/rc.lua'},
   \ {'d': '~/.cdg_paths'},
   \ ]
 let g:startify_list_order = ['files', 'bookmarks', 'sessions', 'commands']
