@@ -508,9 +508,9 @@ local globalkeys = gears.table.join(
   awful.key({ modkey, "Shift"   }, "q",
       awesome.quit,
       {description = "quit awesome", group = "awesome"}),
-  -- awful.key({ modkey, altkey    }, "l",
-  --     function () os.execute("betterlockscreen --lock dim & systemctl suspend") end,
-  --     {description = "lock screen", group = "awesome"}),
+  awful.key({ modkey, altkey    }, "l",
+      function () os.execute("betterlockscreen --lock dim") end,
+      {description = "lock screen", group = "awesome"}),
 
   awful.key({ modkey,           }, "l",
       function () awful.tag.incmwfact( 0.05) end,

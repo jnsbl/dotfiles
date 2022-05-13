@@ -106,13 +106,13 @@ def check_monitor_status():
         return "\uf879" # nf-mdi-monitor_multiple
 
 
-def check_notifications_status():
-    # is_paused = qtile.cmd_spawn('dunstctl is-paused')
-    is_paused = subprocess.check_output('dunstctl is-paused', shell=True).decode().strip("\n")
-    if is_paused == 'true':
-        return "\uf59a" # nf-mdi-bell_off
-    else:
-        return "\uf599" # nf-mdi-bell
+# def check_notifications_status():
+#     # is_paused = qtile.cmd_spawn('dunstctl is-paused')
+#     is_paused = subprocess.check_output('dunstctl is-paused', shell=True).decode().strip("\n")
+#     if is_paused == 'true':
+#         return "\uf59a" # nf-mdi-bell_off
+#     else:
+#         return "\uf599" # nf-mdi-bell
 # }}}
 
 # {{{ Keys
@@ -381,14 +381,14 @@ screens = [
                 # ),
                 # widget.Spacer(length=10),
 
-                widget.GenPollText(
-                    update_interval=1,
-                    func=check_notifications_status,
-                    mouse_callbacks={'Button1': lambda:qtile.cmd_spawn('dunstctl set-paused toggle')},
-                    foreground=GRAY,
-                    **icon_defaults
-                ),
-                widget.Spacer(length=10),
+                # widget.GenPollText(
+                #     update_interval=1,
+                #     func=check_notifications_status,
+                #     mouse_callbacks={'Button1': lambda:qtile.cmd_spawn('dunstctl set-paused toggle')},
+                #     foreground=GRAY,
+                #     **icon_defaults
+                # ),
+                # widget.Spacer(length=10),
 
                 # widget.CheckUpdates(
                 #     colour_no_updates=GRAY,
