@@ -101,3 +101,4 @@ rofi/applets/
 rofi/bin/
 rofi/launchers/
 rofi/powermenu/
+*.log
