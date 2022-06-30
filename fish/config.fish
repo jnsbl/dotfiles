@@ -1,4 +1,4 @@
-set -x -g TERM "xterm-kitty"
+set -x -g TERM "xterm-256color"
 set -x -g EDITOR "nvim"
 set -x -g VISUAL "nvim"
 set -g fish_user_paths "$HOME/dotfiles/bin" "/usr/local/sbin" $fish_user_paths
@@ -91,6 +91,8 @@ if not set -q abbrs_initialized
       abbr ls 'ls -Gh'
     end
   end
+
+  abbr mon 'autorandr --change --default default; sleep 1; ~/.fehbg'
 
   abbr py 'python'
 
