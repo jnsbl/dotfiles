@@ -26,6 +26,8 @@ local ram_widget         = require("awesome-wm-widgets.ram-widget.ram-widget")
 local todo_widget        = require("awesome-wm-widgets.todo-widget.todo")
 local volume_widget      = require('awesome-wm-widgets.volume-widget.volume')
 local weather_widget     = require("awesome-wm-widgets.weather-widget.weather")
+
+-- local secrets            = require(string.format("%s/.secrets.lua", os.getenv("HOME")))
 -- }}}
 
 -- {{{ Error handling
@@ -68,8 +70,9 @@ end
 run_once({ -- comma-separated entries
   "nm-applet",
   "picom",
-  "nitrogen --restore",
-  "klipper",
+  -- "nitrogen --restore",
+  string.format("%s/.fehbg &", os.getenv("HOME")),
+  "greenclip daemon",
   "/usr/lib/polkit-kde-authentication-agent-1"
 })
 -- }}}
@@ -82,6 +85,7 @@ beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv
 beautiful.font = "Terminus 9"
 beautiful.useless_gap = 5
 beautiful.notification_icon_size = 64
+beautiful.notification_max_width = 300
 
 local terminal          = "alacritty"
 local editor            = os.getenv("EDITOR") or "nvim"
@@ -95,7 +99,7 @@ local cycle_prev        = true  -- cycle with only the previously focused client
 local titlebars_enabled = false
 
 local textclock_format  = "%H:%M:%S"
-local weather_apikey    = os.getenv("OPEN_WEATHER_API_KEY")
+-- local weather_apikey    = secrets.OPEN_WEATHER_API_KEY
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -295,13 +299,13 @@ awful.screen.connect_for_each_screen(function(s)
       separator,
       volume_widget(),
       -- separator,
-      todo_widget(),
-      weather_widget({
-        api_key = weather_apikey,
-        coordinates = {50.088, 14.4208},
-        show_hourly_forecast = true,
-        show_daily_forecast = true,
-      }),
+      -- todo_widget(),
+      -- weather_widget({
+      --   api_key = weather_apikey,
+      --   coordinates = {50.088, 14.4208},
+      --   show_hourly_forecast = true,
+      --   show_daily_forecast = true,
+      -- }),
       -- separator,
       mykeyboardlayout,
       -- separator,
@@ -318,9 +322,7 @@ end)
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function () awful.util.mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({ }, 3, function () awful.util.mymainmenu:toggle() end)
 ))
 -- }}}
 
@@ -456,16 +458,16 @@ local globalkeys = gears.table.join(
       function () os.execute("betterlockscreen --lock dim") end,
       {description = "lock screen", group = "awesome"}),
 
-  awful.key({ modkey,           }, "l",
+  awful.key({ modkey, "Shift"   }, "l",
       function () awful.tag.incmwfact( 0.05) end,
       {description = "increase master width factor", group = "layout"}),
-  awful.key({ modkey,           }, "h",
+  awful.key({ modkey, "Shift"   }, "h",
       function () awful.tag.incmwfact(-0.05) end,
       {description = "decrease master width factor", group = "layout"}),
-  awful.key({ modkey, "Shift"   }, "h",
+  awful.key({ modkey, "Shift", "Control" }, "h",
       function () awful.tag.incnmaster( 1, nil, true) end,
       {description = "increase the number of master clients", group = "layout"}),
-  awful.key({ modkey, "Shift"   }, "l",
+  awful.key({ modkey, "Shift", "Control" }, "l",
       function () awful.tag.incnmaster(-1, nil, true) end,
       {description = "decrease the number of master clients", group = "layout"}),
   awful.key({ modkey, "Control" }, "h",
@@ -516,6 +518,13 @@ local globalkeys = gears.table.join(
         awful.util.spawn(cmd)
       end,
       {description = "take a quick screenshot", group = "hotkeys"}),
+
+  -- Clipboard
+  awful.key({ modkey }, "v",
+      function ()
+        os.execute(string.format("rofi -modi '%s' -show clipboard -run-command '{cmd}'", 'clipboard:greenclip print'))
+      end,
+      {description = "show clipboard history", group = "hotkeys"}),
 
   -- Widgets popups
   awful.key({ altkey, "Control" }, "space",
