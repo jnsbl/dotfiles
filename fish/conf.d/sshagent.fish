@@ -1,1 +1,1 @@
-eval (ssh-agent -c)
+eval (ssh-agent -c &> /dev/null)
