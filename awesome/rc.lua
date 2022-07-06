@@ -27,7 +27,7 @@ local todo_widget        = require("awesome-wm-widgets.todo-widget.todo")
 local volume_widget      = require('awesome-wm-widgets.volume-widget.volume')
 local weather_widget     = require("awesome-wm-widgets.weather-widget.weather")
 
--- local secrets            = require(string.format("%s/.secrets.lua", os.getenv("HOME")))
+local secrets            = require("secrets")
 -- }}}
 
 -- {{{ Error handling
@@ -73,7 +73,7 @@ run_once({ -- comma-separated entries
   -- "nitrogen --restore",
   string.format("%s/.fehbg &", os.getenv("HOME")),
   "greenclip daemon",
-  "/usr/lib/polkit-kde-authentication-agent-1"
+  "lxsession"
 })
 -- }}}
 
@@ -90,7 +90,8 @@ beautiful.notification_max_width = 300
 local terminal          = "alacritty"
 local editor            = os.getenv("EDITOR") or "nvim"
 local editor_cmd        = terminal .. " -e " .. editor
-local browser           = "brave"
+local browser           = "min"
+local file_manager      = "pcmanfm"
 
 local modkey            = "Mod4"
 local altkey            = "Mod1"
@@ -99,14 +100,14 @@ local cycle_prev        = true  -- cycle with only the previously focused client
 local titlebars_enabled = false
 
 local textclock_format  = "%H:%M:%S"
--- local weather_apikey    = secrets.OPEN_WEATHER_API_KEY
+local weather_apikey    = secrets.OPEN_WEATHER_API_KEY
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
   -- awful.layout.suit.floating,
   awful.layout.suit.tile,
   -- awful.layout.suit.tile.left,
-  awful.layout.suit.tile.bottom,
+  -- awful.layout.suit.tile.bottom,
   -- awful.layout.suit.tile.top,
   -- awful.layout.suit.fair,
   -- awful.layout.suit.fair.horizontal,
@@ -136,8 +137,8 @@ lain.layout.cascade.tile.extra_padding = 5
 lain.layout.cascade.tile.nmaster       = 5
 lain.layout.cascade.tile.ncol          = 2
 
-awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8" }
--- awful.util.tagnames = { "1 main", "2 work", "3 dev", "4 term", "5 chat", "6 media", "7 doc", "8 notes" }
+-- awful.util.tagnames = { "1", "2", "3", "4", "5" }
+awful.util.tagnames = { "web", "code", "chat", "music", "other" }
 
 awful.util.terminal = terminal
 
@@ -235,7 +236,7 @@ awful.screen.connect_for_each_screen(function(s)
   -- set_wallpaper(s)
 
   -- Each screen has its own tag table.
-  awful.tag(awful.util.tagnames, s, awful.layout.layouts)
+  awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
 
   -- Create a promptbox for each screen
   s.mypromptbox = awful.widget.prompt()
@@ -300,12 +301,12 @@ awful.screen.connect_for_each_screen(function(s)
       volume_widget(),
       -- separator,
       -- todo_widget(),
-      -- weather_widget({
-      --   api_key = weather_apikey,
-      --   coordinates = {50.088, 14.4208},
-      --   show_hourly_forecast = true,
-      --   show_daily_forecast = true,
-      -- }),
+      weather_widget({
+        api_key = weather_apikey,
+        coordinates = {50.088, 14.4208},
+        show_hourly_forecast = true,
+        show_daily_forecast = true,
+      }),
       -- separator,
       mykeyboardlayout,
       -- separator,
@@ -448,7 +449,16 @@ local globalkeys = gears.table.join(
   awful.key({ modkey,           }, "Return",
       function () awful.spawn(terminal) end,
       {description = "open a terminal", group = "launcher"}),
-  awful.key({ modkey, "Control" }, "r",
+  awful.key({ modkey, "Shift"   }, "Return",
+      function () awful.spawn(browser) end,
+      {description = "open a browser", group = "launcher"}),
+  awful.key({ modkey, "Control"   }, "Return",
+      function () awful.spawn(file_manager) end,
+      {description = "open a file manager", group = "launcher"}),
+  awful.key({ modkey,             }, "F2",
+      function () awful.spawn("nvim-qt") end,
+      {description = "open a file manager", group = "launcher"}),
+  awful.key({ modkey, "Shift" }, "r",
       awesome.restart,
       {description = "reload awesome", group = "awesome"}),
   awful.key({ modkey, "Shift"   }, "q",
@@ -742,23 +752,25 @@ awful.rules.rules = {
 
   -- Custom rules for apps
   { rule = { class = "Brave" },
-    properties = { tag = "2" } },
+    properties = { tag = "1" } },
   { rule = { class = "Firefox" },
-    properties = { tag = "2" } },
+    properties = { tag = "1" } },
   { rule = { class = "nvim-qt" },
-    properties = { tag = "3" } },
+    properties = { tag = "2" } },
   { rule = { class = "VSCodium" },
-    properties = { tag = "3" } },
+    properties = { tag = "2" } },
   { rule = { class = "Skype" },
-    properties = { tag = "5" } },
+    properties = { tag = "3" } },
   { rule = { class = "Thunderbird" },
-    properties = { tag = "5" } },
+    properties = { tag = "3" } },
+  { rule = { class = "Mailspring" },
+    properties = { tag = "3" } },
   { rule = { class = "Spotify" },
-    properties = { tag = "6" } },
+    properties = { tag = "4" } },
   { rule = { class = "LibreOffice" },
-    properties = { tag = "7" } },
+    properties = { tag = "5" } },
   { rule = { class = "Obsidian" },
-    properties = { tag = "8" } },
+    properties = { tag = "5" } },
 }
 -- }}}
 
