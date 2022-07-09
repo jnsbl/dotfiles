@@ -1,7 +1,7 @@
 font:
   normal:
     family: mononoki Nerd Font Mono
-  size: 7
+  size: 8
 
 # Start flavours
 # Base16 OceanicNext 256 - alacritty color config
