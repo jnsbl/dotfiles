@@ -9,6 +9,7 @@ local awful         = require("awful")
                       require("awful.autofocus")
 local wibox         = require("wibox")
 local beautiful     = require("beautiful")
+local dpi           = require("beautiful.xresources").apply_dpi
 local naughty       = require("naughty")
 local menubar       = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
@@ -264,8 +265,11 @@ awful.screen.connect_for_each_screen(function(s)
     buttons = tasklist_buttons
   }
 
-  -- Create the wibox
+  -- Create the wibar
   s.mywibox = awful.wibar({ position = "top", screen = s })
+
+  s.systray = wibox.widget.systray()
+  s.systray.visible = false -- hide it by default, it can be shown by a key binding
 
   -- Add widgets to the wibox
   s.mywibox:setup {
@@ -278,10 +282,14 @@ awful.screen.connect_for_each_screen(function(s)
       s.mytaglist,
       s.mypromptbox,
     },
-    s.mytasklist, -- Middle widget
+    { -- Middle widget
+      layout = wibox.layout.fixed.horizontal,
+      separator
+    },
+    -- s.mytasklist, -- Middle widget
     { -- Right widgets
       layout = wibox.layout.fixed.horizontal,
-      wibox.widget.systray(),
+      s.systray,
       -- separator,
       battery_widget({
         show_current_level = true,
@@ -327,6 +335,22 @@ root.buttons(gears.table.join(
 ))
 -- }}}
 
+-- {{{ Scratchpad
+-- https://github.com/sansone931/dotfiles/blob/master/.config/awesome/quake.lua
+local quake = lain.util.quake({
+  app = terminal,
+  argname = "--title %s",
+  extra = "--class QuakeDD",
+  border = dpi(1),
+  height = dpi(675),
+  width = dpi(1200),
+  vert = "center",
+  horiz = "center",
+  followtag = false,
+  overlap = true,
+})
+-- }}}
+
 -- {{{ Key bindings
 local globalkeys = gears.table.join(
   awful.key({ modkey,           }, "s",
@@ -346,6 +370,9 @@ local globalkeys = gears.table.join(
         end
       end,
       {description = "toggle notifications", group = "awesome"}),
+  awful.key({ modkey, "Shift"   }, "s",
+      function () awful.screen.focused().systray.visible = not awful.screen.focused().systray.visible end,
+      {description = "toggle systray visibility", group = "awesome"}),
 
   awful.key({ modkey,           }, "Left",
       awful.tag.viewprev,
@@ -467,6 +494,9 @@ local globalkeys = gears.table.join(
   awful.key({ modkey, altkey    }, "l",
       function () os.execute("betterlockscreen --lock dim") end,
       {description = "lock screen", group = "awesome"}),
+  awful.key({ modkey,           }, "y",
+      function () quake:toggle() end,
+      {description = "toggle scratchpad terminal", group = "launcher"}),
 
   awful.key({ modkey, "Shift"   }, "l",
       function () awful.tag.incmwfact( 0.05) end,
@@ -837,4 +867,14 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- }}}
+
+-- {{{ Timers
+-- Run garbage collector regularly to prevent memory leaks
+-- https://wiki.archlinux.org/title/Awesome
+gears.timer {
+  timeout = 30,
+  autostart = true,
+  callback = function() collectgarbage() end
+}
 -- }}}
