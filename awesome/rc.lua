@@ -21,6 +21,7 @@ local markup        = lain.util.markup
 
 local battery_widget     = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 local brightness_widget  = require("awesome-wm-widgets.brightness-widget.brightness")
+local calendar_widget    = require("awesome-wm-widgets.calendar-widget.calendar")
 local cpu_widget         = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
 local ram_widget         = require("awesome-wm-widgets.ram-widget.ram-widget")
@@ -72,21 +73,23 @@ run_once({ -- comma-separated entries
   "nm-applet",
   "picom",
   -- "nitrogen --restore",
-  string.format("%s/.fehbg &", os.getenv("HOME")),
+  -- string.format("%s/.fehbg &", os.getenv("HOME")),
   "greenclip daemon",
   "lxsession"
 })
 -- }}}
 
 -- {{{ Variable definitions
--- beautiful.init(gears.filesystem.get_themes_dir() .. "xresources/theme.lua")
-beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), "xresources-base16"))
+local theme_dir = os.getenv("HOME") .. "/.config/awesome/themes/xresources-base16"
+beautiful.init(theme_dir .. "/theme.lua")
 
 -- Theme overrides
 beautiful.font = "Terminus 9"
 beautiful.useless_gap = 5
 beautiful.notification_icon_size = 64
 beautiful.notification_max_width = 300
+
+beautiful.wallpaper     = theme_dir .. "/wall.jpg"
 
 local terminal          = "alacritty"
 local editor            = os.getenv("EDITOR") or "nvim"
@@ -203,17 +206,18 @@ local tasklist_buttons = gears.table.join(
 -- Create a textclock widget
 local mytextclock = wibox.widget.textclock(textclock_format, 1)
 mytextclock.font = beautiful.font
-beautiful.cal = lain.widget.cal({
-  attach_to = { mytextclock },
-  notification_preset = {
-    font = beautiful.font,
-    fg   = beautiful.fg_normal,
-    bg   = beautiful.bg_normal
+beautiful.cal = calendar_widget {
+  placement = 'top_right',
+  theme     = 'nord'
   }
-})
+mytextclock:connect_signal("button::press",
+  function(_, _, _, button)
+    if button == 1 then beautiful.cal.toggle() end
+  end
+)
 
 -- Keyboard map indicator and switcher
-local kbdcolor = beautiful.color6 -- TODO Use the color in the widget
+
 local mykeyboardlayout = awful.widget.keyboardlayout()
 
 local separator = wibox.widget.textbox(markup(beautiful.color8, " "))
@@ -225,16 +229,17 @@ local function set_wallpaper(s)
     if type(wallpaper) == "function" then
       wallpaper = wallpaper(s)
     end
-    gears.wallpaper.maximized(wallpaper, s, true)
+    gears.wallpaper.maximized(wallpaper, s, false)
   end
 end
 
--- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
-
 awful.screen.connect_for_each_screen(function(s)
+  if s.index == 1 then
+    screen.primary = s
+  end
+
   -- Wallpaper
-  -- set_wallpaper(s)
+  set_wallpaper(s)
 
   -- Each screen has its own tag table.
   awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
@@ -348,6 +353,7 @@ local quake = lain.util.quake({
   horiz = "center",
   followtag = false,
   overlap = true,
+  screen = screen.primary,
 })
 -- }}}
 
@@ -568,7 +574,7 @@ local globalkeys = gears.table.join(
 
   -- Widgets popups
   awful.key({ altkey, "Control" }, "space",
-      function () if beautiful.cal then beautiful.cal.show(7) end end,
+      function () if beautiful.cal then beautiful.cal.toggle() end end,
       {description = "show calendar", group = "widgets"}),
 
   -- Screen brightness
@@ -805,6 +811,11 @@ awful.rules.rules = {
 -- }}}
 
 -- {{{ Signals
+-- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
+screen.connect_signal("property::geometry", set_wallpaper)
+-- Re-set wallpaper when the list of available screens changes
+screen.connect_signal("list", set_wallpaper)
+
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
   -- Set the windows at the slave,
