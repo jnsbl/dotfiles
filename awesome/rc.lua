@@ -106,6 +106,8 @@ local titlebars_enabled = false
 local textclock_format  = "%H:%M:%S"
 local weather_apikey    = secrets.OPEN_WEATHER_API_KEY
 
+local wibar_opacity     = "aa" -- "00" fully transparent, "ff" fully opaque
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
   -- awful.layout.suit.floating,
@@ -260,7 +262,10 @@ awful.screen.connect_for_each_screen(function(s)
   s.mytaglist = awful.widget.taglist {
     screen  = s,
     filter  = awful.widget.taglist.filter.all,
-    buttons = taglist_buttons
+    buttons = taglist_buttons,
+    style   = {
+      bg_focus = beautiful.bg_normal .. "00"
+    }
   }
 
   -- Create a tasklist widget
@@ -271,7 +276,7 @@ awful.screen.connect_for_each_screen(function(s)
   }
 
   -- Create the wibar
-  s.mywibox = awful.wibar({ position = "top", screen = s })
+  s.mywibox = awful.wibar({ position = "top", screen = s, bg = beautiful.bg_normal .. wibar_opacity })
 
   s.systray = wibox.widget.systray()
   s.systray.visible = false -- hide it by default, it can be shown by a key binding
