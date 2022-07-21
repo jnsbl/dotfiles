@@ -29,6 +29,7 @@ local todo_widget        = require("awesome-wm-widgets.todo-widget.todo")
 local volume_widget      = require('awesome-wm-widgets.volume-widget.volume')
 local weather_widget     = require("awesome-wm-widgets.weather-widget.weather")
 
+local layout_list_widget = require("layout-list")
 local secrets            = require("secrets")
 -- }}}
 
@@ -256,7 +257,14 @@ awful.screen.connect_for_each_screen(function(s)
     awful.button({ }, 1, function () awful.layout.inc( 1) end),
     awful.button({ }, 3, function () awful.layout.inc(-1) end),
     awful.button({ }, 4, function () awful.layout.inc( 1) end),
-    awful.button({ }, 5, function () awful.layout.inc(-1) end)
+    awful.button({ }, 5, function () awful.layout.inc(-1) end),
+    awful.button({ }, 2, function ()
+      if layout_list_widget.visible then
+        layout_list_widget.visible = not layout_list_widget.visible
+      else
+        layout_list_widget:move_next_to(mouse.current_widget_geometry)
+      end
+    end)
   ))
   -- Create a taglist widget
   s.mytaglist = awful.widget.taglist {

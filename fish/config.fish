@@ -92,7 +92,7 @@ if not set -q abbrs_initialized
     end
   end
 
-  abbr mon 'autorandr --change --default default; sleep 1; ~/.fehbg'
+  abbr mon 'autorandr --change --default default'
 
   abbr py 'python'
 
