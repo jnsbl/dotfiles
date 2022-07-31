@@ -21,7 +21,7 @@ subtemplate = "default-256"
 file = "~/.Xresources"
 template = "xresources"
 subtemplate = "default-256"
-hook = "xrdb -merge ~/.Xresources"
+hook = "xrdb -merge ~/.Xresources; awesome-client 'awesome.restart()'"
 start = "! Start flavours"
 end = "! End flavours"
 
@@ -34,4 +34,20 @@ rewrite = true
 file = "~/.config/rofi/base16_colors.rasi"
 template = "rofi"
 subtemplate = "colors"
+rewrite = true
+
+[[item]]
+file = "~/.config/fish/conf.d/base16-fzf.fish"
+template = "fzf"
+subtemplate = "fish"
+rewrite = true
+
+[[item]]
+file = "~/.config/polybar/base16_colors.ini"
+template = "polybar"
+rewrite = true
+
+[[item]]
+file = "~/.config/highlight/base16_colors.theme"
+template = "highlight"
 rewrite = true
