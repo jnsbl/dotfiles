@@ -4,7 +4,9 @@ Dotfiles use [Dotbot](https://github.com/anishathalye/dotbot) for installation.
 
 ## Installation
 
-After cloning this repo, run `install` to automatically set up the development environment. Note that the install script is idempotent: it can safely be run multiple times.
+After cloning this repo, run `install` to automatically set up the development
+environment. Note that the install script is idempotent: it can safely be run
+multiple times.
 
 ```bash
 cd ~
@@ -18,17 +20,46 @@ _Note: Dotfiles are symlinked to `~/.dotfiles` after installation._
 
 ## Features
 
-- [fish](https://fishshell.com/) (default shell) configured with [fisher](https://github.com/jorgebucaran/fisher), using [starship](https://starship.rs/) prompt and lots of [abbreviations](https://github.com/jnsbl/dotfiles/blob/master/fish/config.fish) for less typing
-- [neovim](https://neovim.io/) as the main editor with a bunch of [plugins](https://github.com/jnsbl/dotfiles/blob/master/neovim/settings/main.vimrc)
-- [fzf](https://github.com/junegunn/fzf) fuzzy finder for shell and [(neo)vim](https://github.com/junegunn/fzf.vim)
-  - w/ custom [fuz](https://github.com/jnsbl/dotfiles/blob/master/bin/fuz) script for [simple note-taking with fzf and (neo)vim](https://medium.com/adorableio/simple-note-taking-with-fzf-and-vim-2a647a39cfa)
+- [fish](https://fishshell.com/) (default shell) configured with
+  [fisher](https://github.com/jorgebucaran/fisher), using [starship](https://starship.rs/) prompt
+  and lots of [abbreviations](https://github.com/jnsbl/dotfiles/blob/master/fish/config.fish) for
+  less typing
+- [neovim](https://neovim.io/) as the main editor with a bunch of
+  [plugins](https://github.com/jnsbl/dotfiles/blob/master/neovim/settings/main.vimrc)
+- [fzf](https://github.com/junegunn/fzf) fuzzy finder for shell and
+  [(neo)vim](https://github.com/junegunn/fzf.vim)
+  - w/ custom [fuz](https://github.com/jnsbl/dotfiles/blob/master/bin/fuz) script for
+    [simple note-taking with fzf and (neo)vim](https://medium.com/adorableio/simple-note-taking-with-fzf-and-vim-2a647a39cfa)
 - [ranger](https://github.com/ranger/ranger) as command-line file manager
 - [effortless ctags with git](https://tbaggery.com/2011/08/08/effortless-ctags-with-git.html)
+- [base16](https://github.com/chriskempson/base16) color theme framework for many apps, all
+  configurable at once using [flavours](https://github.com/misterio77/flavours)
+  - [alacritty](https://github.com/aarowill/base16-alacritty) and
+    [kitty](https://github.com/kdrag0n/base16-kitty) terminals
+  - [fzf](https://github.com/fnune/base16-fzf)
+  - [highlight](https://github.com/bezhermoso/base16-highlight) syntax highlighter (used as text
+    file previewer in `ranger`)
+  - [rofi](https://gitlab.com/0xdec/base16-rofi)
+  - [shell](https://github.com/chriskempson/base16-shell)
+  - [vim](https://github.com/chriskempson/base16-vim) +
+    [vim-airline](https://github.com/dawikur/base16-vim-airline-themes)
+  - [xresources](https://github.com/binaryplease/base16-xresources)
+
+### Linux-only
+
+- [awesomewm](https://awesomewm.org/) and [qtile](http://www.qtile.org/) tiling window managers
+- [interception-tools](https://gitlab.com/interception/linux/tools) +
+  [interception-caps2esc](https://gitlab.com/interception/linux/plugins/caps2esc) combo for
+  turning a useless <kbd>Caps Lock</kbd> key into <kbd>Esc</kbd> when pressed alone and
+  <kbd>Control</kbd> key when pressed with another key
 
 ### macOS-only
 
 - [iTerm2](https://iterm2.com/) profile (w/ hotkey, themes, etc.)
-- [Karabiner Elements](https://karabiner-elements.pqrs.org/) + [Hammerspoon](https://www.hammerspoon.org/) combo for turning a useless <kbd>Caps Lock</kbd> key into <kbd>Esc</kbd> when pressed alone and <kbd>Hyper</kbd> key when pressed with another key
+- [Karabiner Elements](https://karabiner-elements.pqrs.org/) +
+  [Hammerspoon](https://www.hammerspoon.org/) combo for turning a useless <kbd>Caps Lock</kbd>
+  key into <kbd>Esc</kbd> when pressed alone and <kbd>Hyper</kbd> key when pressed with another
+  key
 - Hammerspoon also for window management (resizing and moving windows with keyboard)
 
 # Testing
