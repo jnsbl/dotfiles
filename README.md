@@ -33,17 +33,20 @@ _Note: Dotfiles are symlinked to `~/.dotfiles` after installation._
 
 # Testing
 
-Testing is easy with Docker:
+Testing is easy with [Podman](https://podman.io/):
 
 ```bash
-$ docker build . --tag dotfiles
-$ docker run --rm -it dotfiles
-  _____ _     _
- |   __|_|___| |_
- |   __| |_ -|   |
- |__|  |_|___|_|_|
+$ podman build . --tag dotfiles
+$ podman run --rm -it dotfiles
+   /\ /\        root@1bffedb25ce8
+  // \  \       os     Alpine Linux v3.16
+ //   \  \      host   82BC Lenovo Legion S7 15IMH5
+///    \  \     kernel 5.15.55-1-MANJARO
+//      \  \    shell  fish
+         \      uptime 4h 1m
+
 
 root in /
-$
+🕙[16:06:57] ⬢ [podman] ❯
 ```
 _Inspired by [statico's dotfiles](https://github.com/statico/dotfiles)._
