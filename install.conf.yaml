@@ -12,20 +12,32 @@
     '~/.config/VSCodium/User/settings.json':
       if: '[ `uname` = Linux ]'
       path: vscode/settings-linux.json
+    ~/.config/alacritty: alacritty
+    ~/.config/awesome: awesome
     ~/.config/base16-shell: ext/base16-shell
+    ~/.config/btop: btop
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/conf.d: fish/conf.d
     ~/.config/fish/functions: fish/functions
+    ~/.config/flavours: flavours
+    ~/.config/interception:
+      if: '[ `uname` = Linux ]'
+      path: interception
     ~/.config/karabiner/karabiner.json:
       if: '[ `uname` = Darwin ]'
       path: karabiner.json
     ~/.config/nvim: neovim
+    ~/.config/picom.conf: picom.conf
+    ~/.config/qtile: qtile
     ~/.config/ranger/rc.conf: ranger/rc.conf
     ~/.config/ranger/scope.sh: ranger/scope.sh
+    ~/.config/redshift: redshift
+    ~/.config/rofi: rofi
     ~/.config/starship.toml: starship.toml
     ~/.config/ulauncher/extensions.json: ulauncher/extensions.json
     ~/.config/ulauncher/settings.json: ulauncher/settings.json
     ~/.dotfiles: ''
+    ~/.betterlockscreenrc: betterlockscreenrc
     ~/.gemrc: ruby/gemrc
     ~/.gitconfig:
       if: '[ `uname` = Darwin ]'
@@ -35,6 +47,7 @@
       path: git/gitconfig-linux
     ~/.gitignore_global:
     ~/.git_template: git/git_template
+    ~/.greenclip.toml: greenclip.toml
     ~/.hammerspoon:
       if: '[ `uname` = Darwin ]'
       path: hammerspoon
@@ -63,8 +76,8 @@
     description: "Installing fzf"
     quiet: true
   -
-    command: "fish -c 'fisher install barnybug/docker-fish-completion'"
-    description: "Installing fisher plugin docker-fish-completion"
+    command: "fish -c 'fisher install fisher install jethrokuan/z'"
+    description: "Installing fisher plugin z"
     quiet: true
   -
     command: "git submodule update --init --recursive"
