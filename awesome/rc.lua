@@ -75,6 +75,7 @@ run_once({ -- comma-separated entries
   "picom",
   -- "nitrogen --restore",
   -- string.format("%s/.fehbg &", os.getenv("HOME")),
+  "variety",
   "greenclip daemon",
   "lxsession"
 })
@@ -96,7 +97,7 @@ local terminal          = "alacritty"
 local editor            = os.getenv("EDITOR") or "nvim"
 local editor_cmd        = terminal .. " -e " .. editor
 local browser           = "min"
-local file_manager      = "pcmanfm"
+local file_manager      = "thunar"
 
 local modkey            = "Mod4"
 local altkey            = "Mod1"
@@ -495,10 +496,10 @@ local globalkeys = gears.table.join(
   awful.key({ modkey,           }, "Return",
       function () awful.spawn(terminal) end,
       {description = "open a terminal", group = "launcher"}),
-  awful.key({ modkey, "Shift"   }, "Return",
+  awful.key({ modkey, "Control" }, "Return",
       function () awful.spawn(browser) end,
       {description = "open a browser", group = "launcher"}),
-  awful.key({ modkey, "Control"   }, "Return",
+  awful.key({ modkey, "Shift"     }, "Return",
       function () awful.spawn(file_manager) end,
       {description = "open a file manager", group = "launcher"}),
   awful.key({ modkey,             }, "F2",
@@ -559,7 +560,8 @@ local globalkeys = gears.table.join(
   awful.key({ modkey }, "space",
       function ()
         -- os.execute(string.format("rofi -show %s -theme %s", 'run', 'dmenu'))
-        os.execute(string.format("rofi -modi %s -show %s", 'drun', 'drun'))
+        -- os.execute(string.format("rofi -modi %s -show %s", 'drun', 'drun'))
+        os.execute("rofi -no-lazy-grab -show drun -modi drun -theme " .. os.getenv("HOME") .. "/.config/rofi/launcher_colorful_style5")
       end,
       {description = "show rofi", group = "launcher"}),
 
@@ -581,7 +583,7 @@ local globalkeys = gears.table.join(
   -- Clipboard
   awful.key({ modkey }, "v",
       function ()
-        os.execute(string.format("rofi -modi '%s' -show clipboard -run-command '{cmd}'", 'clipboard:greenclip print'))
+        os.execute("rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'")
       end,
       {description = "show clipboard history", group = "hotkeys"}),
 
