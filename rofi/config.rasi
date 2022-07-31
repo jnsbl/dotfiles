@@ -2,11 +2,17 @@
 
 configuration {
   show-icons:         true;
-  icon-theme:         "Gruvgox-Material-Dark";
+  icon-theme:         "La Capitaine";
   font:               "mononoki Nerd Font Mono 12";
-  terminal:           "kitty";
+  terminal:           "alacritty";
+
+  kb-row-left:        "Alt+h";
+  kb-row-down:        "Alt+j,Down,Control+n";
+  kb-row-up:          "Alt+k,Up,Control+p";
+  kb-row-right:       "Alt+l";
 }
-@theme "/usr/share/rofi/themes/gruvbox-dark.rasi"
+/* @theme "/usr/share/rofi/themes/gruvbox-dark.rasi" */
+@import "base16_colors.rasi"
 window {
   width: 600px;
 }

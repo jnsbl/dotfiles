@@ -1,0 +1,10 @@
+/* colors */
+@import "base16_colors.rasi"
+
+* {
+  al:  @alternate-normal-foreground;
+  bg:  @background;
+  se:  @selected-normal-foreground;
+  fg:  @foreground;
+  ac:  @active-foreground;
+}
