@@ -19,10 +19,10 @@ autocmd FileType markdown nnoremap <expr> k v:count ? 'k' : 'gk'
 " nnoremap <silent> <C-j> <C-w>j
 
 " Resize windows with arrow keys
-nnoremap <D-Up> <C-w>+
-nnoremap <D-Down> <C-w>-
-nnoremap <D-Left> <C-w><
-nnoremap <D-Right>  <C-w>>
+nnoremap <M-Up> <C-w>+
+nnoremap <M-Down> <C-w>-
+nnoremap <M-Left> <C-w><
+nnoremap <M-Right>  <C-w>>
 
 " Create window splits easier. The default
 " way is Ctrl-w,v and Ctrl-w,s. I remap
