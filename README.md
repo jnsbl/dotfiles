@@ -25,7 +25,7 @@ _Note: Dotfiles are symlinked to `~/.dotfiles` after installation._
   and lots of [abbreviations](https://github.com/jnsbl/dotfiles/blob/master/fish/config.fish) for
   less typing
 - [neovim](https://neovim.io/) as the main editor with a bunch of
-  [plugins](https://github.com/jnsbl/dotfiles/blob/master/neovim/settings/main.vimrc)
+  [plugins](https://github.com/jnsbl/dotfiles/tree/master/neovim/lua/plugins)
 - [fzf](https://github.com/junegunn/fzf) fuzzy finder for shell and
   [(neo)vim](https://github.com/junegunn/fzf.vim)
   - w/ custom [fuz](https://github.com/jnsbl/dotfiles/blob/master/bin/fuz) script for
@@ -39,6 +39,7 @@ _Note: Dotfiles are symlinked to `~/.dotfiles` after installation._
   - [fzf](https://github.com/fnune/base16-fzf)
   - [highlight](https://github.com/bezhermoso/base16-highlight) syntax highlighter (used as text
     file previewer in `ranger`)
+  - [neovim](https://github.com/bradcush/base16-nvim)
   - [rofi](https://gitlab.com/0xdec/base16-rofi)
   - [shell](https://github.com/chriskempson/base16-shell)
   - [vim](https://github.com/chriskempson/base16-vim) +
