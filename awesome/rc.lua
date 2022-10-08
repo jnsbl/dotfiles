@@ -20,12 +20,12 @@ local lain          = require("lain")
 local markup        = lain.util.markup
 
 local battery_widget     = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
-local brightness_widget  = require("awesome-wm-widgets.brightness-widget.brightness")
+-- local brightness_widget  = require("awesome-wm-widgets.brightness-widget.brightness")
 local calendar_widget    = require("awesome-wm-widgets.calendar-widget.calendar")
 local cpu_widget         = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
 local ram_widget         = require("awesome-wm-widgets.ram-widget.ram-widget")
-local todo_widget        = require("awesome-wm-widgets.todo-widget.todo")
+-- local todo_widget        = require("awesome-wm-widgets.todo-widget.todo")
 local volume_widget      = require('awesome-wm-widgets.volume-widget.volume')
 local weather_widget     = require("awesome-wm-widgets.weather-widget.weather")
 
@@ -65,9 +65,9 @@ end
 -- {{{ Autostart windowless processes
 -- This function will run once every time Awesome is started
 local function run_once(cmd_arr)
-    for _, cmd in ipairs(cmd_arr) do
-        awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
-    end
+  for _, cmd in ipairs(cmd_arr) do
+    awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
+  end
 end
 
 run_once({ -- comma-separated entries
@@ -90,6 +90,7 @@ beautiful.font = "Terminus 9"
 beautiful.useless_gap = 5
 beautiful.notification_icon_size = 64
 beautiful.notification_max_width = 300
+beautiful.master_width_factor = 0.55
 
 beautiful.wallpaper     = theme_dir .. "/wall.jpg"
 
@@ -213,7 +214,7 @@ mytextclock.font = beautiful.font
 beautiful.cal = calendar_widget {
   placement = 'top_right',
   theme     = 'nord'
-  }
+}
 mytextclock:connect_signal("button::press",
   function(_, _, _, button)
     if button == 1 then beautiful.cal.toggle() end
@@ -273,7 +274,8 @@ awful.screen.connect_for_each_screen(function(s)
     filter  = awful.widget.taglist.filter.all,
     buttons = taglist_buttons,
     style   = {
-      bg_focus = beautiful.bg_normal .. "00"
+      bg_focus = beautiful.bg_normal .. "00",
+      bg_urgent = beautiful.bg_normal .. "00"
     }
   }
 
@@ -309,7 +311,7 @@ awful.screen.connect_for_each_screen(function(s)
     { -- Right widgets
       layout = wibox.layout.fixed.horizontal,
       s.systray,
-      -- separator,
+      separator,
       battery_widget({
         show_current_level = true,
         arc_thickness = 1,
@@ -318,12 +320,12 @@ awful.screen.connect_for_each_screen(function(s)
       ram_widget(),
       cpu_widget(),
       -- separator,
-      brightness_widget({
-        type = 'icon_and_text',
-        program = 'brightnessctl',
-        step = 3,
-        percentage = true,
-      }),
+      -- brightness_widget({
+      --   type = 'icon_and_text',
+      --   program = 'brightnessctl',
+      --   step = 3,
+      --   percentage = true,
+      -- }),
       separator,
       volume_widget(),
       -- separator,
@@ -503,7 +505,7 @@ local globalkeys = gears.table.join(
       function () awful.spawn(file_manager) end,
       {description = "open a file manager", group = "launcher"}),
   awful.key({ modkey,             }, "F2",
-      function () awful.spawn("nvim-qt") end,
+      function () awful.spawn("goneovim") end,
       {description = "open a file manager", group = "launcher"}),
   awful.key({ modkey, "Shift" }, "r",
       awesome.restart,
@@ -600,10 +602,12 @@ local globalkeys = gears.table.join(
   --     function () os.execute("brightnessctl --device=intel_backlight set 3%-") end,
   --     {description = "decrease brightness -3%", group = "hotkeys"}),
   awful.key({ }, "XF86MonBrightnessUp",
-      function () brightness_widget:inc() end,
+      -- function () brightness_widget:inc() end,
+      function() awful.spawn("brightnessctl --device=intel_backlight set +3%") end,
       {description = "increase brightness", group = "hotkeys"}),
   awful.key({ }, "XF86MonBrightnessDown",
-      function () brightness_widget:dec() end,
+      -- function () brightness_widget:dec() end,
+      function() awful.spawn("brightnessctl --device=intel_backlight set 3%-") end,
       {description = "decrease brightness", group = "hotkeys"}),
 
   -- ALSA volume control
