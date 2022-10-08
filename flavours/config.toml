@@ -7,6 +7,12 @@ rewrite = true
 hook = "~/bin/reloadnvim"
 
 [[item]]
+file = "~/.config/nvim/lua/base16-colors.lua"
+template = "neovim"
+rewrite = true
+hook = "~/bin/reloadnvim"
+
+[[item]]
 file = "~/.config/kitty/base16.conf"
 template = "kitty"
 subtemplate = "default-256"

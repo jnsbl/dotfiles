@@ -1,22 +1,22 @@
-# Base16 Eighties
-# Author: Chris Kempson (http://chriskempson.com)
+# Base16 Material Palenight
+# Author: Nate Peterson
 
-set -l color00 '#2d2d2d'
-set -l color01 '#393939'
-set -l color02 '#515151'
-set -l color03 '#747369'
-set -l color04 '#a09f93'
-set -l color05 '#d3d0c8'
-set -l color06 '#e8e6df'
-set -l color07 '#f2f0ec'
-set -l color08 '#f2777a'
-set -l color09 '#f99157'
-set -l color0A '#ffcc66'
-set -l color0B '#99cc99'
-set -l color0C '#66cccc'
-set -l color0D '#6699cc'
-set -l color0E '#cc99cc'
-set -l color0F '#d27b53'
+set -l color00 '#292D3E'
+set -l color01 '#444267'
+set -l color02 '#32374D'
+set -l color03 '#676E95'
+set -l color04 '#8796B0'
+set -l color05 '#959DCB'
+set -l color06 '#959DCB'
+set -l color07 '#FFFFFF'
+set -l color08 '#F07178'
+set -l color09 '#F78C6C'
+set -l color0A '#FFCB6B'
+set -l color0B '#C3E88D'
+set -l color0C '#89DDFF'
+set -l color0D '#82AAFF'
+set -l color0E '#C792EA'
+set -l color0F '#FF5370'
 
 set -l FZF_NON_COLOR_OPTS
 
