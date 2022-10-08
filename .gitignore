@@ -103,3 +103,4 @@ rofi/launchers/
 rofi/powermenu/
 *.log
 awesome/secrets.lua
+neovim/plugin/

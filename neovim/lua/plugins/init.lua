@@ -1,64 +1,66 @@
-require "paq" {
-  "savq/paq-nvim";                  -- Let Paq manage itself
+vim.cmd [[packadd packer.nvim]]
+
+require("packer").startup(function(use)
+  use "savq/paq-nvim"                  -- Let Packer manage itself
 
   -- Appearance
-  "bradcush/base16-nvim";
-  "RRethy/nvim-base16";
-  "kyazdani42/nvim-web-devicons";
-  "nvim-lualine/lualine.nvim";
-  "goolord/alpha-nvim";
-  "lukas-reineke/indent-blankline.nvim";
-  "kevinhwang91/nvim-bqf";
+  use "bradcush/base16-nvim"
+  use "RRethy/nvim-base16"
+  use "kyazdani42/nvim-web-devicons"
+  use "nvim-lualine/lualine.nvim"
+  use "goolord/alpha-nvim"
+  use "lukas-reineke/indent-blankline.nvim"
+  use "kevinhwang91/nvim-bqf"
 
   -- Utilities
-  "nvim-lua/plenary.nvim";
-  "famiu/bufdelete.nvim";
-  "jghauser/mkdir.nvim";
-  "nkakouros-original/numbers.nvim";
-  "norcalli/nvim-colorizer.lua";
-  -- "gennaro-tedesco/nvim-peekup";
-  "numToStr/Comment.nvim";
-  {"phaazon/hop.nvim", branch = "v2"};
-  "nacro90/numb.nvim";
-  "lewis6991/gitsigns.nvim";
-  "nvim-lua/popup.nvim";
-  "MunifTanjim/nui.nvim";
-  "vim-scripts/ReplaceWithRegister";
-  "kyazdani42/nvim-tree.lua";
+  use "nvim-lua/plenary.nvim"
+  use "famiu/bufdelete.nvim"
+  use "jghauser/mkdir.nvim"
+  use "nkakouros-original/numbers.nvim"
+  use "norcalli/nvim-colorizer.lua"
+  -- use "gennaro-tedesco/nvim-peekup"
+  use "numToStr/Comment.nvim"
+  use {"phaazon/hop.nvim", branch = "v2"}
+  use "nacro90/numb.nvim"
+  use "lewis6991/gitsigns.nvim"
+  use "nvim-lua/popup.nvim"
+  use "MunifTanjim/nui.nvim"
+  use "vim-scripts/ReplaceWithRegister"
+  use "kyazdani42/nvim-tree.lua"
 
   -- Syntax
-  {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"};
-  "kylechui/nvim-surround";
-  "m-demare/hlargs.nvim";
-  "dag/vim-fish";
+  use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+  use "kylechui/nvim-surround"
+  use "m-demare/hlargs.nvim"
+  use "dag/vim-fish"
 
   -- Language support
-  {"roxma/nvim-yarp", { run = "pip install -r requirements.txt" }};
+  use {"roxma/nvim-yarp", { run = "pip install -r requirements.txt" }}
 
   -- Fuzzy-finding and searching
-  "BurntSushi/ripgrep";
-  {"nvim-telescope/telescope.nvim", branch = "0.1.x"};
-  "jvgrootveld/telescope-zoxide";
-  "gelguy/wilder.nvim";
-  "kevinhwang91/nvim-hlslens";
+  use "BurntSushi/ripgrep"
+  use {"nvim-telescope/telescope.nvim", branch = "0.1.x"}
+  use "jvgrootveld/telescope-zoxide"
+  use "gelguy/wilder.nvim"
+  use "kevinhwang91/nvim-hlslens"
 
   -- File-type specific
-  "ellisonleao/glow.nvim";
+  use "ellisonleao/glow.nvim"
 
   -- LSP
-  "williamboman/mason.nvim";
-  "williamboman/mason-lspconfig.nvim";
-  "neovim/nvim-lspconfig";
+  use "williamboman/mason.nvim"
+  use "williamboman/mason-lspconfig.nvim"
+  use "neovim/nvim-lspconfig"
 
   -- Code completion and snippets
-  "hrsh7th/cmp-nvim-lsp";
-  "hrsh7th/cmp-buffer";
-  "hrsh7th/cmp-path";
-  "hrsh7th/cmp-cmdline";
-  "L3MON4D3/LuaSnip";
-  "saadparwaiz1/cmp_luasnip";
-  "hrsh7th/nvim-cmp";
-}
+  use "hrsh7th/cmp-nvim-lsp"
+  use "hrsh7th/cmp-buffer"
+  use "hrsh7th/cmp-path"
+  use "hrsh7th/cmp-cmdline"
+  use "L3MON4D3/LuaSnip"
+  use "saadparwaiz1/cmp_luasnip"
+  use "hrsh7th/nvim-cmp"
+end)
 
 -- Appearance
 require("plugins.base16-nvim")

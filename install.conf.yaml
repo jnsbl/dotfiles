@@ -53,6 +53,7 @@
       path: hammerspoon
     ~/.ideavimrc:
     ~/.jrubyrc: ruby/jrubyrc
+    ~/.local/share/nvim/site/pack/packer/start/packer.nvim: ext/packer.nvim
     ~/.pryrc: ruby/pryrc
     ~/.tmux.conf:
     ~/.uu/config/uu-client: uu/uu-client
