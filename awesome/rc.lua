@@ -20,17 +20,16 @@ local lain          = require("lain")
 local markup        = lain.util.markup
 
 local battery_widget     = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
--- local brightness_widget  = require("awesome-wm-widgets.brightness-widget.brightness")
-local calendar_widget    = require("awesome-wm-widgets.calendar-widget.calendar")
 local cpu_widget         = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
 local ram_widget         = require("awesome-wm-widgets.ram-widget.ram-widget")
--- local todo_widget        = require("awesome-wm-widgets.todo-widget.todo")
 local volume_widget      = require('awesome-wm-widgets.volume-widget.volume')
 local weather_widget     = require("awesome-wm-widgets.weather-widget.weather")
 
 local layout_list_widget = require("layout-list")
 local secrets            = require("secrets")
+
+local bling              = require("bling")
 -- }}}
 
 -- {{{ Error handling
@@ -62,37 +61,19 @@ do
 end
 -- }}}
 
--- {{{ Autostart windowless processes
--- This function will run once every time Awesome is started
-local function run_once(cmd_arr)
-  for _, cmd in ipairs(cmd_arr) do
-    awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
-  end
-end
-
-run_once({ -- comma-separated entries
-  "nm-applet",
-  "picom",
-  -- "nitrogen --restore",
-  -- string.format("%s/.fehbg &", os.getenv("HOME")),
-  "variety",
-  "greenclip daemon",
-  "lxsession"
-})
--- }}}
-
 -- {{{ Variable definitions
 local theme_dir = os.getenv("HOME") .. "/.config/awesome/themes/xresources-base16"
 beautiful.init(theme_dir .. "/theme.lua")
 
 -- Theme overrides
-beautiful.font = "Terminus 9"
+beautiful.font = "VictorMono Nerd Font Italic 10"
+alt_font = "VictorMono Nerd Font Regular 10"
 beautiful.useless_gap = 5
 beautiful.notification_icon_size = 64
 beautiful.notification_max_width = 300
 beautiful.master_width_factor = 0.55
 
-beautiful.wallpaper     = theme_dir .. "/wall.jpg"
+-- beautiful.wallpaper     = theme_dir .. "/wall.jpg"
 
 local terminal          = "alacritty"
 local editor            = os.getenv("EDITOR") or "nvim"
@@ -109,6 +90,7 @@ local titlebars_enabled = false
 local textclock_format  = "%H:%M:%S"
 local weather_apikey    = secrets.OPEN_WEATHER_API_KEY
 
+local wibar_enabled     = true -- disable wibar to use another bar (such as polybar etc.)
 local wibar_opacity     = "aa" -- "00" fully transparent, "ff" fully opaque
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -180,6 +162,134 @@ local mylauncher = awful.widget.launcher({
 })
 -- }}}
 
+-- local function set_wallpaper(s)
+--   if beautiful.wallpaper then
+--     local wallpaper = beautiful.wallpaper
+--     -- If wallpaper is a function, call it with the screen
+--     if type(wallpaper) == "function" then
+--       wallpaper = wallpaper(s)
+--     end
+--     gears.wallpaper.maximized(wallpaper, s, false)
+--   end
+-- end
+
+bling.module.wallpaper.setup {
+  set_function = bling.module.wallpaper.setters.random,
+  screen = screen,
+  wallpaper = {"/home/jnsbl/Pictures/Wallpapers/WallpaperCave/abstract"},
+  change_timer = 3600
+}
+
+bling.widget.window_switcher.enable {
+  type = "thumbnail",
+
+  hide_window_switcher_key = "Escape",
+  minimize_key = "n",
+  unminimize_key = "N",
+  kill_client_key = "q",
+  cycle_key = "Tab",
+  previous_key = "Left",
+  next_key = "Right",
+  vim_previous_key = "h",
+  vim_next_key = "l",
+
+  cycleClientsByIdx = awful.client.focus.byidx,
+  filterClients = awful.widget.tasklist.filter.currenttags,
+}
+
+-- {{{ Widgets
+-- Focus
+local one_thing = wibox.widget.textbox(".:.")
+one_thing.align = "center"
+one_thing.font = alt_font
+
+local function read_file(path)
+  local file = io.open(path, "rb")
+  local contents = ""
+  if file then
+    contents = file:read()
+    file:close()
+  end
+  return contents
+end
+
+local function update_focus(widget)
+  local my_focus = read_file(os.getenv("HOME") .. "/.focus_one_thing")
+  widget.text = my_focus
+end
+update_focus(one_thing)
+
+one_thing:connect_signal("button::press",
+  function(_, _, _, button)
+    if button == 1 then
+      os.execute(os.getenv("HOME") .. "/.config/awesome/focus_one_thing.sh")
+      update_focus(one_thing)
+    end
+  end
+)
+
+-- Battery
+local bat_label = wibox.widget.textbox(markup(beautiful.color9, "bat"))
+-- local bat = lain.widget.bat({
+--   settings = function()
+--     local perc = bat_now.perc ~= "N/A" and bat_now.perc .. "%" or bat_now.perc
+--
+--     if bat_now.ac_status == 1 then
+--       perc = perc .. " plug"
+--     end
+--
+--     widget:set_markup(markup.fontfg(beautiful.font, beautiful.fg_normal, perc .. " "))
+--   end
+-- }).widget
+local bat = battery_widget({
+  show_current_level = true,
+  arc_thickness = 1,
+})
+
+-- Memory
+local mem_label = wibox.widget.textbox(markup(beautiful.color11, "mem"))
+-- local memory = lain.widget.mem({
+--     settings = function()
+--         widget:set_markup(markup.fontfg(beautiful.font, beautiful.fg_normal, mem_now.used .. "M "))
+--     end
+-- }).widget
+local memory = ram_widget()
+
+-- CPU
+local cpu_label = wibox.widget.textbox(markup(beautiful.color10, "cpu"))
+-- local cpu = lain.widget.cpu({
+--     settings = function()
+--         widget:set_markup(markup.fontfg(beautiful.font, beautiful.fg_normal, cpu_now.usage .. "% "))
+--     end
+-- })
+local cpu = cpu_widget()
+
+-- Volume
+local vol_label = wibox.widget.textbox(markup(beautiful.color12, "vol"))
+-- local vol_widget = lain.widget.alsa({
+--   settings = function()
+--     if volume_now.status == "off" then
+--       volume_now.level = volume_now.level .. "M"
+--     end
+--
+--     widget:set_markup(markup.fontfg(beautiful.font, beautiful.fg_normal, volume_now.level .. "% "))
+--   end
+-- })
+local vol_widget = volume_widget({
+  widget_type = "arc"
+})
+
+-- Weather
+local wth_label = wibox.widget.textbox(markup(beautiful.color13, "wth"))
+local wth_widget = weather_widget({
+  api_key = weather_apikey,
+  coordinates = {50.088, 14.4208},
+  show_hourly_forecast = true,
+  show_daily_forecast = true,
+})
+
+-- }}}
+
 -- {{{ Wibar
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -211,15 +321,23 @@ local tasklist_buttons = gears.table.join(
 -- Create a textclock widget
 local mytextclock = wibox.widget.textclock(textclock_format, 1)
 mytextclock.font = beautiful.font
-beautiful.cal = calendar_widget {
-  placement = 'top_right',
-  theme     = 'nord'
-}
-mytextclock:connect_signal("button::press",
-  function(_, _, _, button)
-    if button == 1 then beautiful.cal.toggle() end
-  end
-)
+-- beautiful.cal = calendar_widget {
+--   placement = 'top_right',
+--   theme     = 'nord'
+-- }
+-- mytextclock:connect_signal("button::press",
+--   function(_, _, _, button)
+--     if button == 1 then beautiful.cal.toggle() end
+--   end
+-- )
+beautiful.cal = lain.widget.cal({
+  attach_to = { mytextclock },
+  notification_preset = {
+    font = beautiful.font,
+    fg   = beautiful.fg_normal,
+    bg   = beautiful.bg_normal
+  }
+})
 
 -- Keyboard map indicator and switcher
 
@@ -227,126 +345,171 @@ local mykeyboardlayout = awful.widget.keyboardlayout()
 
 local separator = wibox.widget.textbox(markup(beautiful.color8, " "))
 
-local function set_wallpaper(s)
-  if beautiful.wallpaper then
-    local wallpaper = beautiful.wallpaper
-    -- If wallpaper is a function, call it with the screen
-    if type(wallpaper) == "function" then
-      wallpaper = wallpaper(s)
-    end
-    gears.wallpaper.maximized(wallpaper, s, false)
-  end
-end
-
 awful.screen.connect_for_each_screen(function(s)
   if s.index == 1 then
     screen.primary = s
   end
 
   -- Wallpaper
-  set_wallpaper(s)
+  -- set_wallpaper(s)
 
-  -- Each screen has its own tag table.
-  awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
+  if wibar_enabled then
+    -- Each screen has its own tag table.
+    awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
 
-  -- Create a promptbox for each screen
-  s.mypromptbox = awful.widget.prompt()
+    -- Create a promptbox for each screen
+    s.mypromptbox = awful.widget.prompt({ bg = beautiful.bg_normal .. wibar_opacity })
 
-  -- Create an imagebox widget which will contain an icon indicating which layout we're using.
-  -- We need one layoutbox per screen.
-  s.mylayoutbox = awful.widget.layoutbox(s)
-  s.mylayoutbox:buttons(gears.table.join(
-    awful.button({ }, 1, function () awful.layout.inc( 1) end),
-    awful.button({ }, 3, function () awful.layout.inc(-1) end),
-    awful.button({ }, 4, function () awful.layout.inc( 1) end),
-    awful.button({ }, 5, function () awful.layout.inc(-1) end),
-    awful.button({ }, 2, function ()
-      if layout_list_widget.visible then
-        layout_list_widget.visible = not layout_list_widget.visible
-      else
-        layout_list_widget:move_next_to(mouse.current_widget_geometry)
-      end
-    end)
-  ))
-  -- Create a taglist widget
-  s.mytaglist = awful.widget.taglist {
-    screen  = s,
-    filter  = awful.widget.taglist.filter.all,
-    buttons = taglist_buttons,
-    style   = {
-      bg_focus = beautiful.bg_normal .. "00",
-      bg_urgent = beautiful.bg_normal .. "00"
+    -- Create an imagebox widget which will contain an icon indicating which layout we're using.
+    -- We need one layoutbox per screen.
+    s.mylayoutbox = awful.widget.layoutbox(s)
+    s.mylayoutbox:buttons(gears.table.join(
+      awful.button({ }, 1, function () awful.layout.inc( 1) end),
+      awful.button({ }, 3, function () awful.layout.inc(-1) end),
+      awful.button({ }, 4, function () awful.layout.inc( 1) end),
+      awful.button({ }, 5, function () awful.layout.inc(-1) end),
+      awful.button({ }, 2, function ()
+        if layout_list_widget.visible then
+          layout_list_widget.visible = not layout_list_widget.visible
+        else
+          layout_list_widget:move_next_to(mouse.current_widget_geometry)
+        end
+      end)
+    ))
+    -- Create a taglist widget
+    s.mytaglist = awful.widget.taglist {
+      screen  = s,
+      filter  = awful.widget.taglist.filter.all,
+      buttons = taglist_buttons,
+      style   = {
+        bg_focus = beautiful.bg_normal .. "00",
+        bg_urgent = beautiful.bg_normal .. "00"
+      }
     }
-  }
 
-  -- Create a tasklist widget
-  s.mytasklist = awful.widget.tasklist {
-    screen  = s,
-    filter  = awful.widget.tasklist.filter.currenttags,
-    buttons = tasklist_buttons
-  }
+    -- Create a tasklist widget
+    s.mytasklist = awful.widget.tasklist {
+      screen  = s,
+      filter  = awful.widget.tasklist.filter.currenttags,
+      buttons = tasklist_buttons
+    }
 
-  -- Create the wibar
-  s.mywibox = awful.wibar({ position = "top", screen = s, bg = beautiful.bg_normal .. wibar_opacity })
+    -- Create the wibar
+    s.mywibox = awful.wibar({ position = "top", screen = s, bg = beautiful.bg_normal .. wibar_opacity })
 
-  s.systray = wibox.widget.systray()
-  s.systray.visible = false -- hide it by default, it can be shown by a key binding
+    s.systray = wibox.widget.systray()
+    s.systray.visible = false -- hide it by default, it can be shown by a key binding
 
-  -- Add widgets to the wibox
-  s.mywibox:setup {
-    layout = wibox.layout.align.horizontal,
-    { -- Left widgets
-      layout = wibox.layout.fixed.horizontal,
-      -- mylauncher,
-      s.mylayoutbox,
-      separator,
-      s.mytaglist,
-      s.mypromptbox,
-    },
-    { -- Middle widget
-      layout = wibox.layout.fixed.horizontal,
-      separator
-    },
-    -- s.mytasklist, -- Middle widget
-    { -- Right widgets
-      layout = wibox.layout.fixed.horizontal,
-      s.systray,
-      separator,
-      battery_widget({
-        show_current_level = true,
-        arc_thickness = 1,
-      }),
-      -- separator,
-      ram_widget(),
-      cpu_widget(),
-      -- separator,
-      -- brightness_widget({
-      --   type = 'icon_and_text',
-      --   program = 'brightnessctl',
-      --   step = 3,
-      --   percentage = true,
-      -- }),
-      separator,
-      volume_widget(),
-      -- separator,
-      -- todo_widget(),
-      weather_widget({
-        api_key = weather_apikey,
-        coordinates = {50.088, 14.4208},
-        show_hourly_forecast = true,
-        show_daily_forecast = true,
-      }),
-      -- separator,
-      mykeyboardlayout,
-      -- separator,
-      mytextclock,
-      separator,
-      -- s.mylayoutbox,
-      logout_menu_widget({
-        onlock = function() awful.spawn.with_shell('betterlockscreen -l dim') end
-      }),
-    },
-  }
+    -- Add widgets to the wibox
+    s.mywibox:setup {
+      layout = wibox.layout.align.horizontal,
+      { -- Left widgets
+        layout = wibox.layout.fixed.horizontal,
+        -- mylauncher,
+        s.mylayoutbox,
+        separator,
+        s.mytaglist,
+        separator,
+        s.mypromptbox,
+      },
+      { -- Middle widget
+        layout = wibox.layout.align.horizontal,
+        separator,
+        one_thing,
+        separator
+      },
+      -- s.mytasklist, -- Middle widget
+      { -- Right widgets
+        layout = wibox.layout.fixed.horizontal,
+        s.systray,
+        separator,
+        separator,
+
+        bat_label,
+        separator,
+        bat,
+        separator,
+        separator,
+
+        mem_label,
+        memory,
+        separator,
+        separator,
+
+        cpu_label,
+        cpu.widget,
+        separator,
+        separator,
+
+        vol_label,
+        separator,
+        vol_widget,
+        separator,
+        separator,
+
+        wth_label,
+        wth_widget,
+        -- separator,
+
+        mykeyboardlayout,
+        mytextclock,
+        separator,
+        logout_menu_widget({
+          onlock = function() awful.spawn.with_shell('betterlockscreen -l dim') end
+        }),
+      },
+    }
+
+    -- s.mybottomwibox = awful.wibar({ position = "bottom", screen = s, bg = beautiful.bg_normal .. wibar_opacity })
+    -- s.mybottomwibox:setup {
+    --   layout = wibox.layout.align.horizontal,
+    --   { -- Left widgets
+    --     layout = wibox.layout.fixed.horizontal,
+    --     s.mylayoutbox,
+    --     separator,
+    --     s.mytaglist,
+    --     -- s.mypromptbox,
+    --   },
+    --   { -- Middle widget
+    --     layout = wibox.layout.fixed.horizontal,
+    --     separator
+    --   },
+    --   { -- Right widgets
+    --     layout = wibox.layout.fixed.horizontal,
+    --     -- s.systray,
+    --
+    --     bat_label,
+    --     separator,
+    --     bat,
+    --     separator,
+    --     separator,
+    --
+    --     mem_label,
+    --     memory,
+    --     separator,
+    --
+    --     cpu_label,
+    --     cpu.widget,
+    --     separator,
+    --
+    --     vol_label,
+    --     separator,
+    --     vol_widget,
+    --     separator,
+    --
+    --     wth_label,
+    --     wth_widget,
+    --     separator,
+    --
+    --     mykeyboardlayout,
+    --     mytextclock,
+    --     separator,
+    --     logout_menu_widget({
+    --       onlock = function() awful.spawn.with_shell('betterlockscreen -l dim') end
+    --     }),
+    --   }
+    -- }
+  end
 end)
 -- }}}
 
@@ -471,6 +634,11 @@ local globalkeys = gears.table.join(
   --       if client.focus then client.focus:raise() end
   --     end,
   --     {description = "go back", group = "client"}),
+  awful.key({ altkey }, "Tab",
+      function()
+          awesome.emit_signal("bling::window_switcher::turn_on")
+      end,
+      {description = "show window switcher", group = "bling"}),
   awful.key({ modkey,           }, "Tab",
       function ()
           if cycle_prev then
@@ -485,14 +653,29 @@ local globalkeys = gears.table.join(
   -- Show/hide wibox
   awful.key({ modkey }, "b",
       function ()
-        for s in screen do
-          s.mywibox.visible = not s.mywibox.visible
-          if s.mybottomwibox then
+        if wibar_enabled then
+          for s in screen do
+            s.mywibox.visible = not s.mywibox.visible
+            if s.mybottomwibox then
               s.mybottomwibox.visible = not s.mybottomwibox.visible
+            end
           end
         end
       end,
-      {description = "toggle wibox", group = "awesome"}),
+      {description = "toggle wibar", group = "awesome"}),
+
+  -- Show/hide wibox
+  awful.key({ modkey, "Shift" }, "b",
+      function ()
+        if wibar_enabled then
+          for s in screen do
+            if s.mybottomwibox then
+              s.mybottomwibox.visible = not s.mybottomwibox.visible
+            end
+          end
+        end
+      end,
+      {description = "toggle bottom wibar", group = "awesome"}),
 
   -- Standard programs
   awful.key({ modkey,           }, "Return",
@@ -505,7 +688,7 @@ local globalkeys = gears.table.join(
       function () awful.spawn(file_manager) end,
       {description = "open a file manager", group = "launcher"}),
   awful.key({ modkey,             }, "F2",
-      function () awful.spawn("goneovim") end,
+      function () awful.spawn("nvim-qt") end,
       {description = "open a file manager", group = "launcher"}),
   awful.key({ modkey, "Shift" }, "r",
       awesome.restart,
@@ -591,7 +774,10 @@ local globalkeys = gears.table.join(
 
   -- Widgets popups
   awful.key({ altkey, "Control" }, "space",
-      function () if beautiful.cal then beautiful.cal.toggle() end end,
+      -- function () if beautiful.cal then beautiful.cal.toggle() end end,
+      function ()
+        awful.util.spawn("gsimplecal")
+      end,
       {description = "show calendar", group = "widgets"}),
 
   -- Screen brightness
@@ -805,6 +991,10 @@ awful.rules.rules = {
     }, properties = { titlebars_enabled = true }
   },
 
+  { rule_any = {class = { "Polybar" }
+    }, properties = { focusable = false }
+  },
+
   -- Custom rules for apps
   { rule = { class = "Brave" },
     properties = { tag = "1" } },
@@ -831,9 +1021,9 @@ awful.rules.rules = {
 
 -- {{{ Signals
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
+-- screen.connect_signal("property::geometry", set_wallpaper)
 -- Re-set wallpaper when the list of available screens changes
-screen.connect_signal("list", set_wallpaper)
+-- screen.connect_signal("list", set_wallpaper)
 
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
@@ -907,4 +1097,28 @@ gears.timer {
   autostart = true,
   callback = function() collectgarbage() end
 }
+-- }}}
+
+-- {{{ Autostart windowless processes
+-- This function will run once every time Awesome is started
+local function run_once(cmd_arr)
+  for _, cmd in ipairs(cmd_arr) do
+    awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
+  end
+end
+
+run_once({ -- comma-separated entries
+  "nm-applet",
+  "picom",
+  -- "nitrogen --restore",
+  -- string.format("%s/.fehbg &", os.getenv("HOME")),
+  -- "variety",
+  "greenclip daemon",
+  "systemctl --user start xsettingsd.service",
+  "lxsession"
+})
+
+if not wibar_enabled then
+  run_once(string.format("%s/.config/polybar/launch.sh", os.getenv("HOME")))
+end
 -- }}}
