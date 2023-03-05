@@ -10,7 +10,7 @@
     "ruby.lint": {
         "ruby": true
     },
-    "editor.fontFamily": "'mononoki Nerd Font Mono', 'JetBrainsMono Nerd Font','FantasqueSansMono Nerd Font', 'Input Nerd Font', 'FiraCode Nerd Font', Hack, 'Noto Mono', 'DejaVu Sans Mono', 'Courier New', monospace",
+    "editor.fontFamily": "'Input Nerd Font', 'mononoki Nerd Font', 'JetBrainsMono Nerd Font','FantasqueSansMono Nerd Font', 'FiraCode Nerd Font', Hack, 'Noto Mono', 'DejaVu Sans Mono', 'Courier New', monospace",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.iconTheme": "ayu",
     "vsicons.dontShowNewVersionMessage": true,

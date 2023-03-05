@@ -7,8 +7,12 @@ if exists(':GuiFont')
   " GuiFont FantasqueSansMono Nerd Font:h12
   " GuiFont! JetBrainsMono Nerd Font:h10.5
   " GuiFont Input Nerd Font:h11
-  GuiFont! mononoki Nerd Font Mono:h11
+  GuiFont ShureTechMono Nerd Font:h11
+  " GuiFont ProFontIIx Nerd Font Mono:h10
+  " GuiFont! mononoki Nerd Font Mono:h11
+  " GuiFont! Hack Nerd Font Mono:h11
   " GuiFont Terminus:h11
+  " GuiFont! Source Code Pro:h11
 endif
 
 " Disable GUI Tabline
