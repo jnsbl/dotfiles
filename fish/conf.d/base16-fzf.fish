@@ -1,22 +1,22 @@
-# Base16 Material Palenight
-# Author: Nate Peterson
+# Base16 Materia
+# Author: Defman21
 
-set -l color00 '#292D3E'
-set -l color01 '#444267'
-set -l color02 '#32374D'
-set -l color03 '#676E95'
-set -l color04 '#8796B0'
-set -l color05 '#959DCB'
-set -l color06 '#959DCB'
+set -l color00 '#263238'
+set -l color01 '#2C393F'
+set -l color02 '#37474F'
+set -l color03 '#707880'
+set -l color04 '#C9CCD3'
+set -l color05 '#CDD3DE'
+set -l color06 '#D5DBE5'
 set -l color07 '#FFFFFF'
-set -l color08 '#F07178'
-set -l color09 '#F78C6C'
-set -l color0A '#FFCB6B'
-set -l color0B '#C3E88D'
-set -l color0C '#89DDFF'
-set -l color0D '#82AAFF'
-set -l color0E '#C792EA'
-set -l color0F '#FF5370'
+set -l color08 '#EC5F67'
+set -l color09 '#EA9560'
+set -l color0A '#FFCC00'
+set -l color0B '#8BD649'
+set -l color0C '#80CBC4'
+set -l color0D '#89DDFF'
+set -l color0E '#82AAFF'
+set -l color0F '#EC5F67'
 
 set -l FZF_NON_COLOR_OPTS
 

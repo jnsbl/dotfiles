@@ -1,6 +1,6 @@
 -- bradcush/base16-nvim (https://github.com/bradcush/base16-nvim)
 -- by Bradley Cushing (https://github.com/bradcush)
--- Material Palenight scheme by Nate Peterson
+-- Materia scheme by Defman21
 -- Based on existing work with references below
 -- base16-vim (https://github.com/chriskempson/base16-vim)
 -- by Chris Kempson (http://chriskempson.com)
@@ -8,22 +8,22 @@
 -- by Adam P. Regasz-Rethy (https://github.com/RRethy)
 -- Base16 color variables
 local colors = {
-    base00 = "#292D3E",
-    base01 = "#444267",
-    base02 = "#32374D",
-    base03 = "#676E95",
-    base04 = "#8796B0",
-    base05 = "#959DCB",
-    base06 = "#959DCB",
+    base00 = "#263238",
+    base01 = "#2C393F",
+    base02 = "#37474F",
+    base03 = "#707880",
+    base04 = "#C9CCD3",
+    base05 = "#CDD3DE",
+    base06 = "#D5DBE5",
     base07 = "#FFFFFF",
-    base08 = "#F07178",
-    base09 = "#F78C6C",
-    base0A = "#FFCB6B",
-    base0B = "#C3E88D",
-    base0C = "#89DDFF",
-    base0D = "#82AAFF",
-    base0E = "#C792EA",
-    base0F = "#FF5370"
+    base08 = "#EC5F67",
+    base09 = "#EA9560",
+    base0A = "#FFCC00",
+    base0B = "#8BD649",
+    base0C = "#80CBC4",
+    base0D = "#89DDFF",
+    base0E = "#82AAFF",
+    base0F = "#EC5F67"
 }
 
 -- Highlighting for indiividual groups
@@ -46,7 +46,7 @@ local setup = function(collections)
     -- Setting highlighting and syntax
     vim.cmd('highlight clear')
     vim.cmd('syntax reset')
-    vim.g.colors_name = "base16-material-palenight"
+    vim.g.colors_name = "base16-materia"
 
     -- Loop through highlighting collections
     for _, collection in pairs(collections) do

@@ -1,19 +1,19 @@
 /**
- * Base16 Material Palenight ROFI Color theme
+ * Base16 Materia ROFI Color theme
  *
  * Authors
- *  Scheme: Nate Peterson
+ *  Scheme: Defman21
  *  Template: Jordi Pakey-Rodriguez (https://github.com/0xdec), Andrea Scarpino (https://github.com/ilpianista)
  */
 
 * {
-    red:                         rgba ( 240, 113, 120, 100 % );
-    blue:                        rgba ( 130, 170, 255, 100 % );
-    lightfg:                     rgba ( 149, 157, 203, 100 % );
-    lightbg:                     rgba ( 68, 66, 103, 100 % );
-    foreground:                  rgba ( 149, 157, 203, 100 % );
-    background:                  rgba ( 41, 45, 62, 100 % );
-    background-color:            rgba ( 41, 45, 62, 0 % );
+    red:                         rgba ( 236, 95, 103, 100 % );
+    blue:                        rgba ( 137, 221, 255, 100 % );
+    lightfg:                     rgba ( 213, 219, 229, 100 % );
+    lightbg:                     rgba ( 44, 57, 63, 100 % );
+    foreground:                  rgba ( 205, 211, 222, 100 % );
+    background:                  rgba ( 38, 50, 56, 100 % );
+    background-color:            rgba ( 38, 50, 56, 0 % );
     separatorcolor:              @foreground;
     border-color:                @foreground;
     selected-normal-foreground:  @lightbg;
