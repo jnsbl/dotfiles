@@ -28,6 +28,7 @@
       path: karabiner.json
     ~/.config/nvim: neovim
     ~/.config/picom.conf: picom.conf
+    ~/.config/polybar: polybar
     ~/.config/qtile: qtile
     ~/.config/ranger/rc.conf: ranger/rc.conf
     ~/.config/ranger/scope.sh: ranger/scope.sh
