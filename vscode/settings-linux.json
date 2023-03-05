@@ -31,8 +31,10 @@
     "workbench.editor.untitled.hint": "hidden",
     "gitlens.codeLens.enabled": false,
     "workbench.colorTheme": "Default Light+",
-    "terminal.external.linuxExec": "kitty",
+    "terminal.external.linuxExec": "alacritty",
     "terminal.integrated.defaultProfile.linux": "fish",
     "editor.fontSize": 15,
-    "editor.guides.indentation": false
+    "editor.guides.indentation": false,
+    "editor.fontLigatures": true,
+    "git.openRepositoryInParentFolders": "never"
 }
