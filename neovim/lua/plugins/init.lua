@@ -86,6 +86,7 @@ require("plugins.hlargs-nvim")
 -- Fuzzy-finding and searching
 require("plugins.telescope-nvim")
 require("plugins.wilder-nvim")
+require("plugins.nvim-hlslens")
 
 -- File-type specific
 require("plugins.glow-nvim")
