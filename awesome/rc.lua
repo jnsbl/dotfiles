@@ -789,11 +789,11 @@ local globalkeys = gears.table.join(
   --     {description = "decrease brightness -3%", group = "hotkeys"}),
   awful.key({ }, "XF86MonBrightnessUp",
       -- function () brightness_widget:inc() end,
-      function() awful.spawn("brightnessctl --device=intel_backlight set +3%") end,
+      function() awful.spawn("brightnessctl --device=nvidia_wmi_ec_backlight set +3%") end,
       {description = "increase brightness", group = "hotkeys"}),
   awful.key({ }, "XF86MonBrightnessDown",
       -- function () brightness_widget:dec() end,
-      function() awful.spawn("brightnessctl --device=intel_backlight set 3%-") end,
+      function() awful.spawn("brightnessctl --device=nvidia_wmi_ec_backlight set 3%-") end,
       {description = "decrease brightness", group = "hotkeys"}),
 
   -- ALSA volume control
