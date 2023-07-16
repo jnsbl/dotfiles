@@ -95,16 +95,16 @@ local wibar_opacity     = "aa" -- "00" fully transparent, "ff" fully opaque
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-  -- awful.layout.suit.floating,
+  awful.layout.suit.spiral.dwindle,
+  awful.layout.suit.max,
   awful.layout.suit.tile,
+  -- awful.layout.suit.floating,
   -- awful.layout.suit.tile.left,
   -- awful.layout.suit.tile.bottom,
   -- awful.layout.suit.tile.top,
   -- awful.layout.suit.fair,
   -- awful.layout.suit.fair.horizontal,
   -- awful.layout.suit.spiral,
-  -- awful.layout.suit.spiral.dwindle,
-  awful.layout.suit.max,
   -- awful.layout.suit.max.fullscreen,
   -- awful.layout.suit.magnifier,
   -- awful.layout.suit.corner.nw,
@@ -175,8 +175,8 @@ local mylauncher = awful.widget.launcher({
 
 bling.module.wallpaper.setup {
   set_function = bling.module.wallpaper.setters.random,
-  screen = screen,
-  wallpaper = {"/home/jnsbl/Pictures/Wallpapers/WallpaperCave/abstract"},
+  screens = screen,
+  wallpaper = {"/home/jnsbl/Pictures/Wallpapers/WallpaperCave/vector"},
   change_timer = 3600
 }
 
@@ -344,6 +344,8 @@ beautiful.cal = lain.widget.cal({
 local mykeyboardlayout = awful.widget.keyboardlayout()
 
 local separator = wibox.widget.textbox(markup(beautiful.color8, " "))
+local separator_wide = wibox.widget.textbox(markup(beautiful.color8, " "))
+separator_wide.forced_width = 10
 
 awful.screen.connect_for_each_screen(function(s)
   if s.index == 1 then
@@ -406,16 +408,22 @@ awful.screen.connect_for_each_screen(function(s)
       { -- Left widgets
         layout = wibox.layout.fixed.horizontal,
         -- mylauncher,
-        s.mylayoutbox,
+        logout_menu_widget({
+          onlock = function() awful.spawn.with_shell('betterlockscreen -l dim') end
+        }),
         separator,
+        s.mylayoutbox,
+        separator_wide,
         s.mytaglist,
         separator,
         s.mypromptbox,
       },
       { -- Middle widget
         layout = wibox.layout.align.horizontal,
+        expand = "outside",
         separator,
-        one_thing,
+        -- one_thing,
+        mytextclock,
         separator
       },
       -- s.mytasklist, -- Middle widget
@@ -452,11 +460,7 @@ awful.screen.connect_for_each_screen(function(s)
         -- separator,
 
         mykeyboardlayout,
-        mytextclock,
         separator,
-        logout_menu_widget({
-          onlock = function() awful.spawn.with_shell('betterlockscreen -l dim') end
-        }),
       },
     }
 
@@ -522,7 +526,7 @@ root.buttons(gears.table.join(
 -- {{{ Scratchpad
 -- https://github.com/sansone931/dotfiles/blob/master/.config/awesome/quake.lua
 local quake = lain.util.quake({
-  app = terminal,
+  app = "kitty",
   argname = "--title %s",
   extra = "--class QuakeDD",
   border = dpi(1),
@@ -764,6 +768,12 @@ local globalkeys = gears.table.join(
         awful.util.spawn(cmd)
       end,
       {description = "take a quick screenshot", group = "hotkeys"}),
+  awful.key({ altkey, "Shift" }, "Print",
+      function ()
+        local rofi_script = string.format("%s/.config/rofi/scripts/rofi-screenshot", os.getenv("HOME"))
+        awful.util.spawn(rofi_script)
+      end,
+     {description = "show screenshot menu", group = "hotkeys"}),
 
   -- Clipboard
   awful.key({ modkey }, "v",
@@ -771,6 +781,14 @@ local globalkeys = gears.table.join(
         os.execute("rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'")
       end,
       {description = "show clipboard history", group = "hotkeys"}),
+
+  -- Display management
+  awful.key({ modkey, "Shift" }, "x",
+      function ()
+        local rofi_script = string.format("%s/.config/rofi/scripts/rofi-display", os.getenv("HOME"))
+        awful.util.spawn(rofi_script)
+      end,
+     {description = "show display menu", group = "hotkeys"}),
 
   -- Widgets popups
   awful.key({ altkey, "Control" }, "space",
@@ -798,10 +816,10 @@ local globalkeys = gears.table.join(
 
   -- ALSA volume control
   awful.key({ }, "XF86AudioRaiseVolume",
-      function () volume_widget:inc(5) end,
+      function () volume_widget:inc(3) end,
       {description = "volume up", group = "hotkeys"}),
   awful.key({ }, "XF86AudioLowerVolume",
-      function () volume_widget:dec(5) end,
+      function () volume_widget:dec(3) end,
       {description = "volume down", group = "hotkeys"}),
   awful.key({ }, "XF86AudioMute",
       function () volume_widget:toggle() end,
@@ -1102,10 +1120,22 @@ gears.timer {
 -- {{{ Autostart windowless processes
 -- This function will run once every time Awesome is started
 local function run_once(cmd_arr)
+  -- local spawned = 0
   for _, cmd in ipairs(cmd_arr) do
-    awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
+    -- awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
+    -- spawned = spawned + 1
+    local findme = cmd
+    local firstspace = cmd:find(" ")
+    if firstspace then
+      findme = cmd:sub(0, firstspace - 1)
+    end
+    awful.spawn.easy_async_with_shell(string.format("pgrep -u $USER -x %s > /dev/null || (%s)", findme, cmd))
   end
+  -- naughty.notify({ title = "Autostart", text = string.format("Autostart finished (%d/%d)", spawned, #(cmd_arr)) })
 end
+
+-- Current mechanism no longer works :(
+-- TODO Call "dex --autostart --environment i3" and "lxsession > /dev/null &" and "greenclip daemon > /dev/null &"
 
 run_once({ -- comma-separated entries
   "nm-applet",
