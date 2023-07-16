@@ -10,7 +10,7 @@
     "ruby.lint": {
         "ruby": true
     },
-    "editor.fontFamily": "'Input Nerd Font', 'mononoki Nerd Font', 'JetBrainsMono Nerd Font','FantasqueSansMono Nerd Font', 'FiraCode Nerd Font', Hack, 'Noto Mono', 'DejaVu Sans Mono', 'Courier New', monospace",
+    "editor.fontFamily": "'Recursive Mono Casual Static', 'Input Nerd Font', 'mononoki Nerd Font', 'JetBrainsMono Nerd Font','FantasqueSansMono Nerd Font', 'FiraCode Nerd Font', Hack, 'Noto Mono', 'DejaVu Sans Mono', 'Courier New', monospace",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.iconTheme": "ayu",
     "vsicons.dontShowNewVersionMessage": true,
@@ -30,7 +30,7 @@
     "gitlens.defaultDateFormat": "DD.MM.YYYY HH:mm",
     "workbench.editor.untitled.hint": "hidden",
     "gitlens.codeLens.enabled": false,
-    "workbench.colorTheme": "Default Light+",
+    "workbench.colorTheme": "Default Light Modern",
     "terminal.external.linuxExec": "alacritty",
     "terminal.integrated.defaultProfile.linux": "fish",
     "editor.fontSize": 15,

@@ -66,8 +66,8 @@ local theme_dir = os.getenv("HOME") .. "/.config/awesome/themes/xresources-base1
 beautiful.init(theme_dir .. "/theme.lua")
 
 -- Theme overrides
-beautiful.font = "VictorMono Nerd Font Italic 10"
-alt_font = "VictorMono Nerd Font Regular 10"
+beautiful.font = "Recursive Sans Casual Static 10"
+-- alt_font = "VictorMono Nerd Font Regular 10"
 beautiful.useless_gap = 5
 beautiful.notification_icon_size = 64
 beautiful.notification_max_width = 300

@@ -3,7 +3,7 @@
 configuration {
   show-icons:         true;
   icon-theme:         "La Capitaine";
-  font:               "ShureTechMono Nerd Font 12";
+  font:               "Recursive Mono Casual Static 10";
   terminal:           "alacritty";
 
   kb-row-left:        "Alt+h";

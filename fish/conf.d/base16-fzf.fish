@@ -1,22 +1,23 @@
-# Base16 Materia
-# Author: Defman21
+# Base16 Eighties
+# Scheme author: Chris Kempson (http://chriskempson.com)
+# Template author: Tinted Theming (https://github.com/tinted-theming)
 
-set -l color00 '#263238'
-set -l color01 '#2C393F'
-set -l color02 '#37474F'
-set -l color03 '#707880'
-set -l color04 '#C9CCD3'
-set -l color05 '#CDD3DE'
-set -l color06 '#D5DBE5'
-set -l color07 '#FFFFFF'
-set -l color08 '#EC5F67'
-set -l color09 '#EA9560'
-set -l color0A '#FFCC00'
-set -l color0B '#8BD649'
-set -l color0C '#80CBC4'
-set -l color0D '#89DDFF'
-set -l color0E '#82AAFF'
-set -l color0F '#EC5F67'
+set -l color00 '#2d2d2d'
+set -l color01 '#393939'
+set -l color02 '#515151'
+set -l color03 '#747369'
+set -l color04 '#a09f93'
+set -l color05 '#d3d0c8'
+set -l color06 '#e8e6df'
+set -l color07 '#f2f0ec'
+set -l color08 '#f2777a'
+set -l color09 '#f99157'
+set -l color0A '#ffcc66'
+set -l color0B '#99cc99'
+set -l color0C '#66cccc'
+set -l color0D '#6699cc'
+set -l color0E '#cc99cc'
+set -l color0F '#d27b53'
 
 set -l FZF_NON_COLOR_OPTS
 

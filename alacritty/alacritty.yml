@@ -1,51 +1,59 @@
+# font:
+#   normal:
+#     family: ShureTechMono Nerd Font
+#   size: 7.5
+# font:
+#   normal:
+#     family: mononoki Nerd Font
+#   size: 7
 font:
   normal:
-    family: ShureTechMono Nerd Font
-  size: 7.5
+    family: Recursive Mono Casual Static
+  size: 7
 
 # Start flavours
-# Base16 Materia 256 - alacritty color config
-# Defman21
+# Base16 Eighties 256 - alacritty color config
+# Chris Kempson (http://chriskempson.com)
 colors:
   # Default colors
   primary:
-    background: '0x263238'
-    foreground: '0xCDD3DE'
+    background: '0x2d2d2d'
+    foreground: '0xd3d0c8'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x263238'
-    cursor: '0xCDD3DE'
+    text: '0x2d2d2d'
+    cursor: '0xd3d0c8'
 
   # Normal colors
   normal:
-    black:   '0x263238'
-    red:     '0xEC5F67'
-    green:   '0x8BD649'
-    yellow:  '0xFFCC00'
-    blue:    '0x89DDFF'
-    magenta: '0x82AAFF'
-    cyan:    '0x80CBC4'
-    white:   '0xCDD3DE'
+    black:   '0x2d2d2d'
+    red:     '0xf2777a'
+    green:   '0x99cc99'
+    yellow:  '0xffcc66'
+    blue:    '0x6699cc'
+    magenta: '0xcc99cc'
+    cyan:    '0x66cccc'
+    white:   '0xd3d0c8'
 
   # Bright colors
   bright:
-    black:   '0x707880'
-    red:     '0xEC5F67'
-    green:   '0x8BD649'
-    yellow:  '0xFFCC00'
-    blue:    '0x89DDFF'
-    magenta: '0x82AAFF'
-    cyan:    '0x80CBC4'
-    white:   '0xFFFFFF'
+    black:   '0x747369'
+    red:     '0xf2777a'
+    green:   '0x99cc99'
+    yellow:  '0xffcc66'
+    blue:    '0x6699cc'
+    magenta: '0xcc99cc'
+    cyan:    '0x66cccc'
+    white:   '0xf2f0ec'
 
   indexed_colors:
-    - { index: 16, color: '0xEA9560' }
-    - { index: 17, color: '0xEC5F67' }
-    - { index: 18, color: '0x2C393F' }
-    - { index: 19, color: '0x37474F' }
-    - { index: 20, color: '0xC9CCD3' }
-    - { index: 21, color: '0xD5DBE5' }
+    - { index: 16, color: '0xf99157' }
+    - { index: 17, color: '0xd27b53' }
+    - { index: 18, color: '0x393939' }
+    - { index: 19, color: '0x515151' }
+    - { index: 20, color: '0xa09f93' }
+    - { index: 21, color: '0xe8e6df' }
 # End flavours
 live_config_reload: true
 
