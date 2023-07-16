@@ -3,6 +3,7 @@
 # Autostart script for Qtile
 
 cmd_exist() { unalias "$1" >/dev/null 2>&1 ; command -v "$1" >/dev/null 2>&1 ;}
+svc_running() { systemctl --user status "$1" >/dev/null 2>&1 ;}
 __kill() { kill -9 "$(pidof "$1")" >/dev/null 2>&1 ; }
 __start() { sleep 1 && "$@" >/dev/null 2>&1 & }
 __running() { pidof "$1" >/dev/null 2>&1 ;}
@@ -25,9 +26,9 @@ fi
 
 # Authentication dialog
 
-if [ -f /usr/lib/polkit-kde-authentication-agent-1 ]; then
-    __kill polkit-kde-authentication-agent-1
-    __start /usr/lib/polkit-kde-authentication-agent-1
+if cmd_exist lxsession ; then
+    __kill lxsession
+    __start lxsession
 fi
 
 # Notification daemon
@@ -37,7 +38,7 @@ if cmd_exist dunst ; then
     __start dunst
 fi
 
-# Clipboard maanger
+# Clipboard manager
 
 if cmd_exist greenclip ; then
     __kill greenclip
@@ -49,4 +50,11 @@ fi
 if cmd_exist mons ; then
     __kill mons
     __start mons -a -x "$(script_dir)/multihead.sh"
+fi
+
+# X11 settings service
+
+if svc_running xsettingsd.service ; then
+else
+    __start systemctl --user start xsettingsd.service
 fi

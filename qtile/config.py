@@ -31,7 +31,7 @@
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, hook, qtile
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 
 import os
@@ -41,6 +41,7 @@ import time
 
 mod = "mod4"
 terminal = "alacritty"
+editor = "nvim-qt"
 font_name = 'mononoki Nerd Font Mono'
 home = os.path.expanduser('~')
 
@@ -162,16 +163,25 @@ keys = [
     Key([mod, "control"], "space", lazy.layout.flip()),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
 
-    Key([mod, "mod1"], "space", lazy.next_screen()),
+    Key([mod, "mod1"], "k", lazy.next_screen()),
 
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "F2", lazy.spawn(editor), desc="Launch editor"),
+
+    Key([mod], "y", lazy.group['scratchpad'].dropdown_toggle('term'), desc="Toggle terminal scratchpad"),
+    Key([mod], "x", lazy.group['scratchpad'].dropdown_toggle('top'), desc="Toggle monitoring scratchpad"),
+    Key([mod, "mod1"], "f", lazy.group['scratchpad'].dropdown_toggle('ranger'), desc="Toggle ranger scratchpad"),
+    Key([mod, "mod1"], "v", lazy.group['scratchpad'].dropdown_toggle('volume'), desc="Toggle volume scratchpad"),
+    Key([mod, "mod1"], "a", lazy.group['scratchpad'].dropdown_toggle('mpc'), desc="Toggle mpc scratchpad"),
+
+    Key([mod], "escape", lazy.screen.toggle_group(), desc="Last active group"),  
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
 
-    Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key([mod, "shift"], "r", lazy.restart(), desc="Restart Qtile"),
+    Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
 
@@ -183,9 +193,10 @@ keys = [
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
     Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
 
-    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl --device=intel_backlight set +3%")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl --device=intel_backlight set 3%-")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl --device=nvidia_wmi_ec_backlight set +3%")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl --device=nvidia_wmi_ec_backlight set 3%-")),
 
+    Key([mod, "shift"], "s", lazy.widget["widgetbox"].toggle()),
     Key(["mod1", "control"], "space", lazy.spawn('gsimplecal')),
 
     Key(["mod1"], "space", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
@@ -199,44 +210,49 @@ keys = [
 # {{{ Groups
 # Icons - https://www.nerdfonts.com/cheat-sheet
 groups = [
-    Group("a", label="\uf312"), # nf-linux-manjaro
-    Group("s", label="\ufa9e", # nf-mdi-web
+    Group("web", label="\ufa9e", # nf-mdi-web
           matches=[Match(wm_class='brave'), Match(wm_class='firefox')],
           layout='stack',
          ),
-    Group("d", label="\ue796", # nf-dev-code
-          matches=[Match(wm_class='nvim-qt'), Match(wm_class='vscodium')],
+    Group("code", label="\ue796", # nf-dev-code
+          matches=[Match(wm_class='vscodium')],
           layout='monadwide',
          ),
-    Group("f", label="\uf489"), # nf-oct-terminal
-    Group("u", label="\uf086", # nf-fa-comments
+    Group("chat", label="\uf086", # nf-fa-comments
           matches=[Match(wm_class='skypeforlinux')],
           layout='stack',
          ),
-    Group("i", label="\ufc58", # nf-mdi-music
+    Group("music", label="\ufc58", # nf-mdi-music
           matches=[Match(wm_class='Spotify'), Match(wm_class='elisa')],
           layout='stack',
          ),
-    Group("o", label="\uf718", # nf-mdi-file_document
-          matches=[Match(wm_class='libreoffice')],
-          layout='stack',
-         ),
-    Group("p", label="\ue29a"), # nf-fae-checklist_o
+    Group("other", label="\uf718"), # nf-mdi-file_document
+    ScratchPad("scratchpad", [
+        DropDown("term", terminal, x=0.05, y=0.2, width=0.9, height=0.6),
+        DropDown("top", terminal + " -e btop", x=0.05, y=0.1, width=0.9, height=0.8),
+        DropDown("ranger", terminal + " -e ranger", x=0.05, y=0.2, width=0.9, height=0.6),
+        DropDown("volume", "pavucontrol", x=0.05, y=0.2, width=0.9, height=0.6),
+        DropDown("mpc", "ymuse", x=0.05, y=0.2, width=0.9, height=0.6),
+        ], single=True),
 ]
-# from libqtile.dgroups import simple_key_binder
-# dgroups_key_binder = simple_key_binder(mod)
-for i in groups:
+
+# czech qwertz characters corresponding to 0-9 keys
+group_keys = ["plus", "ecaron", "scaron", "ccaron", "rcaron", "zcaron", "yacute", "aacute", "iacute", "eacute"]
+
+for idx, i in enumerate(groups):
+    if i.name == "scratchpad":
+        continue
     keys.extend(
         [
-            Key([mod], i.name,
+            Key([mod], group_keys[idx],
                 lazy.group[i.name].toscreen(),
                 desc="Switch to group {}".format(i.name),
             ),
-            Key([mod, "shift"], i.name,
+            Key([mod, "shift"], group_keys[idx],
                 lazy.window.togroup(i.name, switch_group=True),
                 desc="Switch to & move focused window to group {}".format(i.name),
             ),
-            Key([mod, "shift", "control"], i.name,
+            Key([mod, "shift", "control"], group_keys[idx],
                 lazy.window.togroup(i.name, switch_group=False),
                 desc="Move focused window to group {}".format(i.name),
             ),
@@ -282,6 +298,15 @@ icon_defaults = dict(
     fontsize=26,
     padding=2,
 )
+systray = widget.WidgetBox(
+        widgets=[
+            widget.Systray(),
+            ],
+        foreground=BG3,
+        text_closed='\uf137', # nf-fa-chevron_circle_left
+        text_open='\uf138', # nf-fa-chevron_circle_right
+        **icon_defaults
+        )
 
 screens = [
     Screen(
@@ -311,15 +336,15 @@ screens = [
                 # widget.TextBox(text="\uf9fd", foreground=BG, background=GREEN, padding=5, font=icon_defaults['font'], fontsize=28), # nf-mdi-target
                 # widget.TextBox(text="Dělba práce", foreground=BG, background=GREEN, padding=5, font=widget_defaults['font'], fontsize=widget_defaults['fontsize']),
 
-                widget.Spacer(),
-                widget.WindowName(foreground=FG, **widget_defaults),
+                # widget.Spacer(),
+                # widget.WindowName(foreground=FG, **widget_defaults),
                 # widget.Spacer(),
                 # widget.Clock(format='%a %d.%m.%Y %H:%M:%S'),
 
                 widget.Spacer(),
 
-                # widget.Systray(),
-                # widget.Spacer(length=10),
+                systray,
+                widget.Spacer(length=10),
 
                 widget.TextBox(text="\uf580", foreground=GREEN, font=icon_defaults['font'], fontsize=14), # nf-mdi-battery_80
                 widget.Battery(
@@ -337,7 +362,7 @@ screens = [
                 widget.Memory(
                     format='{MemPercent:.0f}%',
                     foreground=YELLOW,
-                    mouse_callbacks={'Button1': lambda:qtile.cmd_spawn('kitty -e btop')},
+                    mouse_callbacks={'Button1': lambda:qtile.cmd_spawn(terminal + ' -e btop')},
                     **widget_defaults
                 ),
                 widget.Spacer(length=10),
@@ -345,8 +370,8 @@ screens = [
                 widget.TextBox(text="\ue30d", foreground=ORANGE, **icon_defaults), # nf-weather-day_sunny
                 widget.Backlight(
                     foreground=ORANGE,
-                    brightness_file="/sys/class/backlight/intel_backlight/brightness",
-                    max_brightness_file="/sys/class/backlight/intel_backlight/max_brightness",
+                    brightness_file="/sys/class/backlight/nvidia_wmi_ec_backlight/brightness",
+                    max_brightness_file="/sys/class/backlight/nvidia_wmi_ec_backlight/max_brightness",
                 ),
                 widget.Spacer(length=10),
 
