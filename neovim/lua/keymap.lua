@@ -89,6 +89,14 @@ keymap("v", "<Leader>rw", "y:%s/<C-r>\"/")
 keymap("n", "<Leader>cw", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>")
 keymap("v", "<Leader>cw", "y:%s/<C-r>\"/<C-r>\"")
 
+-- Paste from system clipboard
+keymap("n", "<leader>p", "\"+p")
+keymap("n", "<leader>P", "\"+P")
+
+-- Delete without yanking
+keymap("n", "<leader>d", "\"_dd")
+keymap("v", "<leader>d", "\"_d")
+
 -- "st" for Startify
 keymap("n", "<leader>st", ":Alpha<CR>")
 

@@ -6,6 +6,7 @@ startify.section.bottom_buttons.val = {
   startify.button("m", "Neovim keymap", ":e ~/.config/nvim/lua/keymap.lua<CR>"),
   startify.button("t", "Qtile config", ":e ~/.config/qtile/config.py<CR>"),
   startify.button("w", "AwesomeWM config", ":e ~/.config/awesome/rc.lua<CR>"),
+  startify.button("M", "LeftWM config", ":e ~/.config/leftwm/config.ron<CR>"),
   startify.button("q", "Quit Neovim" , ":qa<CR>"),
 }
 

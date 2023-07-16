@@ -1,9 +1,20 @@
 -- Fuzzy config (for Neovim or Vim with yarp)
 local wilder = require('wilder')
-wilder.setup({modes = {':', '/', '?'}})
+wilder.setup({
+  modes = {':', '/', '?'},
+  accept_key = '<C-l>',
+  reject_key = '<C-h>',
+})
 
 wilder.set_option('pipeline', {
   wilder.branch(
+    wilder.python_file_finder_pipeline({
+      file_command = {'fd', '-tf'},
+      dir_command = {'fd', '-td'},
+      -- use {'cpsm_filter'} for performance, requires cpsm vim plugin
+      -- found at https://github.com/nixprime/cpsm
+      filters = {'fuzzy_filter', 'difflib_sorter'},
+    }),
     wilder.cmdline_pipeline({
       fuzzy = 1,
       set_pcre2_pattern = 1,

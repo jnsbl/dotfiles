@@ -33,6 +33,7 @@ require("packer").startup(function(use)
   use "kylechui/nvim-surround"
   use "m-demare/hlargs.nvim"
   use "dag/vim-fish"
+  use "ron-rs/ron.vim"
 
   -- Language support
   use {"roxma/nvim-yarp", { run = "pip install -r requirements.txt" }}
