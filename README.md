@@ -2,6 +2,12 @@
 
 Dotfiles use [Dotbot](https://github.com/anishathalye/dotbot) for installation.
 
+## Prerequisites
+
+```bash
+paru install awesome-git awesome-freedesktop awesome-bling-git lain dex zoxide fzf
+```
+
 ## Installation
 
 After cloning this repo, run `install` to automatically set up the development
