@@ -92,10 +92,12 @@ if not set -q abbrs_initialized
     end
   end
 
+  abbr md 'glow'
   abbr mon 'autorandr --change --default default'
 
   abbr py 'python'
 
+  abbr r 'ranger'
   abbr rb 'ruby'
   abbr rbs 'rbenv shell'
   abbr rbsu 'rbenv shell --unset'
