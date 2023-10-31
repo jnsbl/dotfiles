@@ -10,7 +10,6 @@ mason_lspconfig.setup {
     "jsonls",
     "marksman",
     "pyright",
-    "solargraph",
     "taplo",
     "yamlls",
   }

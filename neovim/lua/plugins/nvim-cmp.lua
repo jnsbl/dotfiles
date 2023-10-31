@@ -52,9 +52,6 @@ lspconfig["marksman"].setup {
 lspconfig["pyright"].setup {
   capabilities = capabilities
 }
-lspconfig["solargraph"].setup {
-  capabilities = capabilities
-}
 lspconfig["taplo"].setup {
   capabilities = capabilities
 }
