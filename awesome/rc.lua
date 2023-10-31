@@ -162,6 +162,7 @@ local mylauncher = awful.widget.launcher({
 })
 -- }}}
 
+-- {{{ Bling
 -- local function set_wallpaper(s)
 --   if beautiful.wallpaper then
 --     local wallpaper = beautiful.wallpaper
@@ -175,7 +176,7 @@ local mylauncher = awful.widget.launcher({
 
 bling.module.wallpaper.setup {
   set_function = bling.module.wallpaper.setters.random,
-  screens = screen,
+  screen = screen,
   wallpaper = {"/home/jnsbl/Pictures/Wallpapers/WallpaperCave/vector"},
   change_timer = 3600
 }
@@ -196,6 +197,7 @@ bling.widget.window_switcher.enable {
   cycleClientsByIdx = awful.client.focus.byidx,
   filterClients = awful.widget.tasklist.filter.currenttags,
 }
+-- }}}
 
 -- {{{ Widgets
 -- Focus
@@ -1135,7 +1137,7 @@ local function run_once(cmd_arr)
 end
 
 -- Current mechanism no longer works :(
--- TODO Call "dex --autostart --environment i3" and "lxsession > /dev/null &" and "greenclip daemon > /dev/null &"
+-- TODO Call "dex --autostart --environment Awesome" and "greenclip daemon > /dev/null &"
 
 run_once({ -- comma-separated entries
   "nm-applet",
