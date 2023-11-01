@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if pgrep -x "stalonetray" > /dev/null
+if pgrep -x "trayer" > /dev/null
 then
-  killall stalonetray
+  killall trayer
 else
-  stalonetray &
+  trayer &
 fi
