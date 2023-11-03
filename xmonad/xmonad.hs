@@ -11,15 +11,22 @@ import XMonad.Actions.UpdatePointer
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doCenterFloat)
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
+import XMonad.Hooks.WindowSwallowing
 
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 
+import XMonad.ManageHook
+
 import XMonad.Util.EZConfig
+import XMonad.Util.NamedScratchpad
+import XMonad.Util.SpawnOnce
+import XMonad.Util.WorkspaceCompare
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -101,7 +108,7 @@ myKeys =
   , ("M-S-x", spawn "~/.config/rofi/scripts/rofi-display")
 
   , ("M-S-q", io (exitWith ExitSuccess))
-  , ("M-q", spawn "xmonad --recompile; xmonad --restart")
+  , ("M-S-r", spawn "xmonad --recompile; xmonad --restart")
   , ("M-S-<F1>", spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
 
   , ("M1-<Print>", spawn "~/bin/printscr.sh")
@@ -110,9 +117,10 @@ myKeys =
   , ("M-w", kill)
   , ("M1-<Space>", sendMessage NextLayout)
   , ("M1-S-<Space>", sendMessage FirstLayout)
-  , ("M-<Esc>", toggleWS)
+  , ("M-<Esc>", toggleWS' [scratchpadWorkspaceTag])
 
   , ("M-<Tab>", windows W.focusDown)
+  , ("M-S-<Tab>", windows W.focusUp)
   , ("M-j", windows W.focusDown)
   , ("M-k", windows W.focusUp)
   , ("M-m", windows W.focusMaster)
@@ -125,6 +133,8 @@ myKeys =
   , ("M-.", sendMessage (IncMasterN (-1)))
   , ("M-b", sendMessage ToggleStruts)
   , ("M-f", sendMessage $ Toggle FULL)
+  , ("M-<Right>", moveTo Next nonNSP)
+  , ("M-<Left>", moveTo Prev nonNSP)
 
   , ("M-M1-j", prevScreen)
   , ("M-M1-k", nextScreen)
@@ -147,9 +157,14 @@ myKeys =
   , ("<XF86AudioPrev>", spawn "playerctl previous")
   , ("<XF86AudioNext>", spawn "playerctl next")
 
-  , ("M-o", nextScreen)
-  , ("M-S-o", shiftNextScreen)
+  , ("M-y", namedScratchpadAction myScratchpads "term")
+  , ("M-C-x", namedScratchpadAction myScratchpads "top")
+  , ("M-C-f", namedScratchpadAction myScratchpads "ranger")
+  , ("M-C-v", namedScratchpadAction myScratchpads "volume")
+  , ("M-C-a", namedScratchpadAction myScratchpads "mpc")
+  , ("M-C-p", namedScratchpadAction myScratchpads "pass")
   ]
+  where nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
 
 myAdditionalKeys conf@XConfig {XMonad.modMask = modm} =
   M.fromList $
@@ -197,9 +212,8 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- which denotes layout choice.
 --
 myLayout = smartSpacing myUselessGap
-  $ smartBorders
   $ mkToggle (NOBORDERS ?? FULL ?? EOT)
-  $ avoidStruts (tiled ||| Mirror tiled ||| Full)
+  $ avoidStruts (tiled ||| Full ||| Mirror tiled)
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -212,6 +226,67 @@ myLayout = smartSpacing myUselessGap
 
      -- Percent of screen to increment by when resizing panes
      delta   = 3/100
+-- }}}
+
+-- {{{ Scratchpads
+myScratchpads :: [NamedScratchpad]
+myScratchpads =
+  [ NS "term"   spawnTerm findTerm manageTerm
+  , NS "top"    spawnTop  findTop  manageTop
+  , NS "ranger" spawnRgr  findRgr  manageRgr
+  , NS "volume" spawnVol  findVol  manageVol
+  , NS "mpc"    spawnMpc  findMpc  manageMpc
+  , NS "pass"   spawnPass findPass managePass
+  ]
+  where
+    spawnTerm  = myTerminal ++ " --title scratchpad"
+    findTerm   = title =? "scratchpad"
+    manageTerm = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnTop   = myTerminal ++ " --title top -e btop"
+    findTop    = title =? "top"
+    manageTop  = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnRgr   = myTerminal ++ " --title ranger -e ranger"
+    findRgr    = title =? "ranger"
+    manageRgr  = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnVol   = "pavucontrol"
+    findVol    = className =? "Pavucontrol"
+    manageVol  = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnMpc   = "ymuse"
+    findMpc    = className =? "Ymuse"
+    manageMpc  = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnPass  = "1password"
+    findPass   = className =? "1Password"
+    managePass = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
 -- }}}
 
 -- {{{ Window rules
@@ -230,11 +305,21 @@ myLayout = smartSpacing myUselessGap
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = composeAll
+myManageHook = namedScratchpadManageHook myScratchpads
+  <> composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
+    , className =? "dialog"         --> doFloat
+    , className =? "confirm"        --> doFloat
+    , className =? "error"          --> doFloat
+    , className =? "notification"   --> doFloat
+    , className =? "splash"         --> doFloat
+    , className =? "toolbar"        --> doFloat
+    , className =? "file_progress"  --> doFloat
     , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
+    , resource  =? "kdesktop"       --> doIgnore
+    , isFullscreen --> doFullFloat
+    ]
 -- }}}
 
 -- {{{ Event handling
@@ -247,7 +332,7 @@ myManageHook = composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = mempty
+myEventHook = swallowEventHook (className =? "Alacritty" <||> className =? "Kitty" <||> className =? "Xterm") (return True)
 -- }}}
 
 -- {{{ Status bars and logging
@@ -272,28 +357,28 @@ myLogHook = updatePointer (0.5, 0.5) (0, 0)
 myStartupHook :: X ()
 myStartupHook = do
   let wallpaperCmd      = "feh --bg-scale " ++ myWallpaperPath
-      picomCmd          = "killall -9 picom; sleep 1 && picom -b &"
       polybarCmd        = "~/.config/polybar/launch.sh"
-      clipboardHistCmd  = "killall -9 greenclip; sleep 1 && greenclip daemon"
-      polkitCmd         = "killall -9 /usr/lib/polkit-kde-authentication-agent-1; sleep 1 && /usr/lib/polkit-kde-authentication-agent-1"
-      notifCmd          = "killall -9 dunst; sleep 1 && dunst &"
-      systrayCmd        = "killall -9 trayer; sleep 1 && trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 5 --transparent true --tint 0x000000 --height 18"
-      netManAppletCmd   = "killall -9 nm-applet; sleep 1 && nm-applet"
-      sndManAppletCmd   = "killall -9 pasystray; sleep 1 && pasystray"
-      blueManAppletCmd  = "killall -9 blueman; sleep 1 && blueman"
-      updManAppletCmd   = "killall -9 pamac-tray; sleep 1 && GDK_BACKEND=x11 pamac-tray"
+      picomCmd          = "picom"
+      clipboardHistCmd  = "greenclip daemon"
+      polkitCmd         = "/usr/lib/polkit-kde-authentication-agent-1"
+      notifCmd          = "dunst"
+      systrayCmd        = "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 5 --transparent true --tint 0x000000 --height 18"
+      netManAppletCmd   = "nm-applet"
+      sndManAppletCmd   = "pasystray"
+      blueManAppletCmd  = "blueman"
+      updManAppletCmd   = "GDK_BACKEND=x11 pamac-tray"
   sequence_ [
-      spawn wallpaperCmd
-    , spawn picomCmd
-    , spawn polybarCmd
-    , spawn clipboardHistCmd
-    , spawn polkitCmd
-    , spawn notifCmd
-    -- , spawn systrayCmd
-    -- , spawn netManAppletCmd
-    -- , spawn sndManAppletCmd
-    -- , spawn blueManAppletCmd
-    -- , spawn updManAppletCmd
+      spawn     wallpaperCmd
+    , spawn     polybarCmd
+    , spawnOnce picomCmd
+    , spawnOnce clipboardHistCmd
+    , spawnOnce polkitCmd
+    , spawnOnce notifCmd
+    -- , spawnOnce systrayCmd
+    -- , spawnOnce netManAppletCmd
+    -- , spawnOnce sndManAppletCmd
+    -- , spawnOnce blueManAppletCmd
+    -- , spawnOnce updManAppletCmd
     ]
 -- }}}
 
@@ -303,7 +388,12 @@ myStartupHook = do
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = xmonad . docks . ewmhFullscreen . ewmh
+myFilter = filterOutWs [scratchpadWorkspaceTag]
+main = xmonad
+     . docks
+     . addEwmhWorkspaceSort (pure myFilter)
+     . ewmhFullscreen
+     . ewmh
      $ defaults
 
 -- A structure containing your configuration settings, overriding
