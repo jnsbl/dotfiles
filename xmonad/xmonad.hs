@@ -1,14 +1,22 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
 -- {{{ Imports
 import XMonad
-import Data.Char (toUpper)
+
+import Data.Bifunctor (bimap)
+import Data.Char as DC
+import Data.List as DL
+import Data.Maybe (catMaybes, fromMaybe)
 import Data.Monoid
+
 import System.Directory (getHomeDirectory)
 import System.Exit
 import System.IO
+import System.IO.Unsafe (unsafePerformIO)
 
 import XMonad.Actions.CycleWS
 import XMonad.Actions.UpdatePointer
+
+import XMonad.Core (installSignalHandlers)
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -18,10 +26,12 @@ import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.WindowSwallowing
 
+import XMonad.Layout.LayoutModifier
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
+import XMonad.Layout.ThreeColumns
 
 import XMonad.ManageHook
 
@@ -52,7 +62,7 @@ myWallpaperPath :: String
 myWallpaperPath = "~/Pictures/Wallpapers/FrenzyExists/Gruv/haskell.jpg"
 
 -- Useless gap around and among windows
-myUselessGap    = 3
+myUselessGap    = 5
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -67,24 +77,12 @@ myModMask       = mod4Mask
 myAltMask       = mod1Mask
 
 -- The default number of workspaces (virtual screens) and their names.
--- By default we use numeric strings, but any string may be used as a
--- workspace name. The number of workspaces is determined by the length
--- of this list.
---
--- A tagging example:
---
--- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
---
 myWorkspaces    = ["web","code","chat","music","notes","other"]
 myWorkspaceKeys = [xK_plus,xK_ecaron,xK_scaron,xK_ccaron,xK_rcaron,xK_zcaron,xK_yacute,xK_aacute,xK_iacute] -- cs-cz keyboard
 -- myWorkspaceKeys = [xK_1 .. xK_9] -- en-us keyboard
 
 -- Width of the window border in pixels.
 myBorderWidth   = 1
-
--- Border colors for unfocused and focused windows, respectively.
-myNormalBorderColor  = "#dddddd"
-myFocusedBorderColor = "#ff0000"
 -- }}}
 
 -- {{{ Key bindings
@@ -107,7 +105,7 @@ subtitle' x = ((0,0), NamedAction $ map toUpper $ x)
 
 showKeybindings :: [((KeyMask, KeySym), NamedAction)] -> NamedAction
 showKeybindings x = addName "Show keybindings" $ io $ do
-  h <- spawnPipe $ "yad --text-info --fontname=\"Recursive Mono Casual Static 10\" --fore=#46d9ff back=#282c36 --center --geometry=1200x800 --title \"XMonad keybindings\""
+  h <- spawnPipe $ "yad --text-info --fontname=\"Recursive Mono Casual Static 10\" --fore=" ++ xColorFg ++ " back=" ++ xColorBg ++ " --center --geometry=1200x800 --title \"XMonad keybindings\""
   hPutStr h (unlines $ showKm x) -- showKM adds ">>" before subtitles
   -- hPutStr h (unlines $ showKmSimple x) -- showKmSimple doesn't add ">>" to subtitles
   hClose h
@@ -243,29 +241,26 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 ------------------------------------------------------------------------
 -- Layouts:
 
--- You can specify and transform your layouts by modifying these values.
--- If you change layout bindings be sure to use 'mod-shift-space' after
--- restarting (with 'mod-q') to reset your layout state to the new
--- defaults, as xmonad preserves your old layout settings by default.
---
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = smartSpacing myUselessGap
+myLayout = avoidStruts
   $ mkToggle (NOBORDERS ?? FULL ?? EOT)
-  $ avoidStruts (tiled ||| Full ||| Mirror tiled)
+  $ spacingWithEdge myUselessGap (tiled ||| Full ||| Mirror tiled ||| threeCol)
   where
      -- default tiling algorithm partitions the screen into two panes
-     tiled   = Tall nmaster delta ratio
+     tiled    = Tall nmaster delta ratio
+
+     threeCol = ThreeCol nmaster delta ratio
 
      -- The default number of windows in the master pane
-     nmaster = 1
+     nmaster  = 1
 
      -- Default proportion of screen occupied by master pane
-     ratio   = 1/2
+     ratio    = 1/2
 
      -- Percent of screen to increment by when resizing panes
-     delta   = 3/100
+     delta    = 3/100
 -- }}}
 
 -- {{{ Scratchpads
@@ -356,6 +351,7 @@ myManageHook = namedScratchpadManageHook myScratchpads
     , className =? "splash"         --> doFloat
     , className =? "toolbar"        --> doFloat
     , className =? "file_progress"  --> doFloat
+    , className =? "Yad"            --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
     , isFullscreen --> doFullFloat
@@ -389,11 +385,6 @@ myLogHook = updatePointer (0.5, 0.5) (0, 0)
 ------------------------------------------------------------------------
 -- Startup hook
 
--- Perform an arbitrary action each time xmonad starts or is restarted
--- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
--- per-workspace layout choices.
---
--- By default, do nothing.
 myStartupHook :: X ()
 myStartupHook = do
   let wallpaperCmd      = "feh --bg-scale " ++ myWallpaperPath
@@ -420,6 +411,50 @@ myStartupHook = do
     -- , spawnOnce blueManAppletCmd
     -- , spawnOnce updManAppletCmd
     ]
+-- }}}
+
+-- {{{ Color scheme
+-- https://edwardwibowo.com/blog/switching-themes-on-the-fly-with-xmonad/
+splitAtColon :: String -> Maybe (String, String)
+splitAtColon str = splitAtTrimming str <$> DL.elemIndex ':' str
+  where
+    splitAtTrimming :: String -> Int -> (String, String)
+    splitAtTrimming s idx = bimap trim (trim . tail) $ splitAt idx s
+    trim :: String -> String
+    trim = DL.dropWhileEnd DC.isSpace . DL.dropWhile DC.isSpace
+
+getFromXres :: String -> IO String
+getFromXres key = do
+  installSignalHandlers
+  fromMaybe "" . findValue key <$> runProcessWithInput "xrdb" ["-query"] ""
+  where
+    findValue :: String -> String -> Maybe String
+    findValue xresKey xres =
+      snd <$>
+      DL.find ((== xresKey) . fst) (catMaybes $ splitAtColon <$> lines xres)
+
+xProp :: String -> String
+xProp = unsafePerformIO . getFromXres
+
+xFont :: String
+xFont =
+  "xft:" ++ fst (fromMaybe (xProp "*.font", "") (splitAtColon (xProp "*.font")))
+
+xFontSized :: String -> String
+xFontSized s = xFont ++ ":size=" ++ s
+
+xColorFg :: String
+xColorFg = xProp "*.foreground"
+
+xColorBg :: String
+xColorBg = xProp "*.background"
+
+xColor :: String -> String
+xColor a = xProp $ "*.color" ++ a
+
+-- Border colors for unfocused and focused windows, respectively.
+myNormalBorderColor  = xColor "0"
+myFocusedBorderColor = xColor "12"
 -- }}}
 
 -- {{{ Main
