@@ -167,7 +167,7 @@ myKeys c =
 
   ^++^ subKeys "Layouts"
   [ ("M1-<Space>", addName "Switch to next layout" $ sendMessage NextLayout)
-  , ("M1-S-<Space>", addName "Switch to prev layout" $ sendMessage FirstLayout)
+  , ("M1-S-<Space>", addName "Switch to first layout" $ sendMessage FirstLayout)
   ]
 
   ^++^ subKeys "Increase/decrease windows in master pane"
