@@ -204,6 +204,10 @@ myKeys c =
   , ("<XF86AudioNext>", addName "Skip to next track" $ spawn "playerctl next")
   ]
 
+  ^++^ subKeys "Systray"
+  [ ("M-S-s", addName "Toggle systray" $ spawn "polybar-msg action tray module_toggle")
+  ]
+
   ^++^ subKeys "Scratchpads"
   [ ("M-y", addName "Toggle scratchpad terminal" $ namedScratchpadAction myScratchpads "term")
   , ("M-C-x", addName "Toggle scratchpad system monitor" $ namedScratchpadAction myScratchpads "top")
