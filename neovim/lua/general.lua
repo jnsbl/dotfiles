@@ -22,10 +22,10 @@ opt.wrap           = false
 autocmd("BufEnter", {pattern = "*", command = "silent! lcd %:p:h"})
 
 autocmd("FileType", {pattern = "markdown", command = "setlocal wrap"})
-autocmd("BufRead,BufNewFile", {pattern = "*.bork", command = "set filetype=sh"})
-autocmd("BufRead,BufNewFile", {pattern = "*.rake", command = "set filetype=ruby"})
-autocmd("BufRead,BufNewFile", {pattern = "*.thor", command = "set filetype=ruby"})
-autocmd("BufRead,BufNewFile", {pattern = "*.conf", command = "set filetype=apache"})
+-- autocmd("BufRead,BufNewFile", {pattern = "*.bork", command = "set filetype=sh"})
+-- autocmd("BufRead,BufNewFile", {pattern = "*.rake", command = "set filetype=ruby"})
+-- autocmd("BufRead,BufNewFile", {pattern = "*.thor", command = "set filetype=ruby"})
+-- autocmd("BufRead,BufNewFile", {pattern = "*.conf", command = "set filetype=apache"})
 
 vim.cmd[[
   if has('persistent_undo')
