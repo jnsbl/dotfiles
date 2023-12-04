@@ -6,7 +6,6 @@
 - clean: ['~', '~/.config']
 
 - link:
-    ~/.betterlockscreenrc: betterlockscreenrc
     '~/.config/Code - OSS/User/settings.json':
       if: '[ `uname` = Linux ]'
       path: vscode/settings-linux.json
@@ -16,6 +15,7 @@
     ~/.config/alacritty: alacritty
     ~/.config/awesome: awesome
     ~/.config/base16-shell: ext/base16-shell
+    ~/.config/betterlockscreen/betterlockscreenrc: betterlockscreenrc
     ~/.config/btop: btop
     ~/.config/dunst/dunstrc: dunstrc
     ~/.config/fish/config.fish: fish/config.fish
@@ -28,7 +28,9 @@
     ~/.config/karabiner/karabiner.json:
       if: '[ `uname` = Darwin ]'
       path: karabiner.json
+    ~/.config/lf: lf
     ~/.config/nvim: neovim
+    ~/.config/nsxiv: nsxiv
     ~/.config/picom.conf: picom.conf
     ~/.config/polybar: polybar
     ~/.config/qtile: qtile
@@ -37,6 +39,7 @@
     ~/.config/redshift: redshift
     ~/.config/rofi: rofi
     ~/.config/starship.toml: starship.toml
+    ~/.config/sxiv: nsxiv
     ~/.config/ulauncher/extensions.json: ulauncher/extensions.json
     ~/.config/ulauncher/settings.json: ulauncher/settings.json
     ~/.dotfiles: ''
