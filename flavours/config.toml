@@ -4,30 +4,34 @@ shell = "bash -c '{}'"
 file = "~/.config/nvim/colors/base16.vim"
 template = "vim"
 rewrite = true
-hook = "~/bin/reloadnvim"
+hook = "~/.local/bin/reloadnvim"
 
 [[item]]
 file = "~/.config/nvim/lua/base16-colors.lua"
 template = "neovim"
 rewrite = true
-hook = "~/bin/reloadnvim"
+hook = "~/.local/bin/reloadnvim"
 
 [[item]]
 file = "~/.config/kitty/base16.conf"
 template = "kitty"
 subtemplate = "default-256"
 rewrite = true
+hook = "touch ~/.config/kitty/kitty.conf"
 
 [[item]]
 file = "~/.config/alacritty/alacritty.yml"
 template = "alacritty"
 subtemplate = "default-256"
+start = "# color_start"
+end = "# color_end"
 
 [[item]]
-file = "~/.Xresources"
+file = "~/.Xresources.d/base16"
 template = "xresources"
 subtemplate = "default-256"
-hook = "xrdb -merge ~/.Xresources; awesome-client 'awesome.restart()'"
+hook = "xrdb -merge ~/.Xresources; awesome-client 'awesome.restart()'; xmonad --restart"
+light = false
 start = "! Start flavours"
 end = "! End flavours"
 
@@ -57,3 +61,10 @@ rewrite = true
 file = "~/.config/highlight/base16_colors.theme"
 template = "highlight"
 rewrite = true
+
+[[item]]
+file = "~/.config/dunst/dunstrc"
+template = "dunst"
+subtemplate = "default"
+start = "# Start flavours"
+end = "# End flavours"
