@@ -129,7 +129,7 @@ lain.layout.cascade.tile.nmaster       = 5
 lain.layout.cascade.tile.ncol          = 2
 
 -- awful.util.tagnames = { "1", "2", "3", "4", "5" }
-awful.util.tagnames = { "web", "code", "chat", "music", "other" }
+awful.util.tagnames = { "web", "code", "chat", "music", "notes", "other" }
 
 awful.util.terminal = terminal
 
