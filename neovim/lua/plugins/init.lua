@@ -46,6 +46,11 @@ require("lazy").setup({
 
   -- Language support
   -- {"roxma/nvim-yarp", { build = "pip install -r requirements.txt" }},
+  {
+    "mrcjkb/haskell-tools.nvim",
+    version = "^3",
+    ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
+  },
 
   -- Fuzzy-finding and searching
   "BurntSushi/ripgrep",
