@@ -44,6 +44,7 @@ import XMonad.Util.WorkspaceCompare
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
+import qualified XMonad.Layout.Magnifier as Mag
 
 import Graphics.X11.ExtraTypes.XorgDefault
 -- }}}
@@ -51,10 +52,10 @@ import Graphics.X11.ExtraTypes.XorgDefault
 -- {{{ Variable definitions
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
-myTerminal      = "alacritty"
+myTerminal      = "kitty"
 
 myBrowser       = "min"
-myFileManager   = "thunar"
+myFileManager   = "pcmanfm"
 myEditor        = "nvim-qt"
 
 -- Path to wallpaper to set at startup
@@ -98,14 +99,15 @@ myEssentialKeys conf@XConfig {XMonad.modMask = modm} =
     --
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) myWorkspaceKeys
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]] -- greedyView vs view - see https://www.reddit.com/r/xmonad/comments/ndww5/comment/c38moye/?utm_source=share&utm_medium=web2x&context=3
+        -- TODO Mod+Ctrl+k namapovat na W.greedyView (někdy se mi hodí explicitně prohodit workspaces mezi monitory
 
 subtitle' ::  String -> ((KeyMask, KeySym), NamedAction)
 subtitle' x = ((0,0), NamedAction $ map toUpper $ x)
 
 showKeybindings :: [((KeyMask, KeySym), NamedAction)] -> NamedAction
 showKeybindings x = addName "Show keybindings" $ io $ do
-  h <- spawnPipe $ "yad --text-info --fontname=\"Recursive Mono Casual Static 10\" --fore=" ++ xColorFg ++ " back=" ++ xColorBg ++ " --center --geometry=1200x800 --title \"XMonad keybindings\""
+  h <- spawnPipe $ "yad --text-info --center --geometry=1200x800 --title \"XMonad keybindings\" --button=yad-close:1"
   hPutStr h (unlines $ showKm x) -- showKM adds ">>" before subtitles
   -- hPutStr h (unlines $ showKmSimple x) -- showKmSimple doesn't add ">>" to subtitles
   hClose h
@@ -119,6 +121,8 @@ myKeys c =
   , ("M-S-q", addName "Quit XMonad" $ io (exitWith ExitSuccess))
   , ("M-S-r", addName "Recompile and restart XMonad" $ spawn "xmonad --recompile; xmonad --restart")
   , ("M-b", addName "Toggle top bar" $ sendMessage ToggleStruts)
+  , ("M-S-<F1>", addName "Show colors" $ spawn showColorsCmd)
+  , ("M-S-C-<F1>", addName "Show Xresources" $ spawn showXresCmd)
   ]
 
   ^++^ subKeys "Window navigation"
@@ -135,6 +139,7 @@ myKeys c =
   [ ("M-S-h", addName "Shrink window" $ sendMessage Shrink)
   , ("M-S-l", addName "Expand window" $ sendMessage Expand)
   , ("M-f", addName "Toggle focused window fullscreen" $ sendMessage $ Toggle FULL)
+  , ("M-C-m", addName "Toggle focused window magnified" $ sendMessage Mag.Toggle)
   ]
 
   ^++^ subKeys "Menus"
@@ -142,6 +147,8 @@ myKeys c =
   , ("M-r", addName "Show dmenu" $ spawn "dmenu_run")
   , ("M-v", addName "Show clipboard history" $ spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'")
   , ("M-S-x", addName "Show displayer manager" $ spawn "~/.config/rofi/scripts/rofi-display")
+  , ("M-p c", addName "Show colorscheme prompt" $ spawn "~/.config/rofi/scripts/rofi-colorscheme")
+  , ("M-p t", addName "Show tldr prompt" $ spawn "~/.config/rofi/scripts/rofi-tldr")
   ]
 
   ^++^ subKeys "Favorite programs"
@@ -161,7 +168,9 @@ myKeys c =
 
   ^++^ subKeys "Workspaces"
   [ ("M-<Right>", addName "Switch to next workspace" $ moveTo Next nonNSP)
+  , ("M-S-<Right>", addName "Send to next workspace" $ shiftTo Next nonNSP)
   , ("M-<Left>", addName "Switch to prev workspace" $ moveTo Prev nonNSP)
+  , ("M-S-<Left>", addName "Send to prev workspace" $ shiftTo Prev nonNSP)
   , ("M-<Esc>", addName "Switch to last visited workspace" $ toggleWS' [scratchpadWorkspaceTag])
   ]
 
@@ -210,13 +219,46 @@ myKeys c =
 
   ^++^ subKeys "Scratchpads"
   [ ("M-y", addName "Toggle scratchpad terminal" $ namedScratchpadAction myScratchpads "term")
+  , ("M-C-y", addName "Toggle scratchpad terminal" $ namedScratchpadAction myScratchpads "term")
   , ("M-C-x", addName "Toggle scratchpad system monitor" $ namedScratchpadAction myScratchpads "top")
-  , ("M-C-f", addName "Toggle scratchpad file manager" $ namedScratchpadAction myScratchpads "ranger")
+  , ("M-C-f", addName "Toggle scratchpad file manager" $ namedScratchpadAction myScratchpads "files")
   , ("M-C-v", addName "Toggle scratchpad volume control" $ namedScratchpadAction myScratchpads "volume")
   , ("M-C-a", addName "Toggle scratchpad audio player" $ namedScratchpadAction myScratchpads "mpc")
   , ("M-C-p", addName "Toggle scratchpad password manager" $ namedScratchpadAction myScratchpads "pass")
+  , ("M-C-n", addName "Toggle scratchpad quick notes" $ namedScratchpadAction myScratchpads "notes")
+  , ("M-C-s", addName "Toggle scratchpad screenshots" $ namedScratchpadAction myScratchpads "picscr")
+  , ("M-C-w", addName "Toggle scratchpad wallpapers" $ namedScratchpadAction myScratchpads "picwal")
+  , ("M-C-c", addName "Toggle scratchpad calculator" $ namedScratchpadAction myScratchpads "calc")
   ]
-  where nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
+  where
+    nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
+    showColorsCmd = concat ["yad --text-info --center --geometry=400x600 --title \"XMonad colors\" --button=yad-close:1 --text \">> XMonad colors"
+      , "\nnormalBorderColor=", myNormalBorderColor
+      , "\nfocusedBorderColor=", myFocusedBorderColor
+      , "\n\n>> XResources colors"
+      , "\nforeground=", xColorFg
+      , "\nbackground=", xColorBg
+      , "\ncolor0=", color0
+      , "\ncolor1=", color1
+      , "\ncolor2=", color2
+      , "\ncolor3=", color3
+      , "\ncolor4=", color4
+      , "\ncolor5=", color5
+      , "\ncolor6=", color6
+      , "\ncolor7=", color7
+      , "\ncolor8=", color8
+      , "\ncolor9=", color9
+      , "\ncolor10=", color10
+      , "\ncolor11=", color11
+      , "\ncolor12=", color12
+      , "\ncolor13=", color13
+      , "\ncolor14=", color14
+      , "\ncolor15=", color15
+      , "\n\n>> XResources fonts"
+      , "\nfont=", xFont
+      , "\""
+      ]
+    showXresCmd = "xrdb -query | yad --text-info --center --geometry=400x600 --title \"Xresources\" --button=yad-close:1"
 
 -- }}}
 
@@ -250,21 +292,22 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 --
 myLayout = avoidStruts
   $ mkToggle (NOBORDERS ?? FULL ?? EOT)
-  $ spacingWithEdge myUselessGap (tiled ||| Full ||| Mirror tiled ||| threeCol)
+  $ spacingWithEdge myUselessGap (tiled ||| Full ||| Mirror tiled ||| magnified ||| threeCol)
   where
-     -- default tiling algorithm partitions the screen into two panes
-     tiled    = Tall nmaster delta ratio
+    -- default tiling algorithm partitions the screen into two panes
+    tiled    = Tall nmaster delta ratio
 
-     threeCol = ThreeCol nmaster delta ratio
+    threeCol = ThreeCol nmaster delta ratio
+    magnified = Mag.magnifier tiled
 
-     -- The default number of windows in the master pane
-     nmaster  = 1
+    -- The default number of windows in the master pane
+    nmaster  = 1
 
-     -- Default proportion of screen occupied by master pane
-     ratio    = 1/2
+    -- Default proportion of screen occupied by master pane
+    ratio    = 1/2
 
-     -- Percent of screen to increment by when resizing panes
-     delta    = 3/100
+    -- Percent of screen to increment by when resizing panes
+    delta    = 3/100
 -- }}}
 
 -- {{{ Scratchpads
@@ -272,10 +315,14 @@ myScratchpads :: [NamedScratchpad]
 myScratchpads =
   [ NS "term"   spawnTerm findTerm manageTerm
   , NS "top"    spawnTop  findTop  manageTop
-  , NS "ranger" spawnRgr  findRgr  manageRgr
+  , NS "files"  spawnRgr  findRgr  manageRgr
   , NS "volume" spawnVol  findVol  manageVol
   , NS "mpc"    spawnMpc  findMpc  manageMpc
   , NS "pass"   spawnPass findPass managePass
+  , NS "notes"  spawnNote findNote manageNote
+  , NS "picscr" spawnScrot findScrot manageScrot
+  , NS "picwal" spawnWall findWall manageWall
+  , NS "calc"   spawnCalc findCalc manageCalc
   ]
   where
     spawnTerm  = myTerminal ++ " --title scratchpad"
@@ -294,7 +341,7 @@ myScratchpads =
                  w = 0.9
                  t = 0.95 - h
                  l = 0.95 - w
-    spawnRgr   = myTerminal ++ " --title ranger -e ranger"
+    spawnRgr   = myTerminal ++ " --title ranger -e lfub"
     findRgr    = title =? "ranger"
     manageRgr  = customFloating $ W.RationalRect l t w h
                where
@@ -326,6 +373,38 @@ myScratchpads =
                  w = 0.9
                  t = 0.95 - h
                  l = 0.95 - w
+    spawnNote  = "subl3"
+    findNote   = className =? "Subl3"
+    manageNote = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.6
+                 w = 0.6
+                 t = 0.8 - h
+                 l = 0.8 - w
+    spawnScrot  = "nsxiv --class NsxivScrot -t ~/Pictures/Screenshots"
+    findScrot   = resource =? "NsxivScrot"
+    manageScrot = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnWall  = "nsxiv --class NsxivWall -t -r ~/Pictures/Wallpapers"
+    findWall   = resource =? "NsxivWall"
+    manageWall = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnCalc  = "qalculate-gtk"
+    findCalc   = className =? "Qalculate-gtk"
+    manageCalc = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.6
+                 w = 0.6
+                 t = 0.8 - h
+                 l = 0.8 - w
 -- }}}
 
 -- {{{ Window rules
@@ -356,10 +435,15 @@ myManageHook = namedScratchpadManageHook myScratchpads
     , className =? "toolbar"        --> doFloat
     , className =? "file_progress"  --> doFloat
     , className =? "Yad"            --> doFloat
+    , className =? "Gsimplecal"     --> doFloat
+    , className =? "Nm-connection-editor" --> doFloat
+    , role      =? "pop-up"         --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
     , isFullscreen --> doFullFloat
     ]
+    where
+      role = stringProperty "WM_WINDOW_ROLE"
 -- }}}
 
 -- {{{ Event handling
@@ -372,7 +456,7 @@ myManageHook = namedScratchpadManageHook myScratchpads
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = swallowEventHook (className =? "Alacritty" <||> className =? "Kitty" <||> className =? "Xterm") (return True)
+myEventHook = swallowEventHook (className =? "Alacritty" <||> className =? "kitty" <||> className =? "Xterm") (return True)
 -- }}}
 
 -- {{{ Status bars and logging
@@ -391,7 +475,7 @@ myLogHook = updatePointer (0.5, 0.5) (0, 0)
 
 myStartupHook :: X ()
 myStartupHook = do
-  let wallpaperCmd      = "feh --bg-scale " ++ myWallpaperPath
+  let wallpaperCmd      = "feh --bg-scale " ++ myWallpaperPath ++ " " ++ myWallpaperPath
       polybarCmd        = "~/.config/polybar/launch.sh"
       picomCmd          = "picom"
       clipboardHistCmd  = "greenclip daemon"
@@ -410,8 +494,8 @@ myStartupHook = do
     , spawnOnce polkitCmd
     , spawnOnce notifCmd
     -- , spawnOnce systrayCmd
-    -- , spawnOnce netManAppletCmd
-    -- , spawnOnce sndManAppletCmd
+    , spawnOnce netManAppletCmd
+    , spawnOnce sndManAppletCmd
     -- , spawnOnce blueManAppletCmd
     -- , spawnOnce updManAppletCmd
     ]
@@ -441,24 +525,37 @@ xProp :: String -> String
 xProp = unsafePerformIO . getFromXres
 
 xFont :: String
-xFont =
-  "xft:" ++ fst (fromMaybe (xProp "*.font", "") (splitAtColon (xProp "*.font")))
-
-xFontSized :: String -> String
-xFontSized s = xFont ++ ":size=" ++ s
+xFont = xProp "*font"
 
 xColorFg :: String
-xColorFg = xProp "*.foreground"
+xColorFg = xProp "*foreground"
 
 xColorBg :: String
-xColorBg = xProp "*.background"
+xColorBg = xProp "*background"
 
 xColor :: String -> String
-xColor a = xProp $ "*.color" ++ a
+xColor a = xProp $ "*color" ++ a
+
+color0  = xColor "0"
+color1  = xColor "1"
+color2  = xColor "2"
+color3  = xColor "3"
+color4  = xColor "4"
+color5  = xColor "5"
+color6  = xColor "6"
+color7  = xColor "7"
+color8  = xColor "8"
+color9  = xColor "9"
+color10 = xColor "10"
+color11 = xColor "11"
+color12 = xColor "12"
+color13 = xColor "13"
+color14 = xColor "14"
+color15 = xColor "15"
 
 -- Border colors for unfocused and focused windows, respectively.
-myNormalBorderColor  = xColor "0"
-myFocusedBorderColor = xColor "12"
+myNormalBorderColor  = color0
+myFocusedBorderColor = color12
 -- }}}
 
 -- {{{ Main
