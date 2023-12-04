@@ -1,6 +1,7 @@
 set -x -g TERM "xterm-256color"
 set -x -g EDITOR "nvim"
 set -x -g VISUAL "nvim"
+set -x -g OPENER "rifle"
 set -g fish_user_paths "$HOME/.dotfiles/bin" "/usr/local/sbin" $fish_user_paths
 
 if not set -q abbrs_initialized
@@ -48,6 +49,7 @@ if not set -q abbrs_initialized
 
   abbr g 'git'
   abbr ga 'git add -A'
+  abbr gc1 'git clone --depth=1'
   abbr gci 'git ci'
   abbr gcim 'git ci -m'
   abbr gco 'git co'
@@ -75,12 +77,12 @@ if not set -q abbrs_initialized
   abbr showFiles 'defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 
   abbr l 'less'
-  abbr lf 'less +F'
+  abbr lf 'lfub'
 
-  if which exa > /dev/null
-    abbr ls 'exa'
-    abbr ll 'exa -l'
-    abbr la 'exa -la'
+  if which eza > /dev/null
+    abbr ls 'eza'
+    abbr ll 'eza -l'
+    abbr la 'eza -la'
   else
     switch (uname)
     case Linux

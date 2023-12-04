@@ -1,0 +1,156 @@
+# vim:filetype=config:fileencoding=utf-8:foldmethod=marker
+set shell sh
+set drawbox
+set shellopts '-eu'
+set ifs "\n"
+set scrolloff 5
+set cursorpreviewfmt "\033[7m"
+set icons
+
+set previewer ~/.config/lf/pv
+set cleaner ~/.config/lf/cls
+
+cmd open $$OPENER $fx
+cmd open-choose $OPENER_CHOOSE="true" $OPENER $fx
+# cmd open &{{
+#     case $(file --mime-type -Lb $f) in
+#         text/*|application/json) lf -remote "send $id \$$EDITOR \$fx";;
+#         *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+#     image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|avif\|tif\|ico\)\(_large\)*$" |
+#         setsid -f nsxiv -aio 2>/dev/null | while read -r file; do
+#             [ -z "$file" ] && continue
+#             lf -remote "send select \"$file\""
+#             lf -remote "send toggle"
+#         done &
+#         ;;
+#     audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
+#     video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+#     esac
+# }}
+
+cmd extract ${{
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    set -f
+    printf "%s\n\t" "$fx"
+    printf "extract?[y/N]"
+    read ans
+    [ $ans = "y" ] && {
+        case $fx in
+            *.tar.bz2)   tar xjf $fx     ;;
+            *.tar.gz)    tar xzf $fx     ;;
+            *.bz2)       bunzip2 $fx     ;;
+            *.rar)       unrar e $fx     ;;
+            *.gz)        gunzip $fx      ;;
+            *.tar)       tar xf $fx      ;;
+            *.tbz2)      tar xjf $fx     ;;
+            *.tgz)       tar xzf $fx     ;;
+            *.zip)       unzip $fx       ;;
+            *.Z)         uncompress $fx  ;;
+            *.7z)        7z x $fx        ;;
+            *.tar.xz)    tar xf $fx      ;;
+        esac
+    }
+}}
+
+# extract the current file with the right command
+# (xkcd link: https://xkcd.com/1168/)
+cmd extract ${{
+    set -f
+    case $f in
+        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+        *.tar.gz|*.tgz) tar xzvf $f;;
+        *.tar.xz|*.txz) tar xJvf $f;;
+        *.zip) unzip $f;;
+        *.rar) unrar x $f;;
+        *.7z) 7z x $f;;
+    esac
+}}
+
+# compress current file or selected files with tar and gunzip
+cmd tar ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    tar czf $1.tar.gz $1
+    rm -rf $1
+}}
+
+# compress current file or selected files with zip
+cmd zip ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    zip -r $1.zip $1
+    rm -rf $1
+}}
+
+map <enter> shell
+map N :push %mkdir<space>
+map <c-n> push :mkdir<space>
+map <c-r> reload
+map A :rename; cmd-end # at the very end
+map c push A<c-u> # new rename
+map I :rename; cmd-home # at the very beginning
+map E extract
+map C copyto
+map M moveto
+
+map Y $printf "%s" "$fx" | xclip -selection clipboard
+
+# show the result of execution of previous commands
+map ; !true
+
+map x $$f
+map X !$f
+
+map o open
+map O open-choose
+# map o &mimeopen $f
+# map O $mimeopen --ask $f
+
+# https://github.com/gokcehan/lf/wiki/Ranger#clear-mark-from-files-after-pasting
+map p : paste; clear
+
+# https://github.com/gokcehan/lf/wiki/Ranger#deleting-files--trash
+cmd trash %trash-put $fx
+map D trash
+
+map gr cd /
+map gh cd ~
+map gf cd ~/.config
+map gd cd ~/Downloads
+map gD cd ~/Documents
+map gP cd ~/Pictures
+map gW cd ~/Pictures/Wallpapers
+map gw cd ~/code/work
+map gG cd ~/code/work/git
+map gp cd ~/code/playground
+map gH cd ~/code/hobby
+map g. cd ~/code/hobby/dotfiles
+map gT cd ~/code/thirdparty
+
+map yy copy
+map dd cut
+map pp paste
+map dD console delete
+
+# https://github.com/gokcehan/lf/wiki/Integrations#exa
+cmd on-select &{{
+    lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
+}}
+
+# https://github.com/gokcehan/lf/wiki/Tips#edit-and-reload-config-file
+cmd edit-config ${{
+    $EDITOR ~/.config/lf/lfrc
+    lf -remote "send $id source ~/.config/lf/lfrc"
+}}
+map C edit-config
+
+# bulk renaming using https://github.com/dmulholl/vimv
+cmd bulkrename ${{
+    vimv -- $(basename -a -- $fx)
+
+    lf -remote "send $id load"
+    lf -remote "send $id unselect"
+}}
+map R bulkrename
