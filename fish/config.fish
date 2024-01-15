@@ -80,9 +80,9 @@ if not set -q abbrs_initialized
   abbr lf 'lfub'
 
   if which eza > /dev/null
-    abbr ls 'eza'
-    abbr ll 'eza -l'
-    abbr la 'eza -la'
+    abbr ls 'eza --color=always --group-directories-first'
+    abbr ll 'eza -l --color=always --group-directories-first'
+    abbr la 'eza -la --color=always --group-directories-first'
   else
     switch (uname)
     case Linux
