@@ -2,21 +2,21 @@
 # Scheme author: Chris Kempson (http://chriskempson.com)
 # Template author: Tinted Theming (https://github.com/tinted-theming)
 
-set -l color00 '#1d1f21'
-set -l color01 '#282a2e'
-set -l color02 '#373b41'
-set -l color03 '#969896'
+set -l color00 '#2d2d2d'
+set -l color01 '#393939'
+set -l color02 '#515151'
+set -l color03 '#999999'
 set -l color04 '#b4b7b4'
-set -l color05 '#c5c8c6'
+set -l color05 '#cccccc'
 set -l color06 '#e0e0e0'
 set -l color07 '#ffffff'
-set -l color08 '#cc6666'
-set -l color09 '#de935f'
-set -l color0A '#f0c674'
-set -l color0B '#b5bd68'
-set -l color0C '#8abeb7'
-set -l color0D '#81a2be'
-set -l color0E '#b294bb'
+set -l color08 '#f2777a'
+set -l color09 '#f99157'
+set -l color0A '#ffcc66'
+set -l color0B '#99cc99'
+set -l color0C '#66cccc'
+set -l color0D '#6699cc'
+set -l color0E '#cc99cc'
 set -l color0F '#a3685a'
 
 set -l FZF_NON_COLOR_OPTS

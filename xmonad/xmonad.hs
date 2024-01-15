@@ -60,7 +60,7 @@ myEditor        = "nvim-qt"
 
 -- Path to wallpaper to set at startup
 myWallpaperPath :: String
-myWallpaperPath = "~/Pictures/Wallpapers/FrenzyExists/Gruv/haskell.jpg"
+myWallpaperPath = "~/Pictures/Wallpapers/gruvbox/Arch-Gruvbox-wallpaper-v2-dark-amp-light-3840x2160-all-res-available-000.png"
 
 -- Useless gap around and among windows
 myUselessGap    = 5
@@ -99,7 +99,7 @@ myEssentialKeys conf@XConfig {XMonad.modMask = modm} =
     --
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) myWorkspaceKeys
-        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]] -- greedyView vs view - see https://www.reddit.com/r/xmonad/comments/ndww5/comment/c38moye/?utm_source=share&utm_medium=web2x&context=3
+        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]] -- greedyView vs view - see https://www.reddit.com/r/xmonad/comments/ndww5/comment/c38moye/?utm_source=share&utm_medium=web2x&context=3
         -- TODO Mod+Ctrl+k namapovat na W.greedyView (někdy se mi hodí explicitně prohodit workspaces mezi monitory
 
 subtitle' ::  String -> ((KeyMask, KeySym), NamedAction)
@@ -146,9 +146,11 @@ myKeys c =
   [ ("M-<Space>", addName "Show application launcher" $ spawn "rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher_colorful_style5")
   , ("M-r", addName "Show dmenu" $ spawn "dmenu_run")
   , ("M-v", addName "Show clipboard history" $ spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'")
-  , ("M-S-x", addName "Show displayer manager" $ spawn "~/.config/rofi/scripts/rofi-display")
-  , ("M-p c", addName "Show colorscheme prompt" $ spawn "~/.config/rofi/scripts/rofi-colorscheme")
-  , ("M-p t", addName "Show tldr prompt" $ spawn "~/.config/rofi/scripts/rofi-tldr")
+  , ("M-S-x", addName "Show displayer manager" $ spawn "prompt-display -r")
+  , ("M-p c", addName "Show colorscheme prompt" $ spawn "prompt-colorscheme -r")
+  , ("M-p t", addName "Show tldr prompt" $ spawn "prompt-tldr -r")
+  , ("M-p q", addName "Show logout prompt" $ spawn "prompt-logout -r")
+  , ("M-p w", addName "Show wiki prompt" $ spawn "prompt-wiki -r")
   ]
 
   ^++^ subKeys "Favorite programs"
@@ -186,7 +188,7 @@ myKeys c =
 
   ^++^ subKeys "Screenshot"
   [ ("M1-<Print>", addName "Take screenshot" $ spawn "~/bin/printscr.sh")
-  , ("M1-S-<Print>", addName "Show screenshot menu" $ spawn "~/.config/rofi/scripts/rofi-screenshot")
+  , ("M1-S-<Print>", addName "Show screenshot menu" $ spawn "prompt-screenshot -r")
   ]
 
   ^++^ subKeys "Lock screen"
@@ -479,7 +481,7 @@ myStartupHook = do
       polybarCmd        = "~/.config/polybar/launch.sh"
       picomCmd          = "picom"
       clipboardHistCmd  = "greenclip daemon"
-      polkitCmd         = "/usr/lib/polkit-kde-authentication-agent-1"
+      polkitCmd         = "lxsession"
       notifCmd          = "dunst"
       systrayCmd        = "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 5 --transparent true --tint 0x000000 --height 18"
       netManAppletCmd   = "nm-applet"
@@ -494,8 +496,8 @@ myStartupHook = do
     , spawnOnce polkitCmd
     , spawnOnce notifCmd
     -- , spawnOnce systrayCmd
-    , spawnOnce netManAppletCmd
-    , spawnOnce sndManAppletCmd
+    -- , spawnOnce netManAppletCmd
+    -- , spawnOnce sndManAppletCmd
     -- , spawnOnce blueManAppletCmd
     -- , spawnOnce updManAppletCmd
     ]

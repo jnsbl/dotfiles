@@ -8,21 +8,21 @@
 -- by Adam P. Regasz-Rethy (https://github.com/RRethy)
 -- Base16 color variables
 local colors = {
-    base00 = "#1d1f21",
-    base01 = "#282a2e",
-    base02 = "#373b41",
-    base03 = "#969896",
+    base00 = "#2d2d2d",
+    base01 = "#393939",
+    base02 = "#515151",
+    base03 = "#999999",
     base04 = "#b4b7b4",
-    base05 = "#c5c8c6",
+    base05 = "#cccccc",
     base06 = "#e0e0e0",
     base07 = "#ffffff",
-    base08 = "#cc6666",
-    base09 = "#de935f",
-    base0A = "#f0c674",
-    base0B = "#b5bd68",
-    base0C = "#8abeb7",
-    base0D = "#81a2be",
-    base0E = "#b294bb",
+    base08 = "#f2777a",
+    base09 = "#f99157",
+    base0A = "#ffcc66",
+    base0B = "#99cc99",
+    base0C = "#66cccc",
+    base0D = "#6699cc",
+    base0E = "#cc99cc",
     base0F = "#a3685a"
 }
 
@@ -46,7 +46,7 @@ local setup = function(collections)
     -- Setting highlighting and syntax
     vim.cmd('highlight clear')
     vim.cmd('syntax reset')
-    vim.g.colors_name = "base16-tomorrow-night"
+    vim.g.colors_name = "base16-tomorrow-night-eighties"
 
     -- Loop through highlighting collections
     for _, collection in pairs(collections) do
