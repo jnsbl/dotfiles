@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+#
+# A prompt for choosing color scheme.
+# Uses: flavours base16 rofi dmenu fzf
+
+source _prompt_helper 2>/dev/null
+
+main() {
+  themes=$(flavours list)
+
+  chosen=$(echo -e $themes | sed 's/ /\n/g' \
+    | ${MENU} 'theme'
+  )
+
+  if [[ $chosen == "" ]]; then
+    exit 1
+  fi
+
+  flavours apply $chosen && xrdb -merge ~/.Xresources
+
+  ps cax | grep xmonad > /dev/null
+  if [ $? -eq 0 ]; then
+    xmonad --restart
+  fi
+
+  ps cax | grep awesome > /dev/null
+  if [ $? -eq 0 ]; then
+    awesome-client 'awesome.restart()'
+  fi
+
+  ps cax | grep kitty > /dev/null
+  if [ $? -eq 0 ]; then
+    for socket in $(ls /tmp/mykitty*); do kitty @ --to unix:$socket set-colors --all ~/.config/kitty/themes/base16-$chosen-256.conf; done
+  fi
+}
+
+MENU="$(get_menu_program "$@")"
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main "$@"

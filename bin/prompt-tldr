@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# A prompt for tldr documentation.
+# Uses: tldr yad rofi dmenu fzf
+
+source _prompt_helper 2>/dev/null
+
+main() {
+  topics=$(tldr --list)
+
+  chosen=$(echo -e $topics | sed 's/, /\n/g' \
+    | ${MENU} 'tldr'
+  )
+
+  if [[ $chosen == "" ]]; then
+    exit 1
+  fi
+
+  tldr $chosen | yad --text-info \
+    --center \
+    --geometry=800x600 \
+    --button=yad-close:1 \
+    --title "tldr"
+}
+
+MENU="$(get_menu_program "$@")"
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main "$@"
