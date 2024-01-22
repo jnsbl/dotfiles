@@ -15,6 +15,7 @@ import System.IO.Unsafe (unsafePerformIO)
 
 import XMonad.Actions.CycleWS
 import XMonad.Actions.UpdatePointer
+import XMonad.Actions.WithAll (sinkAll)
 
 import XMonad.Core (installSignalHandlers)
 
@@ -45,6 +46,7 @@ import XMonad.Util.WorkspaceCompare
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 import qualified XMonad.Layout.Magnifier as Mag
+import qualified XMonad.Layout.ToggleLayouts as T (ToggleLayout(Toggle))
 
 import Graphics.X11.ExtraTypes.XorgDefault
 -- }}}
@@ -141,6 +143,13 @@ myKeys c =
   , ("M-f", addName "Toggle focused window fullscreen" $ sendMessage $ Toggle FULL)
   , ("M-C-m", addName "Toggle focused window magnified" $ sendMessage Mag.Toggle)
   ]
+
+  ^++^ subKeys "Floating windows"
+  [ ("M-S-f", addName "Toggle float layout" $ sendMessage (T.Toggle "floats"))
+  , ("M-t", addName "Sink a floating window" $ withFocused $ windows . W.sink)
+  , ("M-S-t", addName "Sink all floated windows" $ sinkAll)
+  ]
+
 
   ^++^ subKeys "Menus"
   [ ("M-<Space>", addName "Show application launcher" $ spawn "rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher_colorful_style5")
@@ -439,6 +448,7 @@ myManageHook = namedScratchpadManageHook myScratchpads
     , className =? "Yad"            --> doFloat
     , className =? "Gsimplecal"     --> doFloat
     , className =? "Nm-connection-editor" --> doFloat
+    , className =? "Blueman-manager" --> doFloat
     , role      =? "pop-up"         --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
