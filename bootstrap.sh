@@ -11,10 +11,9 @@ echo "                 Test and rank mirrors, select fastest                   "
 echo "          Configure updates (every 6hrs > daily), enable AUR             "
 echo "_________________________________________________________________________"
 # Query mirrors servers (on this continent only) to ensure updates are downloaded via the fastest HTTPS server
-pacman-mirrors --continent --api -P https
-pacman -S --noconfirm pamac
+sudo pacman-mirrors --continent --api -P https
 # Perform update, force refresh of update database files
-pamac update --force-refresh --no-confirm
+sudo pamac update --force-refresh --no-confirm
 
 
 # Daily updates instead of 4x a day. No tray icon if there are no updates. Enable AUR (Arch User Repository).
