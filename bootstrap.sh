@@ -1,24 +1,27 @@
 #!/usr/bin/env bash
 #
-# Bootstrap a new machine - install necessary packages
+# Bootstrap a new machine - configure system and install required packages
 # Inspired by https://github.com/zilexa/manjaro-gnome-post-install/blob/main/post-install.sh
+
+set -eu
 
 echo "_________________________________________________________________________"
 echo "                                                                         "
-echo "          Configure updates (every 6hrs > daily), enable AUR             "
 echo "                 Test and rank mirrors, select fastest                   "
+echo "          Configure updates (every 6hrs > daily), enable AUR             "
 echo "_________________________________________________________________________"
+# Query mirrors servers (on this continent only) to ensure updates are downloaded via the fastest HTTPS server
+pacman-mirrors --continent --api -P https
+pacman -S --noconfirm pamac
+# Perform update, force refresh of update database files
+pamac update --force-refresh --no-confirm
+
+
 # Daily updates instead of 4x a day. No tray icon if there are no updates. Enable AUR (Arch User Repository).
 sudo sed -i -e 's@RefreshPeriod = 6@RefreshPeriod = 24@g' /etc/pamac.conf
 sudo sed -Ei '/NoUpdateHideIcon/s/^#//' /etc/pamac.conf
 sudo sed -Ei '/EnableAUR/s/^#//' /etc/pamac.conf
 sudo sed -Ei '/CheckAURUpdates/s/^#//' /etc/pamac.conf
-
-
-# Query mirrors servers (on this continent only) to ensure updates are downloaded via the fastest HTTPS server
-pacman-mirrors --continent --api -P https
-# Perform update, force refresh of update database files
-pamac update --force-refresh --no-confirm
 
 
 echo "_________________________________________________________________________"
@@ -81,7 +84,7 @@ pamac install --no-confirm \
     brave-bin \
     dropbox \
     dunst \
-    espanso \
+    espanso-bin \
     feh \
     filelight \
     ghc \
@@ -119,54 +122,6 @@ pamac install --no-confirm \
 
 echo "_________________________________________________________________________"
 echo "                                                                         "
-echo "                         OPTIONAL APPLICATIONS                           "
-echo "_________________________________________________________________________"
-
-echo "====> Installing command-line packages"
-pamac install --no-confirm \
-    1password-cli \
-    arch-wiki-docs \
-    bonsai.sh-git \
-    cmatrix \
-    dex \
-    figlet \
-    gitflow-avh \
-    glava \
-    lazygit \
-    mtr \
-    ncmpcpp \
-    pipes-rs-git \
-    podman \
-    thefuck \
-    tmux \
-    youtube-dl
-
-echo "====> Installing fonts"
-pamac install --no-confirm \
-    ttf-hack-nerd \
-    ttf-jetbrains-mono-nerd \
-    ttf-terminus-nerd \
-    ttf-victor-mono-nerd
-
-echo "====> Installing GUI packages"
-pamac install --no-confirm \
-    alacritty \
-    alacritty-themes \
-    canon-pixma-mg5700-complete \
-    datovka \
-    dmenu \
-    filezilla \
-    networkmanager-dmenu-git \
-    nitrogen \
-    picard \
-    virtualbox \
-    virtualbox-guest-iso \
-    vscodium-bin \
-    vscodium-bin-marketplace
-
-
-echo "_________________________________________________________________________"
-echo "                                                                         "
-echo "                               ALL DONE                                  "
-echo "                               Enjoy :)                                  "
+echo "                  REQUIRED PACKAGES HAVE BEEN INSTALLED                  "
+echo "                                Enjoy :)                                 "
 echo "_________________________________________________________________________"
