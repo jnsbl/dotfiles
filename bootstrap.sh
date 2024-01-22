@@ -5,6 +5,9 @@
 
 set -eu
 
+# DRY_RUN="--dry-run"
+DRY_RUN=""
+
 echo "_________________________________________________________________________"
 echo "                                                                         "
 echo "                 Test and rank mirrors, select fastest                   "
@@ -30,16 +33,16 @@ echo "        Install must-have applications for various common tasks          "
 echo "_________________________________________________________________________"
 
 echo "====> Installing hardware support packages"
-pamac install --no-confirm \
+pamac install --no-confirm $DRY_RUN \
     xorg-xrandr \
     arandr \
     autorandr
-pamac build --no-confirm \
+pamac build --no-confirm $DRY_RUN \
     auto-cpufreq \
     mons
 
 echo "====> Installing command-line packages"
-pamac install --no-confirm \
+pamac install --no-confirm $DRY_RUN \
     bat \
     btop \
     fd \
@@ -63,7 +66,7 @@ pamac install --no-confirm \
     trash-cli \
     tree \
     zoxide
-pamac build --no-confirm \
+pamac build --no-confirm $DRY_RUN \
     gibo \
     mpd-mpris-bin \
     paru-bin \
@@ -72,14 +75,14 @@ pamac build --no-confirm \
     vimv
 
 echo "====> Installing fonts"
-pamac install --no-confirm \
+pamac install --no-confirm $DRY_RUN \
     ttf-font-awesome \
     ttf-mononoki-nerd
-pamac build --no-confirm \
+pamac build --no-confirm $DRY_RUN \
     ttf-recursive
 
 echo "====> Installing GUI packages"
-pamac install --no-confirm \
+pamac install --no-confirm $DRY_RUN \
     dunst \
     feh \
     filelight \
@@ -102,7 +105,7 @@ pamac install --no-confirm \
     unclutter \
     xterm \
     yad
-pamac build --no-confirm \
+pamac build --no-confirm $DRY_RUN \
     1password \
     audio-recorder \
     betterlockscreen \

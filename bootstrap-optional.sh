@@ -7,13 +7,16 @@
 
 set -eu
 
+# DRY_RUN="--dry-run"
+DRY_RUN=""
+
 echo "_________________________________________________________________________"
 echo "                                                                         "
 echo "                         OPTIONAL APPLICATIONS                           "
 echo "_________________________________________________________________________"
 
 echo "====> Installing command-line packages"
-pamac install --no-confirm \
+pamac install --no-confirm $DRY_RUN \
     arch-wiki-docs \
     cmatrix \
     dex \
@@ -25,7 +28,7 @@ pamac install --no-confirm \
     podman \
     thefuck \
     tmux
-pamac build --no-confirm \
+pamac build --no-confirm $DRY_RUN \
     1password-cli \
     bonsai.sh-git \
     gitflow-avh \
@@ -33,14 +36,14 @@ pamac build --no-confirm \
     youtube-dl
 
 echo "====> Installing fonts"
-pamac install --no-confirm \
+pamac install --no-confirm $DRY_RUN \
     ttf-hack-nerd \
     ttf-jetbrains-mono-nerd \
     ttf-terminus-nerd \
     ttf-victor-mono-nerd
 
 echo "====> Installing GUI packages"
-pamac install --no-confirm \
+pamac install --no-confirm $DRY_RUN \
     alacritty \
     datovka \
     dmenu \
@@ -49,7 +52,7 @@ pamac install --no-confirm \
     picard \
     virtualbox \
     virtualbox-guest-iso
-pamac build --no-confirm \
+pamac build --no-confirm $DRY_RUN \
     alacritty-themes \
     canon-pixma-mg5700-complete \
     vscodium-bin \
