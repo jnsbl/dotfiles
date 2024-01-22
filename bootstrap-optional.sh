@@ -14,21 +14,22 @@ echo "_________________________________________________________________________"
 
 echo "====> Installing command-line packages"
 pamac install --no-confirm \
-    1password-cli \
     arch-wiki-docs \
-    bonsai.sh-git \
     cmatrix \
     dex \
     figlet \
-    gitflow-avh \
     glava \
     lazygit \
     mtr \
     ncmpcpp \
-    pipes-rs-git \
     podman \
     thefuck \
-    tmux \
+    tmux
+pamac build --no-confirm \
+    1password-cli \
+    bonsai.sh-git \
+    gitflow-avh \
+    pipes-rs-git \
     youtube-dl
 
 echo "====> Installing fonts"
@@ -41,16 +42,16 @@ pamac install --no-confirm \
 echo "====> Installing GUI packages"
 pamac install --no-confirm \
     alacritty \
-    alacritty-themes \
-    canon-pixma-mg5700-complete \
     datovka \
     dmenu \
     filezilla \
-    networkmanager-dmenu-git \
     nitrogen \
     picard \
     virtualbox \
-    virtualbox-guest-iso \
+    virtualbox-guest-iso
+pamac build --no-confirm \
+    alacritty-themes \
+    canon-pixma-mg5700-complete \
     vscodium-bin \
     vscodium-bin-marketplace
 

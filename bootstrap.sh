@@ -31,10 +31,11 @@ echo "_________________________________________________________________________"
 
 echo "====> Installing hardware support packages"
 pamac install --no-confirm \
-    auto-cpufreq \
     xorg-xrandr \
     arandr \
-    autorandr \
+    autorandr
+pamac build --no-confirm \
+    auto-cpufreq \
     mons
 
 echo "====> Installing command-line packages"
@@ -43,7 +44,6 @@ pamac install --no-confirm \
     btop \
     fd \
     fish \
-    gibo \
     git-delta \
     glow \
     highlight \
@@ -52,11 +52,8 @@ pamac install --no-confirm \
     lua-language-server \
     mediainfo \
     mpd \
-    mpd-mpris-bin \
     neovim \
-    paru-bin \
     patch \
-    pfetch \
     playerctl \
     procs \
     redshift \
@@ -65,57 +62,64 @@ pamac install --no-confirm \
     starship \
     trash-cli \
     tree \
-    ueberzugpp \
-    vimv \
     zoxide
+pamac build --no-confirm \
+    gibo \
+    mpd-mpris-bin \
+    paru-bin \
+    pfetch \
+    ueberzugpp \
+    vimv
 
 echo "====> Installing fonts"
 pamac install --no-confirm \
     ttf-font-awesome \
-    ttf-mononoki-nerd \
+    ttf-mononoki-nerd
+pamac build --no-confirm \
     ttf-recursive
 
 echo "====> Installing GUI packages"
 pamac install --no-confirm \
+    dunst \
+    feh \
+    filelight \
+    ghc \
+    ghc-libs \
+    gsimplecal \
+    interception-caps2esc \
+    interception-tools \
+    kitty \
+    kitty-shell-integration \
+    kitty-terminfo \
+    meld \
+    neovim-qt \
+    nsxiv \
+    obsidian \
+    pasystray \
+    polybar \
+    rofi \
+    qalculate-gtk \
+    unclutter \
+    xterm \
+    yad
+pamac build --no-confirm \
     1password \
     audio-recorder \
     betterlockscreen \
     brave-bin \
     dropbox \
-    dunst \
     espanso-bin \
-    feh \
-    filelight \
-    ghc \
-    ghc-libs \
     gitahead-bin \
-    gsimplecal \
     insomnium-bin \
-    interception-caps2esc \
-    interception-tools \
     interception-vimproved-git \
-    kitty \
-    kitty-shell-integration \
-    kitty-terminfo \
-    meld \
     min \
-    neovim-qt \
-    nsxiv \
-    obsidian \
-    pasystray \
     picom-git \
-    polybar \
     polybar-themes-git \
-    rofi \
     rofi-greenclip \
-    qalculate-gtk \
     skypeforlinux-stable-bin \
     spotify \
     sublime-text-3 \
-    unclutter \
     xinit-xsession \
-    xterm \
-    yad \
     ymuse-bin
 
 
