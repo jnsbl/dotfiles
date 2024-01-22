@@ -32,6 +32,11 @@ echo "                             APPLICATIONS                                "
 echo "        Install must-have applications for various common tasks          "
 echo "_________________________________________________________________________"
 
+echo "====> Installing system development tools for building packages"
+pamac install --no-confirm $DRY_RUN \
+    make \
+    patch
+
 echo "====> Installing hardware support packages"
 pamac install --no-confirm $DRY_RUN \
     xorg-xrandr \
@@ -56,7 +61,6 @@ pamac install --no-confirm $DRY_RUN \
     mediainfo \
     mpd \
     neovim \
-    patch \
     playerctl \
     procs \
     redshift \
