@@ -112,7 +112,7 @@ pamac build --no-confirm $DRY_RUN \
     brave-bin \
     dropbox \
     espanso-bin \
-    gitahead-bin \
+    gitahead \
     insomnium-bin \
     interception-vimproved-git \
     min \
