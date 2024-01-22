@@ -84,7 +84,7 @@ pamac install --no-confirm \
     espanso \
     feh \
     filelight \
-    ghc (version?) \
+    ghc \
     ghc-libs \
     gitahead-bin \
     gsimplecal \
