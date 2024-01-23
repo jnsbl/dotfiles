@@ -125,9 +125,9 @@ pamac install --no-confirm $DRY_RUN \
     qalculate-gtk \
     unclutter \
     xorg-apps \
+    xorg-server \
     xorg-xinit \
     xorg-xmessage \
-    xorg-xserver \
     xterm \
     yad
 pamac build --no-confirm $DRY_RUN \
@@ -152,9 +152,12 @@ pamac build --no-confirm $DRY_RUN \
 echo "====> Installing XMonad"
 
 if [ "x$DRY_RUN" = "x" ]; then
+    SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
     mkdir -p ~/.config/xmonad && cd ~/.config/xmonad
-    ln -s ./xmonad/xmonad.hs ~/.config/xmonad/xmonad.hs
-    ln -s ./xmonad/stack.yaml ~/.config/xmonad/stack.yaml
+
+    ln -s $SCRIPT_DIR/xmonad/xmonad.hs ~/.config/xmonad/xmonad.hs
+    ln -s $SCRIPT_DIR/xmonad/stack.yaml ~/.config/xmonad/stack.yaml
+
     git clone https://github.com/xmonad/xmonad
     git clone https://github.com/xmonad/xmonad-contrib
 else
