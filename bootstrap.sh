@@ -54,12 +54,15 @@ pamac install --no-confirm $DRY_RUN \
     btop \
     fd \
     fish \
+    fisher \
     git-delta \
     glow \
     highlight \
     jq \
     lf \
+    libnotify \
     lua-language-server \
+    maim \
     mediainfo \
     mpd \
     neovim \
@@ -69,10 +72,14 @@ pamac install --no-confirm $DRY_RUN \
     ripgrep \
     shotgun \
     starship \
+    tldr \
     trash-cli \
     tree \
+    xclip \
+    xdotool \
     zoxide
 pamac build --no-confirm $DRY_RUN \
+    flavours \
     gibo \
     mpd-mpris-bin \
     paru-bin \
