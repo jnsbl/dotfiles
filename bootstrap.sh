@@ -10,14 +10,9 @@ DRY_RUN=""
 
 echo "_________________________________________________________________________"
 echo "                                                                         "
-echo "                 Test and rank mirrors, select fastest                   "
 echo "          Configure updates (every 6hrs > daily), enable AUR             "
+echo "                 Test and rank mirrors, select fastest                   "
 echo "_________________________________________________________________________"
-# Query mirrors servers (on this continent only) to ensure updates are downloaded via the fastest HTTPS server
-sudo pacman-mirrors --continent --api -P https
-# Perform update, force refresh of update database files
-sudo pamac update --force-refresh --no-confirm
-
 
 # Daily updates instead of 4x a day. No tray icon if there are no updates. Enable AUR (Arch User Repository).
 sudo sed -i -e 's@RefreshPeriod = 6@RefreshPeriod = 24@g' /etc/pamac.conf
@@ -26,6 +21,11 @@ sudo sed -Ei '/EnableAUR/s/^#//' /etc/pamac.conf
 sudo sed -Ei '/CheckAURUpdates/s/^#//' /etc/pamac.conf
 sudo sed -Ei '/KeepNumPackages/s/^#//' /etc/pamac.conf
 sudo sed -Ei '/KeepNumPackages/s/KeepNumPackages = 3/KeepNumPackages = 1/' /etc/pamac.conf
+
+# Query mirrors servers (on this continent only) to ensure updates are downloaded via the fastest HTTPS server
+sudo pacman-mirrors --continent --api -P https
+# Perform update, force refresh of update database files
+sudo pamac update --force-refresh --no-confirm
 
 
 echo "_________________________________________________________________________"
@@ -36,8 +36,11 @@ echo "_________________________________________________________________________"
 
 echo "====> Installing system development tools for building packages"
 pamac install --no-confirm $DRY_RUN \
+    autoconf \
+    automake \
     make \
-    patch
+    patch \
+    pkgconf
 
 echo "====> Installing hardware support packages"
 pamac install --no-confirm $DRY_RUN \
@@ -77,6 +80,7 @@ pamac install --no-confirm $DRY_RUN \
     tree \
     xclip \
     xdotool \
+    xorg-xinput \
     zoxide
 pamac build --no-confirm $DRY_RUN \
     flavours \
@@ -127,7 +131,6 @@ pamac build --no-confirm $DRY_RUN \
     espanso-bin \
     gitahead \
     insomnium-bin \
-    interception-vimproved-git \
     min \
     picom-git \
     polybar-themes-git \
