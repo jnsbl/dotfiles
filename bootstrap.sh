@@ -24,6 +24,8 @@ sudo sed -i -e 's@RefreshPeriod = 6@RefreshPeriod = 24@g' /etc/pamac.conf
 sudo sed -Ei '/NoUpdateHideIcon/s/^#//' /etc/pamac.conf
 sudo sed -Ei '/EnableAUR/s/^#//' /etc/pamac.conf
 sudo sed -Ei '/CheckAURUpdates/s/^#//' /etc/pamac.conf
+sudo sed -Ei '/KeepNumPackages/s/^#//' /etc/pamac.conf
+sudo sed -Ei '/KeepNumPackages/s/KeepNumPackages = 3/KeepNumPackages = 1/' /etc/pamac.conf
 
 
 echo "_________________________________________________________________________"
