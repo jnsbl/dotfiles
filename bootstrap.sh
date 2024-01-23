@@ -111,6 +111,10 @@ pamac install --no-confirm $DRY_RUN \
     kitty \
     kitty-shell-integration \
     kitty-terminfo \
+    libx11 \
+    libxft \
+    libxinerama \
+    libxss \
     meld \
     neovim-qt \
     nsxiv \
@@ -120,6 +124,10 @@ pamac install --no-confirm $DRY_RUN \
     rofi \
     qalculate-gtk \
     unclutter \
+    xorg-apps \
+    xorg-xinit \
+    xorg-xmessage \
+    xorg-xserver \
     xterm \
     yad
 pamac build --no-confirm $DRY_RUN \
@@ -140,6 +148,29 @@ pamac build --no-confirm $DRY_RUN \
     sublime-text-3 \
     xinit-xsession \
     ymuse-bin
+
+echo "====> Installing XMonad"
+
+if [ "x$DRY_RUN" = "x" ]; then
+    mkdir -p ~/.config/xmonad && cd ~/.config/xmonad
+    ln -s ./xmonad/xmonad.hs ~/.config/xmonad/xmonad.hs
+    ln -s ./xmonad/stack.yaml ~/.config/xmonad/stack.yaml
+    git clone https://github.com/xmonad/xmonad
+    git clone https://github.com/xmonad/xmonad-contrib
+else
+    echo "Create ~/.config/xmonad directory"
+    echo "Symlink xmonad.hs and stack.yaml"
+    echo "Clone git repos: xmonad, xmonad-contrib"
+fi
+
+pamac install --no-confirm $DRY_RUN \
+    stack
+
+if [ "x$DRY_RUN" = "x" ]; then
+    stack install
+else
+    echo "Build XMonad using Stack"
+fi
 
 
 echo "_________________________________________________________________________"
