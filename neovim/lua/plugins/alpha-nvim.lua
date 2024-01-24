@@ -12,6 +12,7 @@ startify.section.bottom_buttons.val = {
   startify.button("B", "Polybar config", ":e ~/.config/polybar/config.ini<CR>"),
   startify.button("S", "Ranger scope", ":e ~/.config/ranger/scope.sh<CR>"),
   startify.button("F", "Fish config", ":e ~/.config/fish/config.fish<CR>"),
+  startify.button("D", "Dotfiles config", ":e ~/code/hobby/dotfiles/install.conf.yaml<CR>"),
   startify.button("q", "Quit Neovim" , ":qa<CR>"),
 }
 
