@@ -57,7 +57,7 @@ import Graphics.X11.ExtraTypes.XorgDefault
 myTerminal      = "kitty"
 
 myBrowser       = "min"
-myFileManager   = "pcmanfm"
+myFileManager   = "thunar"
 myEditor        = "nvim-qt"
 
 -- Path to wallpaper to set at startup
@@ -65,7 +65,7 @@ myWallpaperPath :: String
 myWallpaperPath = "~/Pictures/Wallpapers/gruvbox/Arch-Gruvbox-wallpaper-v2-dark-amp-light-3840x2160-all-res-available-000.png"
 
 -- Useless gap around and among windows
-myUselessGap    = 5
+myUselessGap    = 10
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -85,7 +85,7 @@ myWorkspaceKeys = [xK_plus,xK_ecaron,xK_scaron,xK_ccaron,xK_rcaron,xK_zcaron,xK_
 -- myWorkspaceKeys = [xK_1 .. xK_9] -- en-us keyboard
 
 -- Width of the window border in pixels.
-myBorderWidth   = 1
+myBorderWidth   = 2
 -- }}}
 
 -- {{{ Key bindings
@@ -210,8 +210,8 @@ myKeys c =
   ]
 
   ^++^ subKeys "Brightness controls"
-  [ ("<XF86MonBrightnessUp>", addName "Increase brightness" $ spawn "brightnessctl --device=nvidia_wmi_ec_backlight set +3%")
-  , ("<XF86MonBrightnessDown>", addName "Decrease brightness" $ spawn "brightnessctl --device=nvidia_wmi_ec_backlight set 3%-")
+  [ ("<XF86MonBrightnessUp>", addName "Increase brightness" $ spawn "brightnessctl --device=intel_backlight set +3%")
+  , ("<XF86MonBrightnessDown>", addName "Decrease brightness" $ spawn "brightnessctl --device=intel_backlight set 3%-")
   ]
 
   ^++^ subKeys "Audio controls"
@@ -303,12 +303,13 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 --
 myLayout = avoidStruts
   $ mkToggle (NOBORDERS ?? FULL ?? EOT)
-  $ spacingWithEdge myUselessGap (tiled ||| Full ||| Mirror tiled ||| magnified ||| threeCol)
+  $ spacingWithEdge myUselessGap (tiled ||| Full ||| threeColMid ||| Mirror tiled ||| magnified ||| threeCol)
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled    = Tall nmaster delta ratio
 
     threeCol = ThreeCol nmaster delta ratio
+    threeColMid = ThreeColMid nmaster delta ratio
     magnified = Mag.magnifier tiled
 
     -- The default number of windows in the master pane
@@ -503,11 +504,11 @@ myStartupHook = do
     , spawn     polybarCmd
     , spawnOnce picomCmd
     , spawnOnce clipboardHistCmd
-    , spawnOnce polkitCmd
+    -- , spawnOnce polkitCmd
     , spawnOnce notifCmd
     -- , spawnOnce systrayCmd
-    -- , spawnOnce netManAppletCmd
-    -- , spawnOnce sndManAppletCmd
+    , spawnOnce netManAppletCmd
+    , spawnOnce sndManAppletCmd
     -- , spawnOnce blueManAppletCmd
     -- , spawnOnce updManAppletCmd
     ]
