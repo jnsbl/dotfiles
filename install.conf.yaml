@@ -69,6 +69,7 @@
     ~/.local/bin/prompt-tldr: bin/prompt-tldr
     ~/.local/bin/prompt-wiki: bin/prompt-wiki
     ~/.local/bin/reloadnvim: bin/reloadnvim
+    ~/.local/bin/rifle: bin/rifle
     ~/.local/bin/toggle_dunst.sh: bin/toggle_dunst.sh
     ~/.local/share/nvim/site/pack/packer/start/packer.nvim: ext/packer.nvim
     ~/.pryrc: ruby/pryrc
