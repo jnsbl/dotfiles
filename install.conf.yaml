@@ -29,6 +29,7 @@
       if: '[ `uname` = Darwin ]'
       path: karabiner.json
     ~/.config/lf: lf
+    ~/.config/mpd/mpd.conf: mpd/mpd.conf
     ~/.config/nvim: neovim
     ~/.config/nsxiv: nsxiv
     ~/.config/picom.conf: picom.conf
