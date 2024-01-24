@@ -14,7 +14,7 @@ if exists(':GuiFont')
   " GuiFont! mononoki Nerd Font:h10.5
   " GuiFont! Overpass Mono:h10
   " GuiFont! ProFontIIx Nerd Font:h10
-  GuiFont! Recursive Mono Casual Static:h10.5
+  GuiFont! Recursive Mono Casual Static:h12
   " GuiFont! Recursive Mono Linear Static:h10.5
   " GuiFont! ShureTechMono Nerd Font:h11
   " GuiFont! Sometype Mono:h10.5

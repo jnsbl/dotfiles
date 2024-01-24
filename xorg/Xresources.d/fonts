@@ -5,4 +5,4 @@ Xft.autohint: true
 Xft.hintstyle: hintfull
 Xft.lcdfilter: lcdfilter
 
-*font: xft:Recursive Mono Casual Static:size=10
+*font: xft:Recursive Mono Casual Static:size=12
