@@ -178,6 +178,24 @@ fi
 
 echo "_________________________________________________________________________"
 echo "                                                                         "
+echo "                         Configure system                                "
+echo "_________________________________________________________________________"
+
+echo "====> Using fish as default shell"
+chsh -s /usr/bin/fish
+
+echo "====> Enabling SysRq key (REISUB, REISUO)"
+# If the OS ever freezes completely, Linux allows you to use your keyboard to
+# perform a graceful reboot or power-off, through combination of keys.
+# This prevents any kind of filesystem damage or drive hardware damage,
+# especially on HDDs.
+# The following enables the key combination.
+echo kernel.sysrq=1 | sudo tee --append /etc/sysctl.d/99-sysctl.conf
+# See https://forum.manjaro.org/t/howto-reboot-turn-off-your-frozen-computer-reisub-reisuo/3855
+
+
+echo "_________________________________________________________________________"
+echo "                                                                         "
 echo "                  REQUIRED PACKAGES HAVE BEEN INSTALLED                  "
 echo "                                Enjoy :)                                 "
 echo "_________________________________________________________________________"
