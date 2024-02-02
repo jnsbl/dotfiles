@@ -62,6 +62,7 @@
     ~/.jrubyrc: ruby/jrubyrc
     ~/.local/bin/mvln: bin/mvln
     ~/.local/bin/printscr.sh: bin/printscr.sh
+    ~/.local/bin/_prompt_helper: bin/_prompt_helper
     ~/.local/bin/prompt-colorscheme: bin/prompt-colorscheme
     ~/.local/bin/prompt-display: bin/prompt-display
     ~/.local/bin/prompt-logout: bin/prompt-logout
