@@ -124,6 +124,8 @@ pamac install --no-confirm $DRY_RUN \
     rofi \
     qalculate-gtk \
     unclutter \
+    xmonad-contrib-git \
+    xmonad-git \
     xorg-apps \
     xorg-server \
     xorg-xinit \
@@ -148,32 +150,6 @@ pamac build --no-confirm $DRY_RUN \
     sublime-text-3 \
     xinit-xsession \
     ymuse-bin
-
-echo "====> Installing XMonad"
-
-if [ "x$DRY_RUN" = "x" ]; then
-    SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-    mkdir -p ~/.config/xmonad && cd ~/.config/xmonad
-
-    ln -s $SCRIPT_DIR/xmonad/xmonad.hs ~/.config/xmonad/xmonad.hs
-    ln -s $SCRIPT_DIR/xmonad/stack.yaml ~/.config/xmonad/stack.yaml
-
-    git clone https://github.com/xmonad/xmonad
-    git clone https://github.com/xmonad/xmonad-contrib
-else
-    echo "Create ~/.config/xmonad directory"
-    echo "Symlink xmonad.hs and stack.yaml"
-    echo "Clone git repos: xmonad, xmonad-contrib"
-fi
-
-pamac install --no-confirm $DRY_RUN \
-    stack
-
-if [ "x$DRY_RUN" = "x" ]; then
-    stack install
-else
-    echo "Build XMonad using Stack"
-fi
 
 
 echo "_________________________________________________________________________"
