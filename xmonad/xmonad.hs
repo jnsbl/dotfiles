@@ -1,6 +1,6 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
 -- {{{ Imports
-import XMonad
+import XMonad hiding ( (|||) ) -- https://wiki.haskell.org/Xmonad/General_xmonad.hs_config_tips#Binding_keys_to_a_specific_layout
 
 import Data.Bifunctor (bimap)
 import Data.Char as DC
@@ -14,6 +14,7 @@ import System.IO
 import System.IO.Unsafe (unsafePerformIO)
 
 import XMonad.Actions.CycleWS
+import XMonad.Actions.Promote
 import XMonad.Actions.UpdatePointer
 import XMonad.Actions.WithAll (sinkAll)
 
@@ -27,10 +28,12 @@ import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.WindowSwallowing
 
+import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
 
@@ -133,6 +136,7 @@ myKeys c =
   , ("M-j", addName "Move focus to next window" $ windows W.focusDown)
   , ("M-k", addName "Move focus to prev window" $ windows W.focusUp)
   , ("M-m", addName "Move focus to master window" $ windows W.focusMaster)
+  , ("M-S-m", addName "Move focused window to master" $ promote)
   , ("M-S-j", addName "Swap focused window with next window" $ windows W.swapDown)
   , ("M-S-k", addName "Swap focused window with prev window" $ windows W.swapUp)
   ]
@@ -149,7 +153,6 @@ myKeys c =
   , ("M-t", addName "Sink a floating window" $ withFocused $ windows . W.sink)
   , ("M-S-t", addName "Sink all floated windows" $ sinkAll)
   ]
-
 
   ^++^ subKeys "Menus"
   [ ("M-<Space>", addName "Show application launcher" $ spawn "rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher_colorful_style5")
@@ -188,6 +191,11 @@ myKeys c =
   ^++^ subKeys "Layouts"
   [ ("M1-<Space>", addName "Switch to next layout" $ sendMessage NextLayout)
   , ("M1-S-<Space>", addName "Switch to first layout" $ sendMessage FirstLayout)
+  , ("M1-S-t", addName "Switch to tall layout" $ sendMessage $ JumpToLayout "tall")
+  , ("M1-S-w", addName "Switch to wide layout" $ sendMessage $ JumpToLayout "wide")
+  , ("M1-S-f", addName "Switch to full layout" $ sendMessage $ JumpToLayout "full")
+  , ("M1-S-z", addName "Switch to zoom layout" $ sendMessage $ JumpToLayout "zoom")
+  , ("M1-S-m", addName "Switch to threeColMid layout" $ sendMessage $ JumpToLayout "threeColMid")
   ]
 
   ^++^ subKeys "Increase/decrease windows in master pane"
@@ -303,14 +311,15 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 --
 myLayout = avoidStruts
   $ mkToggle (NOBORDERS ?? FULL ?? EOT)
-  $ spacingWithEdge myUselessGap (tiled ||| Full ||| threeColMid ||| Mirror tiled ||| magnified ||| threeCol)
+  $ spacingWithEdge myUselessGap (tall ||| full ||| threeColMid ||| wide ||| zoom ||| threeCol)
   where
     -- default tiling algorithm partitions the screen into two panes
-    tiled    = Tall nmaster delta ratio
-
-    threeCol = ThreeCol nmaster delta ratio
-    threeColMid = ThreeColMid nmaster delta ratio
-    magnified = Mag.magnifier tiled
+    tall        = renamed [Replace "tall"] (Tall nmaster delta ratio)
+    wide        = renamed [Replace "wide"] (Mirror (Tall nmaster delta (3/5)))
+    full        = renamed [Replace "full"] (Full)
+    threeCol    = renamed [Replace "threeCol"] (ThreeCol nmaster delta ratio)
+    threeColMid = renamed [Replace "threeColMid"] (ThreeColMid nmaster delta ratio)
+    zoom        = renamed [Replace "zoom"] (Mag.magnifier tall)
 
     -- The default number of windows in the master pane
     nmaster  = 1
