@@ -169,6 +169,13 @@ echo "====> Enabling SysRq key (REISUB, REISUO)"
 echo kernel.sysrq=1 | sudo tee --append /etc/sysctl.d/99-sysctl.conf
 # See https://forum.manjaro.org/t/howto-reboot-turn-off-your-frozen-computer-reisub-reisuo/3855
 
+echo "====> Configuring keyboard"
+localectl --no-convert set-x11-keymap cz,us pc105 ,intl grp:rctrl_rshift_toggle,terminate:ctrl_alt_bks
+
+echo "====> Starting udevmon.service (for interception-tools to work)"
+systemctl enable udevmon.service
+systemctl start udevmon.service
+
 
 echo "_________________________________________________________________________"
 echo "                                                                         "
