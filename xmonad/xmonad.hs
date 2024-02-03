@@ -204,7 +204,7 @@ myKeys c =
   ]
 
   ^++^ subKeys "Screenshot"
-  [ ("M1-<Print>", addName "Take screenshot" $ spawn "~/bin/printscr.sh")
+  [ ("M1-<Print>", addName "Take screenshot" $ spawn "printscr.sh")
   , ("M1-S-<Print>", addName "Show screenshot menu" $ spawn "prompt-screenshot -r")
   ]
 
