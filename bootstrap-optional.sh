@@ -33,7 +33,8 @@ pamac build --no-confirm $DRY_RUN \
     bonsai.sh-git \
     gitflow-avh \
     pipes-rs-git \
-    youtube-dl
+    youtube-dl \
+    zulu-jre-fx-bin
 
 echo "====> Installing fonts"
 pamac install --no-confirm $DRY_RUN \
@@ -48,6 +49,8 @@ pamac install --no-confirm $DRY_RUN \
     datovka \
     dmenu \
     filezilla \
+    font-manager \
+    libreoffice-fresh \
     nitrogen \
     picard \
     virtualbox \

@@ -44,36 +44,45 @@ pamac install --no-confirm $DRY_RUN \
 
 echo "====> Installing hardware support packages"
 pamac install --no-confirm $DRY_RUN \
-    xorg-xrandr \
     arandr \
-    autorandr
+    autorandr \
+    brightnessctl \
+    xorg-xrandr
 pamac build --no-confirm $DRY_RUN \
+    asoundconf \
     auto-cpufreq \
     mons
 
 echo "====> Installing command-line packages"
 pamac install --no-confirm $DRY_RUN \
+    atool \
     bat \
     btop \
+    eza \
     fd \
     fish \
     fisher \
     git-delta \
     glow \
     highlight \
+    imagemagick \
     jq \
     lf \
     libnotify \
     lua-language-server \
+    lynx \
     maim \
     mediainfo \
     mpd \
     neovim \
+    ntp \
+    pandoc-cli \
     playerctl \
     procs \
     redshift \
     ripgrep \
     shotgun \
+    source-highlight \
     starship \
     tldr \
     trash-cli \
@@ -142,7 +151,7 @@ pamac build --no-confirm $DRY_RUN \
     gitahead \
     insomnium-bin \
     min \
-    picom-git \
+    picom-ftlabs-git \
     polybar-themes-git \
     rofi-greenclip \
     skypeforlinux-stable-bin \
