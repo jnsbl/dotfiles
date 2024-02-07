@@ -51,6 +51,7 @@ pamac install --no-confirm $DRY_RUN \
 pamac build --no-confirm $DRY_RUN \
     asoundconf \
     auto-cpufreq \
+    ideapad-cm \
     mons
 
 echo "====> Installing command-line packages"
@@ -184,6 +185,12 @@ localectl --no-convert set-x11-keymap cz,us pc105 ,intl grp:rctrl_rshift_toggle,
 echo "====> Starting udevmon.service (for interception-tools to work)"
 systemctl enable udevmon.service
 systemctl start udevmon.service
+
+echo "====> Setting up interception-tools (caps2esc)"
+sudo cp _etc/interception/udevmon.d/caps2esc.yml /etc/interception/udevmon.d/
+
+echo "====> Setting up laptop battery conservation mode"
+ideapad-cm enable
 
 
 echo "_________________________________________________________________________"
