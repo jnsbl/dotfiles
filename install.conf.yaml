@@ -28,6 +28,7 @@
     ~/.config/karabiner/karabiner.json:
       if: '[ `uname` = Darwin ]'
       path: karabiner.json
+    ~/.config/kitty: kitty
     ~/.config/lf: lf
     ~/.config/mpd/mpd.conf: mpd/mpd.conf
     ~/.config/nvim: neovim
