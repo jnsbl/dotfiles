@@ -116,7 +116,6 @@ pamac install --no-confirm $DRY_RUN \
     ghc \
     ghc-libs \
     gsimplecal \
-    interception-caps2esc \
     interception-tools \
     kitty \
     kitty-shell-integration \
@@ -186,8 +185,9 @@ echo "====> Starting udevmon.service (for interception-tools to work)"
 systemctl enable udevmon.service
 systemctl start udevmon.service
 
-echo "====> Setting up interception-tools (caps2esc)"
-sudo cp _etc/interception/udevmon.d/caps2esc.yml /etc/interception/udevmon.d/
+echo "====> Setting up interception-tools (vimproved)"
+sudo cp _etc/interception-vimproved/config.yaml /etc/interception-vimproved/
+sudo cp _etc/interception/udevmon.d/vimproved.yml /etc/interception/udevmon.d/
 
 echo "====> Setting up laptop battery conservation mode"
 ideapad-cm enable
