@@ -1,7 +1,8 @@
+set -x -g SHELL "/usr/bin/fish"
 set -x -g TERM "xterm-256color"
 set -x -g EDITOR "nvim"
 set -x -g VISUAL "nvim"
-set -x -g OPENER "rifle"
+# set -x -g OPENER "rifle"
 set -g fish_user_paths "$HOME/.dotfiles/bin" "/usr/local/sbin" $fish_user_paths
 
 if not set -q abbrs_initialized
