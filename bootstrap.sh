@@ -103,6 +103,7 @@ pamac build --no-confirm $DRY_RUN \
 
 echo "====> Installing fonts"
 pamac install --no-confirm $DRY_RUN \
+    noto-fonts-emoji \
     ttf-font-awesome \
     ttf-mononoki-nerd
 pamac build --no-confirm $DRY_RUN \
