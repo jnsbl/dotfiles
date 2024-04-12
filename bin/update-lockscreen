@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+betterlockscreen --update ~/Pictures/Wallpapers/DistroTube/0072.jpg --fx dim,blur
+notify-send "Lock screen has been updated"
