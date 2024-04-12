@@ -1,6 +1,6 @@
 -- bradcush/base16-nvim (https://github.com/bradcush/base16-nvim)
 -- by Bradley Cushing (https://github.com/bradcush)
--- Tomorrow Night scheme by Chris Kempson (http://chriskempson.com)
+-- Eighties scheme by Chris Kempson (http://chriskempson.com)
 -- Based on existing work with references below
 -- base16-vim (https://github.com/chriskempson/base16-vim)
 -- by Chris Kempson (http://chriskempson.com)
@@ -11,11 +11,11 @@ local colors = {
     base00 = "#2d2d2d",
     base01 = "#393939",
     base02 = "#515151",
-    base03 = "#999999",
-    base04 = "#b4b7b4",
-    base05 = "#cccccc",
-    base06 = "#e0e0e0",
-    base07 = "#ffffff",
+    base03 = "#747369",
+    base04 = "#a09f93",
+    base05 = "#d3d0c8",
+    base06 = "#e8e6df",
+    base07 = "#f2f0ec",
     base08 = "#f2777a",
     base09 = "#f99157",
     base0A = "#ffcc66",
@@ -23,7 +23,7 @@ local colors = {
     base0C = "#66cccc",
     base0D = "#6699cc",
     base0E = "#cc99cc",
-    base0F = "#a3685a"
+    base0F = "#d27b53"
 }
 
 -- Highlighting for indiividual groups
@@ -46,7 +46,7 @@ local setup = function(collections)
     -- Setting highlighting and syntax
     vim.cmd('highlight clear')
     vim.cmd('syntax reset')
-    vim.g.colors_name = "base16-tomorrow-night-eighties"
+    vim.g.colors_name = "base16-eighties"
 
     -- Loop through highlighting collections
     for _, collection in pairs(collections) do

@@ -21,6 +21,11 @@ if exists(':GuiFont')
   " GuiFont! Source Code Pro:h11
   " GuiFont! Spleen 12x24:h10.5
   " GuiFont! TerminessTTF Nerd Font:h11
+else
+  " set guifont=Recursive\ Mono\ Casual\ Static:h12
+  set guifont=mononoki\ Nerd\ Font:h14
+  " set guifont=Hack\ Nerd\ Font:h13
+  " set guifont=JetBrainsMono\ Nerd\ Font:h13
 endif
 
 " Disable GUI Tabline

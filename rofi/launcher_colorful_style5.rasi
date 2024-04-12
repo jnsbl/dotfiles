@@ -75,7 +75,7 @@ listview {
     background-color:               @al;
     padding:                        10px;
     columns:                        2;
-    lines:                          10;
+    lines:                          15;
     spacing:                        0%;
     cycle:                          false;
     dynamic:                        true;
@@ -97,7 +97,7 @@ element {
     text-color:                     @fg;
     orientation:                    horizontal;
     border-radius:                  0%;
-    padding:                        1% 0.5% 1% 0.5%;
+    padding:                        0.5%;
 }
 
 element-icon {

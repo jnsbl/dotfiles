@@ -65,7 +65,7 @@ myEditor        = "nvim-qt"
 
 -- Path to wallpaper to set at startup
 myWallpaperPath :: String
-myWallpaperPath = "~/Pictures/Wallpapers/gruvbox/Arch-Gruvbox-wallpaper-v2-dark-amp-light-3840x2160-all-res-available-000.png"
+myWallpaperPath = "~/Pictures/Wallpapers/WallpaperCave/cosmos/wp4097193-cosmos-wallpapers.jpg"
 
 -- Useless gap around and among windows
 myUselessGap    = 10

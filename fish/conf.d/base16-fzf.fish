@@ -1,15 +1,15 @@
-# Base16 Tomorrow Night
+# Base16 Eighties
 # Scheme author: Chris Kempson (http://chriskempson.com)
 # Template author: Tinted Theming (https://github.com/tinted-theming)
 
 set -l color00 '#2d2d2d'
 set -l color01 '#393939'
 set -l color02 '#515151'
-set -l color03 '#999999'
-set -l color04 '#b4b7b4'
-set -l color05 '#cccccc'
-set -l color06 '#e0e0e0'
-set -l color07 '#ffffff'
+set -l color03 '#747369'
+set -l color04 '#a09f93'
+set -l color05 '#d3d0c8'
+set -l color06 '#e8e6df'
+set -l color07 '#f2f0ec'
 set -l color08 '#f2777a'
 set -l color09 '#f99157'
 set -l color0A '#ffcc66'
@@ -17,7 +17,7 @@ set -l color0B '#99cc99'
 set -l color0C '#66cccc'
 set -l color0D '#6699cc'
 set -l color0E '#cc99cc'
-set -l color0F '#a3685a'
+set -l color0F '#d27b53'
 
 set -l FZF_NON_COLOR_OPTS
 
