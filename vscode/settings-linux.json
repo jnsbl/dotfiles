@@ -28,7 +28,6 @@
     "gitlens.defaultTimeFormat": "HH:mm",
     "gitlens.defaultDateShortFormat": "DD.MM.YYYY",
     "gitlens.defaultDateFormat": "DD.MM.YYYY HH:mm",
-    "workbench.editor.untitled.hint": "hidden",
     "gitlens.codeLens.enabled": false,
     "workbench.colorTheme": "Default Light Modern",
     "terminal.external.linuxExec": "alacritty",
@@ -36,5 +35,6 @@
     "editor.fontSize": 15,
     "editor.guides.indentation": false,
     "editor.fontLigatures": true,
-    "git.openRepositoryInParentFolders": "never"
+    "git.openRepositoryInParentFolders": "never",
+    "workbench.editor.empty.hint": "hidden"
 }
