@@ -209,7 +209,7 @@ myKeys c =
   ]
 
   ^++^ subKeys "Lock screen"
-  [ ("M-M1-l", addName "Lock screen" $ spawn "betterlockscreen --lock dim")
+  [ ("M-M1-l", addName "Lock screen" $ spawn "betterlockscreen --lock dim --span")
   ]
 
   ^++^ subKeys "Notifications"
@@ -226,10 +226,10 @@ myKeys c =
   [ ("<XF86AudioMute>", addName "Mute audio" $ spawn "bash -c 'pactl set-sink-mute $(pactl get-default-sink) toggle'")
   , ("<XF86AudioRaiseVolume>", addName "Increase volume" $ spawn "bash -c 'pactl set-sink-volume $(pactl get-default-sink) +3%'")
   , ("<XF86AudioLowerVolume>", addName "Decrease volume" $ spawn "bash -c 'pactl set-sink-volume $(pactl get-default-sink) -3%'")
-  , ("<XF86AudioPlay>", addName "Play/pause" $ spawn "playerctl play-pause")
-  , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl stop")
-  , ("<XF86AudioPrev>", addName "Skip to prev track" $ spawn "playerctl previous")
-  , ("<XF86AudioNext>", addName "Skip to next track" $ spawn "playerctl next")
+  , ("<XF86AudioPlay>", addName "Play/pause" $ spawn "playerctl --player=spotify,mpd play-pause")
+  , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl --player=spotify,mpd stop")
+  , ("<XF86AudioPrev>", addName "Skip to prev track" $ spawn "playerctl --player=spotify,mpd previous")
+  , ("<XF86AudioNext>", addName "Skip to next track" $ spawn "playerctl --player=spotify,mpd next")
   ]
 
   ^++^ subKeys "Systray"
@@ -395,7 +395,7 @@ myScratchpads =
                  t = 0.95 - h
                  l = 0.95 - w
     spawnNote  = "subl3"
-    findNote   = className =? "Subl3"
+    findNote   = className =? "Sublime_text"
     manageNote = customFloating $ W.RationalRect l t w h
                where
                  h = 0.6
@@ -457,6 +457,7 @@ myManageHook = namedScratchpadManageHook myScratchpads
     , className =? "file_progress"  --> doFloat
     , className =? "Yad"            --> doFloat
     , className =? "Gsimplecal"     --> doFloat
+    , className =? "Espanso"        --> doFloat
     , className =? "Nm-connection-editor" --> doFloat
     , className =? "Blueman-manager" --> doFloat
     , role      =? "pop-up"         --> doFloat
@@ -501,19 +502,20 @@ myStartupHook = do
       polybarCmd        = "~/.config/polybar/launch.sh"
       picomCmd          = "picom"
       clipboardHistCmd  = "greenclip daemon"
-      polkitCmd         = "lxsession"
+      polkitCmd         = "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
       notifCmd          = "dunst"
       systrayCmd        = "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 5 --transparent true --tint 0x000000 --height 18"
       netManAppletCmd   = "nm-applet"
       sndManAppletCmd   = "pasystray"
       blueManAppletCmd  = "blueman"
       updManAppletCmd   = "GDK_BACKEND=x11 pamac-tray"
+      autostartAllCmd   = "dex --autostart --environment XMonad"
   sequence_ [
       spawn     wallpaperCmd
     , spawn     polybarCmd
     , spawnOnce picomCmd
     , spawnOnce clipboardHistCmd
-    -- , spawnOnce polkitCmd
+    , spawnOnce polkitCmd
     , spawnOnce notifCmd
     -- , spawnOnce systrayCmd
     , spawnOnce netManAppletCmd
