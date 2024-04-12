@@ -6,8 +6,10 @@ set -eu
 DRY_RUN=""
 
 pamac install --no-confirm $DRY_RUN \
+    libva \
     pipewire \
     qt5-wayland \
+    qt5ct \
     waybar \
     wireplumber \
     wofi \
@@ -20,4 +22,5 @@ pamac build --no-confirm $DRY_RUN \
     hyprlock-git \
     hyprpaper-git \
     hyprshade \
+    libva-nvidia-driver-git \
     xdg-desktop-portal-hyprland-git
