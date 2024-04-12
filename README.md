@@ -2,6 +2,9 @@
 
 Dotfiles use [Dotbot](https://github.com/anishathalye/dotbot) for installation.
 
+> [!WARNING]
+> This branch is experimental and unstable.
+
 ## Prerequisites
 
 ```bash
