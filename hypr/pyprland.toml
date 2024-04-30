@@ -1,0 +1,87 @@
+[pyprland]
+plugins = [
+  "scratchpads",
+]
+
+[scratchpads.term]
+animation = "fromTop"
+command = "kitty --class kitty-scratchpad"
+class = "kitty-scratchpad"
+lazy = true
+size = "75% 60%"
+multi = false
+
+[scratchpads.top]
+animation = "fromBottom"
+command = "kitty --class kitty-top btop"
+class = "kitty-top"
+size = "90% 90%"
+lazy = true
+multi = false
+
+[scratchpads.files]
+animation = "fromBottom"
+command = "kitty --class kitty-files lfub"
+class = "kitty-files"
+size = "75% 60%"
+lazy = true
+multi = true
+
+[scratchpads.mpc]
+animation = "fromLeft"
+command = "ymuse"
+class = "ymuse"
+size = "40% 90%"
+unfocus = "hide"
+lazy = true
+multi = false
+
+[scratchpads.volume]
+animation = "fromRight"
+command = "pavucontrol"
+class = "Pavucontrol"
+size = "40% 90%"
+unfocus = "hide"
+lazy = true
+multi = false
+
+[scratchpads.calc]
+animation = "fromRight"
+command = "qalculate-gtk"
+class = "qalculate-gtk"
+size = "40% 90%"
+unfocus = "hide"
+lazy = true
+multi = false
+
+[scratchpads.pass]
+animation = "fromTop"
+command = "1password"
+class = "1Password"
+size = "90% 90%"
+lazy = true
+multi = false
+
+[scratchpads.notes]
+animation = "fromBottom"
+command = "subl3"
+class = "subl3"
+size = "60% 60%"
+lazy = true
+multi = false
+
+[scratchpads.picscr]
+animation = "fromTop"
+command = "nsxiv --class NsxivScrot -t ~/Pictures/Screenshots"
+class = "NsxivScrot"
+size = "80% 80%"
+lazy = true
+multi = false
+
+[scratchpads.picwal]
+animation = "fromTop"
+command = "nsxiv --class NsxivWall -r -t ~/Pictures/Wallpapers"
+class = "NsxivWall"
+size = "80% 80%"
+lazy = true
+multi = false
