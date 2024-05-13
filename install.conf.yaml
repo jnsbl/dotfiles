@@ -45,6 +45,7 @@
     ~/.config/sxiv: nsxiv
     ~/.config/ulauncher/extensions.json: ulauncher/extensions.json
     ~/.config/ulauncher/settings.json: ulauncher/settings.json
+    ~/.config/wired: wired
     ~/.config/xmonad/xmonad.hs: xmonad/xmonad.hs
     ~/.dotfiles: ''
     ~/.gemrc: ruby/gemrc

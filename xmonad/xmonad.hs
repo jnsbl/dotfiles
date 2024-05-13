@@ -214,8 +214,11 @@ myKeys c =
   ]
 
   ^++^ subKeys "Notifications"
-  [ ("M-S-n", addName "Toggle notifications" $ spawn "~/.local/bin/toggle_dunst.sh")
-  , ("C-S-<Space>", addName "Close all notifications" $ spawn "dunstctl close-all")
+  -- [ ("M-S-n", addName "Toggle notifications" $ spawn "~/.local/bin/toggle_dunst.sh")
+  -- , ("C-S-<Space>", addName "Close all notifications" $ spawn "dunstctl close-all")
+  [ ("M-S-n", addName "Disable notifications" $ spawn "~/.dotfiles/bin/disable_wired.sh")
+  , ("M-S-d", addName "Enable notifications" $ spawn "~/.dotfiles/bin/enable_wired.sh")
+  , ("C-S-<Space>", addName "Close all notifications" $ spawn "wired --drop all")
   ]
 
   ^++^ subKeys "Brightness controls"
@@ -504,13 +507,14 @@ myStartupHook = do
       picomCmd          = "picom"
       clipboardHistCmd  = "greenclip daemon"
       polkitCmd         = "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-      notifCmd          = "dunst"
+      notifCmd          = "wired"
       systrayCmd        = "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 5 --transparent true --tint 0x000000 --height 18"
       netManAppletCmd   = "nm-applet"
       sndManAppletCmd   = "pasystray"
       blueManAppletCmd  = "blueman"
       updManAppletCmd   = "GDK_BACKEND=x11 pamac-tray"
       autostartAllCmd   = "dex --autostart --environment XMonad"
+      cursorHiderCmd    = "unclutter --fork"
   sequence_ [
       spawn     wallpaperCmd
     , spawn     polybarCmd
@@ -523,6 +527,7 @@ myStartupHook = do
     , spawnOnce sndManAppletCmd
     -- , spawnOnce blueManAppletCmd
     -- , spawnOnce updManAppletCmd
+    , spawnOnce cursorHiderCmd
     ]
 -- }}}
 
