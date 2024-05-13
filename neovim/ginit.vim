@@ -23,9 +23,18 @@ if exists(':GuiFont')
   " GuiFont! TerminessTTF Nerd Font:h11
 else
   " set guifont=Recursive\ Mono\ Casual\ Static:h12
-  set guifont=mononoki\ Nerd\ Font:h14
+  " set guifont=mononoki\ Nerd\ Font:h14
   " set guifont=Hack\ Nerd\ Font:h13
   " set guifont=JetBrainsMono\ Nerd\ Font:h13
+  " set guifont=IosevkaTerm\ Nerd\ Font\ Mono:h14
+  " set guifont=InputMono\ Nerd\ Font:h13
+  " set guifont=InputMonoNarrow\ Nerd\ Font:h13
+  " set guifont=CommitMono\ Nerd\ Font:h12
+  set guifont=MonaspiceNe\ Nerd\ Font\ Mono:h13
+  " set guifont=MonaspiceAr\ Nerd\ Font\ Mono:h13
+  " set guifont=MonaspiceXe\ Nerd\ Font\ Mono:h13
+  " set guifont=MonaspiceRn\ Nerd\ Font\ Mono:h13
+  " set guifont=MonaspiceKr\ Nerd\ Font\ Mono:h13
 endif
 
 " Disable GUI Tabline
