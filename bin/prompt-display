@@ -22,23 +22,23 @@ main() {
 
   case "$chosen" in
     "$autodetect")
-      autorandr --change --default default
+      autorandr --change --default default && update-lockscreen $@ &
       ;;
 
     "$single")
-      mons -o
+      mons -o && update-lockscreen $@ &
       ;;
 
     "$extend_to_top")
-      mons -e top
+      mons -e top && update-lockscreen $@ &
       ;;
 
     "$extend_to_right")
-      mons -e right
+      mons -e right && update-lockscreen $@ &
       ;;
 
     "$mirror")
-      mons -m
+      mons -m && update-lockscreen $@ &
       ;;
 
     *) exit 1 ;;
