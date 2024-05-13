@@ -4,6 +4,7 @@ local opt = vim.opt
 -- ----------------------------------------------------------------------------
 -- Options - Appearance
 
+opt.termguicolors  = true
 opt.relativenumber = true
 opt.number         = true
 opt.list           = true
