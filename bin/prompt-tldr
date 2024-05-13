@@ -6,9 +6,9 @@
 source _prompt_helper 2>/dev/null
 
 main() {
-  topics=$(tldr --list)
+  topics=$(tldr --list | sed "s/'/\"/g" | jq .[] | sed 's/"//g')
 
-  chosen=$(echo -e $topics | sed 's/, /\n/g' \
+  chosen=$(echo -e $topics | sed 's/ /\n/g' \
     | ${MENU} 'tldr'
   )
 
