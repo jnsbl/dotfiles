@@ -105,7 +105,7 @@ esac
 
 mime="$(file -Lb --mime-type -- "$file")"
 case "$mime" in
-  text/*|application/json)
+  text/*|application/json|application/javascript)
     source-highlight -q --outlang-def=esc.outlang --style-file=esc.style -i "$file" || cat -- "$file"
     exit 0
     ;;
