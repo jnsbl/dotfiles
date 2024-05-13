@@ -154,7 +154,7 @@ myKeys c =
   , ("M-S-t", addName "Sink all floated windows" $ sinkAll)
   ]
 
-  ^++^ subKeys "Menus"
+  ^++^ subKeys "Menus / Prompts"
   [ ("M-<Space>", addName "Show application launcher" $ spawn "rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher_colorful_style5")
   , ("M-r", addName "Show dmenu" $ spawn "dmenu_run")
   , ("M-v", addName "Show clipboard history" $ spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'")
@@ -163,6 +163,7 @@ myKeys c =
   , ("M-p t", addName "Show tldr prompt" $ spawn "prompt-tldr -r")
   , ("M-p q", addName "Show logout prompt" $ spawn "prompt-logout -r")
   , ("M-p w", addName "Show wiki prompt" $ spawn "prompt-wiki -r")
+  , ("M-p a", addName "Show audio prompt" $ spawn "prompt-audio -r")
   ]
 
   ^++^ subKeys "Favorite programs"
