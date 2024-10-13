@@ -1,23 +1,23 @@
-# Base16 Eighties
-# Scheme author: Chris Kempson (http://chriskempson.com)
+# Base16 Material Darker
+# Scheme author: Nate Peterson
 # Template author: Tinted Theming (https://github.com/tinted-theming)
 
-set -l color00 '#2d2d2d'
-set -l color01 '#393939'
-set -l color02 '#515151'
-set -l color03 '#747369'
-set -l color04 '#a09f93'
-set -l color05 '#d3d0c8'
-set -l color06 '#e8e6df'
-set -l color07 '#f2f0ec'
-set -l color08 '#f2777a'
-set -l color09 '#f99157'
-set -l color0A '#ffcc66'
-set -l color0B '#99cc99'
-set -l color0C '#66cccc'
-set -l color0D '#6699cc'
-set -l color0E '#cc99cc'
-set -l color0F '#d27b53'
+set -l color00 '#212121'
+set -l color01 '#303030'
+set -l color02 '#353535'
+set -l color03 '#4a4a4a'
+set -l color04 '#b2ccd6'
+set -l color05 '#eeffff'
+set -l color06 '#eeffff'
+set -l color07 '#ffffff'
+set -l color08 '#f07178'
+set -l color09 '#f78c6c'
+set -l color0A '#ffcb6b'
+set -l color0B '#c3e88d'
+set -l color0C '#89ddff'
+set -l color0D '#82aaff'
+set -l color0E '#c792ea'
+set -l color0F '#ff5370'
 
 set -l FZF_NON_COLOR_OPTS
 

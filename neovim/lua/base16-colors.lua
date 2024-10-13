@@ -1,6 +1,6 @@
 -- bradcush/base16-nvim (https://github.com/bradcush/base16-nvim)
 -- by Bradley Cushing (https://github.com/bradcush)
--- Eighties scheme by Chris Kempson (http://chriskempson.com)
+-- Material Darker scheme by Nate Peterson
 -- Based on existing work with references below
 -- base16-vim (https://github.com/chriskempson/base16-vim)
 -- by Chris Kempson (http://chriskempson.com)
@@ -8,22 +8,22 @@
 -- by Adam P. Regasz-Rethy (https://github.com/RRethy)
 -- Base16 color variables
 local colors = {
-    base00 = "#2d2d2d",
-    base01 = "#393939",
-    base02 = "#515151",
-    base03 = "#747369",
-    base04 = "#a09f93",
-    base05 = "#d3d0c8",
-    base06 = "#e8e6df",
-    base07 = "#f2f0ec",
-    base08 = "#f2777a",
-    base09 = "#f99157",
-    base0A = "#ffcc66",
-    base0B = "#99cc99",
-    base0C = "#66cccc",
-    base0D = "#6699cc",
-    base0E = "#cc99cc",
-    base0F = "#d27b53"
+    base00 = "#212121",
+    base01 = "#303030",
+    base02 = "#353535",
+    base03 = "#4a4a4a",
+    base04 = "#b2ccd6",
+    base05 = "#eeffff",
+    base06 = "#eeffff",
+    base07 = "#ffffff",
+    base08 = "#f07178",
+    base09 = "#f78c6c",
+    base0A = "#ffcb6b",
+    base0B = "#c3e88d",
+    base0C = "#89ddff",
+    base0D = "#82aaff",
+    base0E = "#c792ea",
+    base0F = "#ff5370"
 }
 
 -- Highlighting for indiividual groups
@@ -46,7 +46,7 @@ local setup = function(collections)
     -- Setting highlighting and syntax
     vim.cmd('highlight clear')
     vim.cmd('syntax reset')
-    vim.g.colors_name = "base16-eighties"
+    vim.g.colors_name = "base16-material-darker"
 
     -- Loop through highlighting collections
     for _, collection in pairs(collections) do
