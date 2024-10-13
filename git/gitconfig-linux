@@ -176,9 +176,11 @@
         enabled = true
 [init]
         templatedir = ~/.git_template/
+	defaultBranch = main
 [gui]
         editor = nvim-qt
 [interactive]
         diffFilter = delta --color-only
 [delta]
         navigate = true
+[global]
