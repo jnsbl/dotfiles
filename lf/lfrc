@@ -108,6 +108,7 @@ map gh cd ~
 map gf cd ~/.config
 map gd cd ~/Downloads
 map gD cd ~/Documents
+map gB cd ~/Documents/Obsidian/Second\ Brain/
 map gP cd ~/Pictures
 map gW cd ~/Pictures/Wallpapers
 map gw cd ~/code/work
