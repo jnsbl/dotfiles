@@ -28,6 +28,7 @@ import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.WindowSwallowing
 
+import XMonad.Layout.Dwindle
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.MultiToggle
@@ -65,7 +66,7 @@ myEditor        = "nvim-qt"
 
 -- Path to wallpaper to set at startup
 myWallpaperPath :: String
-myWallpaperPath = "~/Pictures/Wallpapers/WallpaperCave/cosmos/wp4097193-cosmos-wallpapers.jpg"
+myWallpaperPath = "~/Pictures/Wallpapers/Wallhaven/2024-07/wallhaven-werowr.png"
 
 -- Useless gap around and among windows
 myUselessGap    = 10
@@ -101,11 +102,17 @@ myEssentialKeys conf@XConfig {XMonad.modMask = modm} =
     --
     -- mod-[1..9], Switch to workspace N
     -- mod-shift-[1..9], Move client to workspace N
+    -- mod-control-[1..9], Switch to workspace N greedily - see https://www.reddit.com/r/xmonad/comments/ndww5/comment/c38moye/?utm_source=share&utm_medium=web2x&context=3
     --
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) myWorkspaceKeys
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]] -- greedyView vs view - see https://www.reddit.com/r/xmonad/comments/ndww5/comment/c38moye/?utm_source=share&utm_medium=web2x&context=3
-        -- TODO Mod+Ctrl+k namapovat na W.greedyView (někdy se mi hodí explicitně prohodit workspaces mezi monitory
+        , (f, m) <- [(W.view, 0), (W.shift, shiftMask), (W.greedyView, controlMask)]
+    ]
+    ++
+    [((m .|. modm, k), screenWorkspace sc >>= flip whenJust (windows . f))
+        | (k, sc) <- zip [xK_a, xK_s, xK_d] [0,1,2] -- i.e. M-a for screen 0, M-s for screen 1, ...
+        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
+    ]
 
 subtitle' ::  String -> ((KeyMask, KeySym), NamedAction)
 subtitle' x = ((0,0), NamedAction $ map toUpper $ x)
@@ -197,11 +204,12 @@ myKeys c =
   , ("M1-S-f", addName "Switch to full layout" $ sendMessage $ JumpToLayout "full")
   , ("M1-S-z", addName "Switch to zoom layout" $ sendMessage $ JumpToLayout "zoom")
   , ("M1-S-m", addName "Switch to threeColMid layout" $ sendMessage $ JumpToLayout "threeColMid")
+  , ("M1-S-d", addName "Switch to dwindle layout" $ sendMessage $ JumpToLayout "dwindle")
   ]
 
   ^++^ subKeys "Increase/decrease windows in master pane"
-  [ ("M-,", addName "Increase windows in master pane" $ sendMessage (IncMasterN 1))
-  , ("M-.", addName "Decrease windows in master pane" $ sendMessage (IncMasterN (-1)))
+  [ ("M-C-,", addName "Increase windows in master pane" $ sendMessage (IncMasterN 1))
+  , ("M-C-.", addName "Decrease windows in master pane" $ sendMessage (IncMasterN (-1)))
   ]
 
   ^++^ subKeys "Screenshot"
@@ -315,7 +323,7 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 --
 myLayout = avoidStruts
   $ mkToggle (NOBORDERS ?? FULL ?? EOT)
-  $ spacingWithEdge myUselessGap (tall ||| full ||| threeColMid ||| wide ||| zoom ||| threeCol)
+  $ spacingWithEdge myUselessGap (tall ||| full ||| dwindle ||| threeColMid ||| wide ||| zoom ||| threeCol)
   where
     -- default tiling algorithm partitions the screen into two panes
     tall        = renamed [Replace "tall"] (Tall nmaster delta ratio)
@@ -324,6 +332,7 @@ myLayout = avoidStruts
     threeCol    = renamed [Replace "threeCol"] (ThreeCol nmaster delta ratio)
     threeColMid = renamed [Replace "threeColMid"] (ThreeColMid nmaster delta ratio)
     zoom        = renamed [Replace "zoom"] (Mag.magnifier tall)
+    dwindle     = renamed [Replace "dwindle"] (Dwindle R CW 1.5 1.1)
 
     -- The default number of windows in the master pane
     nmaster  = 1
@@ -464,13 +473,16 @@ myManageHook = namedScratchpadManageHook myScratchpads
     , className =? "Espanso"        --> doFloat
     , className =? "Nm-connection-editor" --> doFloat
     , className =? "Blueman-manager" --> doFloat
+    , winName   =? "File Operation Progress" --> doFloat
     , role      =? "pop-up"         --> doFloat
+    , role      =? "bubble"         --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
     , isFullscreen --> doFullFloat
     ]
     where
       role = stringProperty "WM_WINDOW_ROLE"
+      winName = stringProperty "WM_NAME"
 -- }}}
 
 -- {{{ Event handling
@@ -515,6 +527,7 @@ myStartupHook = do
       updManAppletCmd   = "GDK_BACKEND=x11 pamac-tray"
       autostartAllCmd   = "dex --autostart --environment XMonad"
       cursorHiderCmd    = "unclutter --fork"
+      emojiPickerCmd    = "emote"
   sequence_ [
       spawn     wallpaperCmd
     , spawn     polybarCmd
@@ -528,6 +541,7 @@ myStartupHook = do
     -- , spawnOnce blueManAppletCmd
     -- , spawnOnce updManAppletCmd
     , spawnOnce cursorHiderCmd
+    , spawnOnce emojiPickerCmd
     ]
 -- }}}
 
