@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -x
 
 short_summary=("Short summary")
 long_summary=("Long summary, it will be truncated because it is really really long")
