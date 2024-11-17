@@ -63,6 +63,7 @@ get_session(){
         *) dbus_args+=($DEFAULT_SESSION) ;;
     esac
 
+    # FIXME This seems to mess up D-Bus by overwriting DBUS_SESSION_BUS_ADDRESS
     echo "dbus-launch ${dbus_args[*]}"
 }
 
