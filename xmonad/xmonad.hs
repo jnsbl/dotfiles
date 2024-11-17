@@ -165,12 +165,13 @@ myKeys c =
   [ ("M-<Space>", addName "Show application launcher" $ spawn "rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher_colorful_style5")
   , ("M-r", addName "Show dmenu" $ spawn "dmenu_run")
   , ("M-v", addName "Show clipboard history" $ spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'")
-  , ("M-S-x", addName "Show displayer manager" $ spawn "prompt-display -r")
+  , ("M-S-x", addName "Show display manager" $ spawn "prompt-display -r")
   , ("M-p c", addName "Show colorscheme prompt" $ spawn "prompt-colorscheme -r")
   , ("M-p t", addName "Show tldr prompt" $ spawn "prompt-tldr -r")
   , ("M-p q", addName "Show logout prompt" $ spawn "prompt-logout -r")
   , ("M-p w", addName "Show wiki prompt" $ spawn "prompt-wiki -r")
   , ("M-p a", addName "Show audio prompt" $ spawn "prompt-audio -r")
+  , ("M-p r", addName "Show resolution prompt" $ spawn "prompt-resolution -r")
   ]
 
   ^++^ subKeys "Favorite programs"
