@@ -1,0 +1,3 @@
+[manager]
+hovered         = { reversed = true }
+preview_hovered = { reversed = true }

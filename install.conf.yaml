@@ -47,6 +47,7 @@
     ~/.config/ulauncher/settings.json: ulauncher/settings.json
     ~/.config/wired: wired
     ~/.config/xmonad/xmonad.hs: xmonad/xmonad.hs
+    ~/.config/yazi: yazi
     ~/.dotfiles: ''
     ~/.gemrc: ruby/gemrc
     ~/.gitconfig:

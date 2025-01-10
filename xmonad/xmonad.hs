@@ -376,7 +376,7 @@ myScratchpads =
                  w = 0.9
                  t = 0.95 - h
                  l = 0.95 - w
-    spawnRgr   = myTerminal ++ " --title ranger -e lfub"
+    spawnRgr   = myTerminal ++ " --title ranger -e yazi"
     findRgr    = title =? "ranger"
     manageRgr  = customFloating $ W.RationalRect l t w h
                where
