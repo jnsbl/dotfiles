@@ -12,9 +12,6 @@
 	path = awesome/awesome-wm-widgets
 	url = https://github.com/streetturtle/awesome-wm-widgets.git
 	ignore = dirty
-[submodule "ext/packer.nvim"]
-	path = ext/packer.nvim
-	url = https://github.com/wbthomason/packer.nvim
 [submodule "awesome/bling"]
 	path = awesome/bling
 	url = https://github.com/BlingCorp/bling.git
