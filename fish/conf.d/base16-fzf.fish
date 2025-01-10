@@ -1,23 +1,23 @@
-# Base16 Material Darker
-# Scheme author: Nate Peterson
+# Base16 Espresso
+# Scheme author: Unknown. Maintained by Alex Mirrington (https://github.com/alexmirrington)
 # Template author: Tinted Theming (https://github.com/tinted-theming)
 
-set -l color00 '#212121'
-set -l color01 '#303030'
-set -l color02 '#353535'
-set -l color03 '#4a4a4a'
-set -l color04 '#b2ccd6'
-set -l color05 '#eeffff'
-set -l color06 '#eeffff'
+set -l color00 '#2d2d2d'
+set -l color01 '#393939'
+set -l color02 '#515151'
+set -l color03 '#777777'
+set -l color04 '#b4b7b4'
+set -l color05 '#cccccc'
+set -l color06 '#e0e0e0'
 set -l color07 '#ffffff'
-set -l color08 '#f07178'
-set -l color09 '#f78c6c'
-set -l color0A '#ffcb6b'
-set -l color0B '#c3e88d'
-set -l color0C '#89ddff'
-set -l color0D '#82aaff'
-set -l color0E '#c792ea'
-set -l color0F '#ff5370'
+set -l color08 '#d25252'
+set -l color09 '#f9a959'
+set -l color0A '#ffc66d'
+set -l color0B '#a5c261'
+set -l color0C '#bed6ff'
+set -l color0D '#6c99bb'
+set -l color0E '#d197d9'
+set -l color0F '#f97394'
 
 set -l FZF_NON_COLOR_OPTS
 

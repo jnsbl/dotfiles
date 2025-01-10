@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 notify-send "Updating lock screen" "Please stand by..." -t 30000
-betterlockscreen --update ~/Pictures/Wallpapers/Wallhaven/2024-07/wallhaven-ex136k.jpg --fx dim,blur
+betterlockscreen --update ~/Pictures/Wallpapers/DistroTube/0029.jpg --fx dim --dim 50
 notify-send "Lock screen has been updated" "You're good to go :)"

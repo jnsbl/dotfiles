@@ -30,11 +30,12 @@ else
   " set guifont=InputMono\ Nerd\ Font:h13
   " set guifont=InputMonoNarrow\ Nerd\ Font:h13
   " set guifont=CommitMono\ Nerd\ Font:h12
-  set guifont=MonaspiceNe\ Nerd\ Font\ Mono:h13
+  " set guifont=MonaspiceNe\ Nerd\ Font\ Mono:h13
   " set guifont=MonaspiceAr\ Nerd\ Font\ Mono:h13
   " set guifont=MonaspiceXe\ Nerd\ Font\ Mono:h13
   " set guifont=MonaspiceRn\ Nerd\ Font\ Mono:h13
   " set guifont=MonaspiceKr\ Nerd\ Font\ Mono:h13
+  set guifont=Maple\ Mono\ NF:h11
 endif
 
 " Disable GUI Tabline
