@@ -13,11 +13,28 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- Appearance
-  "bradcush/base16-nvim",
-  "RRethy/nvim-base16",
+  "bradcush/nvim-base16",
+  -- "RRethy/nvim-base16",
+  "tinted-theming/tinted-vim",
   "kyazdani42/nvim-web-devicons",
-  "nvim-lualine/lualine.nvim",
-  "goolord/alpha-nvim",
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = {
+      "tinted-theming/tinted-vim",
+    }
+  },
+  {
+    "sontungexpt/sttusline",
+    branch = "table_version",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    event = { "BufEnter" },
+    config = function()
+      require("sttusline").setup()
+    end,
+  },
+  -- "goolord/alpha-nvim",
   "lukas-reineke/indent-blankline.nvim",
   "kevinhwang91/nvim-bqf",
 
@@ -36,6 +53,11 @@ require("lazy").setup({
   "MunifTanjim/nui.nvim",
   "vim-scripts/ReplaceWithRegister",
   "kyazdani42/nvim-tree.lua",
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+  },
 
   -- Syntax
   {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
@@ -58,6 +80,14 @@ require("lazy").setup({
   "jvgrootveld/telescope-zoxide",
   "gelguy/wilder.nvim",
   "kevinhwang91/nvim-hlslens",
+  -- {
+  --   "junegunn/fzf.vim",
+  --   dependencies = { "junegunn/fzf" },
+  -- },
+  {
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
 
   -- File-type specific
   "ellisonleao/glow.nvim",
@@ -78,12 +108,13 @@ require("lazy").setup({
 })
 
 -- Appearance
-require("plugins.base16-nvim")
-require("plugins.nvim-base16")
+-- require("plugins.base16-nvim")
+-- require("plugins.nvim-base16")
+require("plugins.tinted-vim")
 require("plugins.nvim-web-devicons")
-require("plugins.lualine-nvim")
-require("plugins.alpha-nvim")
-require("plugins.indent-blankline-nvim")
+-- require("plugins.lualine-nvim")
+-- require("plugins.alpha-nvim")
+-- require("plugins.indent-blankline-nvim")
 
 -- Utilities
 require("plugins.numbers-nvim")
@@ -93,6 +124,7 @@ require("plugins.hop-nvim")
 require("plugins.numb-nvim")
 require("plugins.gitsigns-nvim")
 require("plugins.nvim-tree")
+require("plugins.snacks-nvim")
 
 -- Syntax
 require("plugins.nvim-surround")
@@ -102,6 +134,8 @@ require("plugins.hlargs-nvim")
 require("plugins.telescope-nvim")
 require("plugins.wilder-nvim")
 require("plugins.nvim-hlslens")
+-- require("plugins.fzf-vim")
+require("plugins.fzf-lua")
 
 -- File-type specific
 require("plugins.glow-nvim")

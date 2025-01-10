@@ -98,22 +98,62 @@ keymap("n", "<leader>d", "\"_dd")
 keymap("v", "<leader>d", "\"_d")
 
 -- "st" for Startify
-keymap("n", "<leader>st", ":Alpha<CR>")
+-- keymap("n", "<leader>st", ":Alpha<CR>")
+keymap("n", "<leader>st", "<cmd>lua Snacks.dashboard()<CR>")
 
-keymap("n", "<leader>T",  ":Telescope builtin<CR>")
-keymap("n", "<leader>b",  ":Telescope buffers<CR>")
-keymap("n", "<leader>f",  ":Telescope find_files<CR>")
-keymap("n", "<leader>gf", ":Telescope git_files<CR>")
-keymap("n", "<leader>gs", ":Telescope git_status<CR>")
-keymap("n", "<leader>gc", ":Telescope git_commits<CR>")
-keymap("n", "<leader>gb", ":Telescope git_bcommits<CR>")
-keymap("n", "<leader>gB", ":Telescope git_branches<CR>")
-keymap("n", "<leader>tm", ":Telescope man_pages<CR>")
-keymap("n", "<leader>tc", ":Telescope colorscheme<CR>")
-keymap("n", "<leader>tf", ":Telescope filetypes<CR>")
-keymap("n", "<leader>ts", ":Telescope treesitter<CR>")
-keymap("n", "<leader>tz", ":Telescope zoxide list<CR>")
-keymap("n", "<leader>rg", ":Telescope live_grep<CR>")
+-- keymap("n", "<leader>T",  ":Telescope builtin<CR>")
+-- keymap("n", "<leader>b",  ":Telescope buffers<CR>")
+-- keymap("n", "<leader>F",  ":Telescope find_files<CR>")
+-- keymap("n", "<leader>gf", ":Telescope git_files<CR>")
+-- keymap("n", "<leader>gs", ":Telescope git_status<CR>")
+-- keymap("n", "<leader>gc", ":Telescope git_commits<CR>")
+-- keymap("n", "<leader>gb", ":Telescope git_bcommits<CR>")
+-- keymap("n", "<leader>gB", ":Telescope git_branches<CR>")
+-- keymap("n", "<leader>tm", ":Telescope man_pages<CR>")
+-- keymap("n", "<leader>tc", ":Telescope colorscheme<CR>")
+-- keymap("n", "<leader>tf", ":Telescope filetypes<CR>")
+-- keymap("n", "<leader>ts", ":Telescope treesitter<CR>")
+-- keymap("n", "<leader>tz", ":Telescope zoxide list<CR>")
+-- keymap("n", "<leader>rg", ":Telescope live_grep<CR>")
+
+keymap("n", "<leader>T",  ":FzfLua builtin<CR>")
+keymap("n", "<leader>b",  ":FzfLua buffers<CR>")
+keymap("n", "<leader>F",  ":FzfLua files<CR>")
+keymap("n", "<leader>gf", ":FzfLua git_files<CR>")
+keymap("n", "<leader>gs", ":FzfLua git_status<CR>")
+keymap("n", "<leader>gc", ":FzfLua git_commits<CR>")
+keymap("n", "<leader>gb", ":FzfLua git_bcommits<CR>")
+keymap("n", "<leader>gB", ":FzfLua git_branches<CR>")
+keymap("n", "<leader>tm", ":FzfLua manpages<CR>")
+keymap("n", "<leader>tc", ":FzfLua colorschemes<CR>")
+keymap("n", "<leader>tf", ":FzfLua filetypes<CR>")
+keymap("n", "<leader>ts", ":FzfLua treesitter<CR>")
+keymap("n", "<leader>rg", ":FzfLua live_grep<CR>")
+
+keymap({ "n", "v", "i" }, "<C-x><C-f>",
+  function() require("fzf-lua").complete_path() end,
+  { silent = true, desc = "Fuzzy complete path" })
+
+-- "ff" for File Finder
+keymap("n", "<leader>ff",  ":FzfLua files cwd=~/<CR>")
+
+-- "fc" for Files in Code directory
+keymap("n", "<leader>fc",  ":FzfLua files cwd=~/code<CR>")
+
+-- "fh" for Files in Hobby directory
+keymap("n", "<leader>fh",  ":FzfLua files cwd=~/code/hobby<CR>")
+
+-- "fd" for Files in Dotfiles directory
+keymap("n", "<leader>fd",  ":FzfLua files cwd=~/code/hobby/dotfiles<CR>")
+
+-- "fw" for Files in Work directory
+keymap("n", "<leader>fw",  ":FzfLua files cwd=~/code/work<CR>")
+
+-- "fG" for Files in work Git directory
+keymap("n", "<leader>fG",  ":FzfLua files cwd=~/code/work/git<CR>")
+
+-- "fg" for Files in confiG directory
+keymap("n", "<leader>fg",  ":FzfLua files cwd=~/.config<CR>")
 
 keymap("n", "-",  ":e .<CR>")
 
