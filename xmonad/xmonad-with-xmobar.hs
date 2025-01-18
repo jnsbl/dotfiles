@@ -1,28 +1,56 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
 -- {{{ Imports
-import XMonad
+import XMonad hiding ( (|||) ) -- https://wiki.haskell.org/Xmonad/General_xmonad.hs_config_tips#Binding_keys_to_a_specific_layout
+
+import Data.Bifunctor (bimap)
+import Data.Char as DC
+import Data.List as DL
+import Data.Maybe (catMaybes, fromMaybe)
 import Data.Monoid
+
 import System.Directory (getHomeDirectory)
 import System.Exit
+import System.IO
+import System.IO.Unsafe (unsafePerformIO)
 
 import XMonad.Actions.CycleWS
+import XMonad.Actions.Promote
 import XMonad.Actions.UpdatePointer
+import XMonad.Actions.WithAll (sinkAll)
+
+import XMonad.Core (installSignalHandlers)
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doCenterFloat)
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
+import XMonad.Hooks.WindowSwallowing
 
+import XMonad.Layout.Dwindle
+import XMonad.Layout.LayoutCombinators
+import XMonad.Layout.LayoutModifier
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
+import XMonad.Layout.ThreeColumns
+
+import XMonad.ManageHook
 
 import XMonad.Util.EZConfig
+import XMonad.Util.NamedActions
+import XMonad.Util.NamedScratchpad
+import XMonad.Util.Run
+import XMonad.Util.SpawnOnce
+import XMonad.Util.WorkspaceCompare
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
+import qualified XMonad.Layout.Magnifier as Mag
+import qualified XMonad.Layout.ToggleLayouts as T (ToggleLayout(Toggle))
 
 import Graphics.X11.ExtraTypes.XorgDefault
 -- }}}
@@ -30,7 +58,7 @@ import Graphics.X11.ExtraTypes.XorgDefault
 -- {{{ Variable definitions
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
-myTerminal      = "alacritty"
+myTerminal      = "kitty"
 
 myBrowser       = "min"
 myFileManager   = "thunar"
@@ -38,10 +66,10 @@ myEditor        = "nvim-qt"
 
 -- Path to wallpaper to set at startup
 myWallpaperPath :: String
-myWallpaperPath = "~/Pictures/Wallpapers/FrenzyExists/Gruv/haskell.jpg"
+myWallpaperPath = "~/Pictures/Wallpapers/Wallhaven/2024-07/wallhaven-0pepv3.jpg"
 
 -- Useless gap around and among windows
-myUselessGap    = 3
+myUselessGap    = 10
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -56,110 +84,214 @@ myModMask       = mod4Mask
 myAltMask       = mod1Mask
 
 -- The default number of workspaces (virtual screens) and their names.
--- By default we use numeric strings, but any string may be used as a
--- workspace name. The number of workspaces is determined by the length
--- of this list.
---
--- A tagging example:
---
--- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
---
 myWorkspaces    = ["web","code","chat","music","notes","other"]
 myWorkspaceKeys = [xK_plus,xK_ecaron,xK_scaron,xK_ccaron,xK_rcaron,xK_zcaron,xK_yacute,xK_aacute,xK_iacute] -- cs-cz keyboard
 -- myWorkspaceKeys = [xK_1 .. xK_9] -- en-us keyboard
 
 -- Width of the window border in pixels.
-myBorderWidth   = 1
-
--- Border colors for unfocused and focused windows, respectively.
-myNormalBorderColor  = "#dddddd"
-myFocusedBorderColor = "#ff0000"
-
--- Path to user's home directory (used in paths)
--- myHomeDir :: IO String
--- myHomeDir = do
---   homeDir <- getHomeDirectory
---   return homeDir
+myBorderWidth   = 2
 -- }}}
 
 -- {{{ Key bindings
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 -- See https://xmonad.github.io/xmonad-docs/xmonad-contrib/XMonad-Util-EZConfig.html#v:mkKeymap
---
-myKeys :: [(String, X ())]
-myKeys =
-  [ ("M-<Return>", spawn myTerminal)
-  , ("M1-C-<Space>", spawn "gsimplecal")
-  , ("M-S-<Return>", spawn myFileManager)
-  , ("M-C-<Return>", spawn myBrowser)
-  , ("M-<F2>", spawn myEditor)
 
-  , ("M-r", spawn "dmenu_run")
-  , ("M-<Space>", spawn "rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher_colorful_style5")
-  , ("M-v", spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'")
-  , ("M-S-x", spawn "~/.config/rofi/scripts/rofi-display")
-
-  , ("M-S-q", io (exitWith ExitSuccess))
-  , ("M-q", spawn "xmonad --recompile; xmonad --restart")
-  , ("M-S-<F1>", spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
-
-  , ("M1-<Print>", spawn "~/bin/printscr.sh")
-  , ("M1-S-<Print>", spawn "~/.config/rofi/scripts/rofi-screenshot")
-
-  , ("M-w", kill)
-  , ("M1-<Space>", sendMessage NextLayout)
-  , ("M1-S-<Space>", sendMessage FirstLayout)
-  , ("M-<Esc>", toggleWS)
-
-  , ("M-<Tab>", windows W.focusDown)
-  , ("M-j", windows W.focusDown)
-  , ("M-k", windows W.focusUp)
-  , ("M-m", windows W.focusMaster)
-  , ("M-S-j", windows W.swapDown)
-  , ("M-S-k", windows W.swapUp)
-  , ("M-S-h", sendMessage Shrink)
-  , ("M-S-l", sendMessage Expand)
-  , ("M-t", withFocused $ windows . W.sink)
-  , ("M-,", sendMessage (IncMasterN 1))
-  , ("M-.", sendMessage (IncMasterN (-1)))
-  , ("M-b", sendMessage ToggleStruts)
-  , ("M-f", sendMessage $ Toggle FULL)
-
-  , ("M-M1-j", prevScreen)
-  , ("M-M1-k", nextScreen)
-  , ("M-M1-S-j", shiftPrevScreen)
-  , ("M-M1-S-k", shiftNextScreen)
-
-  , ("M-M1-l", spawn "betterlockscreen --lock dim")
-
-  , ("M-S-n", spawn "~/.local/bin/toggle_dunst.sh")
-  , ("C-S-<Space>", spawn "dunstctl close-all")
-
-  , ("<XF86MonBrightnessUp>", spawn "brightnessctl --device=nvidia_wmi_ec_backlight set +3%")
-  , ("<XF86MonBrightnessDown>", spawn "brightnessctl --device=nvidia_wmi_ec_backlight set 3%-")
-
-  , ("<XF86AudioMute>", spawn "bash -c 'pactl set-sink-mute $(pactl get-default-sink) toggle'")
-  , ("<XF86AudioRaiseVolume>", spawn "bash -c 'pactl set-sink-volume $(pactl get-default-sink) +3%'")
-  , ("<XF86AudioLowerVolume>", spawn "bash -c 'pactl set-sink-volume $(pactl get-default-sink) -3%'")
-  , ("<XF86AudioPlay>", spawn "playerctl play-pause")
-  , ("<XF86AudioStop>", spawn "playerctl stop")
-  , ("<XF86AudioPrev>", spawn "playerctl previous")
-  , ("<XF86AudioNext>", spawn "playerctl next")
-
-  , ("M-o", nextScreen)
-  , ("M-S-o", shiftNextScreen)
-  ]
-
-myAdditionalKeys conf@XConfig {XMonad.modMask = modm} =
+myEssentialKeys conf@XConfig {XMonad.modMask = modm} =
   M.fromList $
     --
     -- mod-[1..9], Switch to workspace N
     -- mod-shift-[1..9], Move client to workspace N
+    -- mod-control-[1..9], Switch to workspace N greedily - see https://www.reddit.com/r/xmonad/comments/ndww5/comment/c38moye/?utm_source=share&utm_medium=web2x&context=3
     --
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) myWorkspaceKeys
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+        , (f, m) <- [(W.view, 0), (W.shift, shiftMask), (W.greedyView, controlMask)]
+    ]
+    ++
+    [((m .|. modm, k), screenWorkspace sc >>= flip whenJust (windows . f))
+        | (k, sc) <- zip [xK_a, xK_s, xK_d] [0,1,2] -- i.e. M-a for screen 0, M-s for screen 1, ...
+        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
+    ]
+
+subtitle' ::  String -> ((KeyMask, KeySym), NamedAction)
+subtitle' x = ((0,0), NamedAction $ map toUpper $ x)
+
+showKeybindings :: [((KeyMask, KeySym), NamedAction)] -> NamedAction
+showKeybindings x = addName "Show keybindings" $ io $ do
+  h <- spawnPipe $ "yad --text-info --center --geometry=1200x800 --title \"XMonad keybindings\" --button=yad-close:1"
+  hPutStr h (unlines $ showKm x) -- showKM adds ">>" before subtitles
+  -- hPutStr h (unlines $ showKmSimple x) -- showKmSimple doesn't add ">>" to subtitles
+  hClose h
+  return ()
+
+myKeys :: XConfig l0 -> [((KeyMask, KeySym), NamedAction)]
+myKeys c =
+  let subKeys str ks = subtitle' str : mkNamedKeymap c ks in
+  subKeys "Xmonad Essentials"
+  [ ("M-w", addName "Kill focused window" $ kill)
+  , ("M-S-q", addName "Quit XMonad" $ io (exitWith ExitSuccess))
+  , ("M-S-r", addName "Recompile and restart XMonad" $ spawn "xmonad --recompile; xmonad --restart")
+  , ("M-b", addName "Toggle top bar" $ sendMessage ToggleStruts)
+  , ("M-S-<F1>", addName "Show colors" $ spawn showColorsCmd)
+  , ("M-S-C-<F1>", addName "Show Xresources" $ spawn showXresCmd)
+  ]
+
+  ^++^ subKeys "Window navigation"
+  [ ("M-<Tab>", addName "Move focus to next window" $ windows W.focusDown)
+  , ("M-S-<Tab>", addName "Move focus to prev window" $ windows W.focusUp)
+  , ("M-j", addName "Move focus to next window" $ windows W.focusDown)
+  , ("M-k", addName "Move focus to prev window" $ windows W.focusUp)
+  , ("M-m", addName "Move focus to master window" $ windows W.focusMaster)
+  , ("M-S-m", addName "Move focused window to master" $ promote)
+  , ("M-S-j", addName "Swap focused window with next window" $ windows W.swapDown)
+  , ("M-S-k", addName "Swap focused window with prev window" $ windows W.swapUp)
+  ]
+
+  ^++^ subKeys "Window resizing"
+  [ ("M-S-h", addName "Shrink window" $ sendMessage Shrink)
+  , ("M-S-l", addName "Expand window" $ sendMessage Expand)
+  , ("M-f", addName "Toggle focused window fullscreen" $ sendMessage $ Toggle FULL)
+  , ("M-C-m", addName "Toggle focused window magnified" $ sendMessage Mag.Toggle)
+  ]
+
+  ^++^ subKeys "Floating windows"
+  [ ("M-S-f", addName "Toggle float layout" $ sendMessage (T.Toggle "floats"))
+  , ("M-t", addName "Sink a floating window" $ withFocused $ windows . W.sink)
+  , ("M-S-t", addName "Sink all floated windows" $ sinkAll)
+  ]
+
+  ^++^ subKeys "Menus / Prompts"
+  [ ("M-<Space>", addName "Show application launcher" $ spawn "rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher_colorful_style5")
+  , ("M-r", addName "Show dmenu" $ spawn "dmenu_run")
+  , ("M-v", addName "Show clipboard history" $ spawn "rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'")
+  , ("M-S-x", addName "Show display manager" $ spawn "prompt-display -r")
+  , ("M-p c", addName "Show colorscheme prompt" $ spawn "prompt-colorscheme -r")
+  , ("M-p t", addName "Show tldr prompt" $ spawn "prompt-tldr -r")
+  , ("M-p q", addName "Show logout prompt" $ spawn "prompt-logout -r")
+  , ("M-p w", addName "Show wiki prompt" $ spawn "prompt-wiki -r")
+  , ("M-p a", addName "Show audio prompt" $ spawn "prompt-audio -r")
+  , ("M-p r", addName "Show resolution prompt" $ spawn "prompt-resolution -r")
+  , ("M-p m", addName "Show Xmonad bar prompt" $ spawn "prompt-xmonad -r")
+  ]
+
+  ^++^ subKeys "Favorite programs"
+  [ ("M-<Return>", addName "Launch terminal" $ spawn myTerminal)
+  , ("M-S-<Return>", addName "Launch file manager" $ spawn myFileManager)
+  , ("M-C-<Return>", addName "Launch browser" $ spawn myBrowser)
+  , ("M-<F2>", addName "Launch editor" $ spawn myEditor)
+  , ("M1-C-<Space>", addName "Show calendar" $ spawn "gsimplecal")
+  ]
+
+  ^++^ subKeys "Monitors"
+  [ ("M-M1-j", addName "Switch focus to prev screen" $ prevScreen)
+  , ("M-M1-k", addName "Switch focus to prev screen" $ nextScreen)
+  , ("M-M1-S-j", addName "Send focused window to prev screen" $ shiftPrevScreen)
+  , ("M-M1-S-k", addName "Send focused window to next screen" $ shiftNextScreen)
+  ]
+
+  ^++^ subKeys "Workspaces"
+  [ ("M-<Right>", addName "Switch to next workspace" $ moveTo Next nonNSP)
+  , ("M-S-<Right>", addName "Send to next workspace" $ shiftTo Next nonNSP)
+  , ("M-<Left>", addName "Switch to prev workspace" $ moveTo Prev nonNSP)
+  , ("M-S-<Left>", addName "Send to prev workspace" $ shiftTo Prev nonNSP)
+  , ("M-<Esc>", addName "Switch to last visited workspace" $ toggleWS' [scratchpadWorkspaceTag])
+  ]
+
+  ^++^ subKeys "Layouts"
+  [ ("M1-<Space>", addName "Switch to next layout" $ sendMessage NextLayout)
+  , ("M1-S-<Space>", addName "Switch to first layout" $ sendMessage FirstLayout)
+  , ("M1-S-t", addName "Switch to tall layout" $ sendMessage $ JumpToLayout "tall")
+  , ("M1-S-w", addName "Switch to wide layout" $ sendMessage $ JumpToLayout "wide")
+  , ("M1-S-f", addName "Switch to full layout" $ sendMessage $ JumpToLayout "full")
+  , ("M1-S-z", addName "Switch to zoom layout" $ sendMessage $ JumpToLayout "zoom")
+  , ("M1-S-m", addName "Switch to threeColMid layout" $ sendMessage $ JumpToLayout "threeColMid")
+  , ("M1-S-d", addName "Switch to dwindle layout" $ sendMessage $ JumpToLayout "dwindle")
+  ]
+
+  ^++^ subKeys "Increase/decrease windows in master pane"
+  [ ("M-C-,", addName "Increase windows in master pane" $ sendMessage (IncMasterN 1))
+  , ("M-C-.", addName "Decrease windows in master pane" $ sendMessage (IncMasterN (-1)))
+  ]
+
+  ^++^ subKeys "Screenshot"
+  [ ("M1-<Print>", addName "Take screenshot" $ spawn "printscr.sh")
+  , ("M1-S-<Print>", addName "Show screenshot menu" $ spawn "prompt-screenshot -r")
+  ]
+
+  ^++^ subKeys "Lock screen"
+  [ ("M-M1-l", addName "Lock screen" $ spawn "betterlockscreen --lock dim --span")
+  ]
+
+  ^++^ subKeys "Notifications"
+  -- [ ("M-S-n", addName "Toggle notifications" $ spawn "~/.local/bin/toggle_dunst.sh")
+  -- , ("C-S-<Space>", addName "Close all notifications" $ spawn "dunstctl close-all")
+  [ ("M-S-n", addName "Disable notifications" $ spawn "~/.dotfiles/bin/disable_wired.sh")
+  , ("M-S-d", addName "Enable notifications" $ spawn "~/.dotfiles/bin/enable_wired.sh")
+  , ("C-S-<Space>", addName "Close all notifications" $ spawn "wired --drop all")
+  ]
+
+  ^++^ subKeys "Brightness controls"
+  [ ("<XF86MonBrightnessUp>", addName "Increase brightness" $ spawn "brightnessctl --device=intel_backlight set +3%")
+  , ("<XF86MonBrightnessDown>", addName "Decrease brightness" $ spawn "brightnessctl --device=intel_backlight set 3%-")
+  ]
+
+  ^++^ subKeys "Audio controls"
+  [ ("<XF86AudioMute>", addName "Mute audio" $ spawn "bash -c 'pactl set-sink-mute $(pactl get-default-sink) toggle'")
+  , ("<XF86AudioRaiseVolume>", addName "Increase volume" $ spawn "bash -c 'pactl set-sink-volume $(pactl get-default-sink) +3%'")
+  , ("<XF86AudioLowerVolume>", addName "Decrease volume" $ spawn "bash -c 'pactl set-sink-volume $(pactl get-default-sink) -3%'")
+  , ("<XF86AudioPlay>", addName "Play/pause" $ spawn "playerctl --player=spotify,mpd play-pause")
+  , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl --player=spotify,mpd stop")
+  , ("<XF86AudioPrev>", addName "Skip to prev track" $ spawn "playerctl --player=spotify,mpd previous")
+  , ("<XF86AudioNext>", addName "Skip to next track" $ spawn "playerctl --player=spotify,mpd next")
+  ]
+
+  -- ^++^ subKeys "Systray"
+  -- [ ("M-S-s", addName "Toggle systray" $ spawn "polybar-msg action tray module_toggle")
+  -- ]
+
+  ^++^ subKeys "Scratchpads"
+  [ ("M-y", addName "Toggle scratchpad terminal" $ namedScratchpadAction myScratchpads "term")
+  , ("M-C-y", addName "Toggle scratchpad terminal" $ namedScratchpadAction myScratchpads "term")
+  , ("M-C-x", addName "Toggle scratchpad system monitor" $ namedScratchpadAction myScratchpads "top")
+  , ("M-C-f", addName "Toggle scratchpad file manager" $ namedScratchpadAction myScratchpads "files")
+  , ("M-C-v", addName "Toggle scratchpad volume control" $ namedScratchpadAction myScratchpads "volume")
+  , ("M-C-a", addName "Toggle scratchpad audio player" $ namedScratchpadAction myScratchpads "mpc")
+  , ("M-C-p", addName "Toggle scratchpad password manager" $ namedScratchpadAction myScratchpads "pass")
+  , ("M-C-n", addName "Toggle scratchpad quick notes" $ namedScratchpadAction myScratchpads "notes")
+  , ("M-C-s", addName "Toggle scratchpad screenshots" $ namedScratchpadAction myScratchpads "picscr")
+  , ("M-C-w", addName "Toggle scratchpad wallpapers" $ namedScratchpadAction myScratchpads "picwal")
+  , ("M-C-c", addName "Toggle scratchpad calculator" $ namedScratchpadAction myScratchpads "calc")
+  ]
+  where
+    nonNSP = WSIs (return (\ws -> W.tag ws /= "NSP"))
+    showColorsCmd = concat ["yad --text-info --center --geometry=400x600 --title \"XMonad colors\" --button=yad-close:1 --text \">> XMonad colors"
+      , "\nnormalBorderColor=", myNormalBorderColor
+      , "\nfocusedBorderColor=", myFocusedBorderColor
+      , "\n\n>> XResources colors"
+      , "\nforeground=", xColorFg
+      , "\nbackground=", xColorBg
+      , "\ncolor0=", color0
+      , "\ncolor1=", color1
+      , "\ncolor2=", color2
+      , "\ncolor3=", color3
+      , "\ncolor4=", color4
+      , "\ncolor5=", color5
+      , "\ncolor6=", color6
+      , "\ncolor7=", color7
+      , "\ncolor8=", color8
+      , "\ncolor9=", color9
+      , "\ncolor10=", color10
+      , "\ncolor11=", color11
+      , "\ncolor12=", color12
+      , "\ncolor13=", color13
+      , "\ncolor14=", color14
+      , "\ncolor15=", color15
+      , "\n\n>> XResources fonts"
+      , "\nfont=", xFont
+      , "\""
+      ]
+    showXresCmd = "xrdb -query | yad --text-info --center --geometry=400x600 --title \"Xresources\" --button=yad-close:1"
 
 -- }}}
 
@@ -188,30 +320,127 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 ------------------------------------------------------------------------
 -- Layouts:
 
--- You can specify and transform your layouts by modifying these values.
--- If you change layout bindings be sure to use 'mod-shift-space' after
--- restarting (with 'mod-q') to reset your layout state to the new
--- defaults, as xmonad preserves your old layout settings by default.
---
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = smartSpacing myUselessGap
-  $ smartBorders
+myLayout = avoidStruts
   $ mkToggle (NOBORDERS ?? FULL ?? EOT)
-  $ avoidStruts (tiled ||| Mirror tiled ||| Full)
+  $ spacingWithEdge myUselessGap (tall ||| full ||| dwindle ||| threeColMid ||| wide ||| zoom ||| threeCol)
   where
-     -- default tiling algorithm partitions the screen into two panes
-     tiled   = Tall nmaster delta ratio
+    -- default tiling algorithm partitions the screen into two panes
+    tall        = renamed [Replace "tall"] (Tall nmaster delta ratio)
+    wide        = renamed [Replace "wide"] (Mirror (Tall nmaster delta (3/5)))
+    full        = renamed [Replace "full"] (Full)
+    threeCol    = renamed [Replace "threeCol"] (ThreeCol nmaster delta ratio)
+    threeColMid = renamed [Replace "threeColMid"] (ThreeColMid nmaster delta ratio)
+    zoom        = renamed [Replace "zoom"] (Mag.magnifier tall)
+    dwindle     = renamed [Replace "dwindle"] (Dwindle R CW 1.5 1.1)
 
-     -- The default number of windows in the master pane
-     nmaster = 1
+    -- The default number of windows in the master pane
+    nmaster  = 1
 
-     -- Default proportion of screen occupied by master pane
-     ratio   = 1/2
+    -- Default proportion of screen occupied by master pane
+    ratio    = 1/2
 
-     -- Percent of screen to increment by when resizing panes
-     delta   = 3/100
+    -- Percent of screen to increment by when resizing panes
+    delta    = 3/100
+-- }}}
+
+-- {{{ Scratchpads
+myScratchpads :: [NamedScratchpad]
+myScratchpads =
+  [ NS "term"   spawnTerm findTerm manageTerm
+  , NS "top"    spawnTop  findTop  manageTop
+  , NS "files"  spawnRgr  findRgr  manageRgr
+  , NS "volume" spawnVol  findVol  manageVol
+  , NS "mpc"    spawnMpc  findMpc  manageMpc
+  , NS "pass"   spawnPass findPass managePass
+  , NS "notes"  spawnNote findNote manageNote
+  , NS "picscr" spawnScrot findScrot manageScrot
+  , NS "picwal" spawnWall findWall manageWall
+  , NS "calc"   spawnCalc findCalc manageCalc
+  ]
+  where
+    spawnTerm  = myTerminal ++ " --title scratchpad"
+    findTerm   = title =? "scratchpad"
+    manageTerm = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnTop   = myTerminal ++ " --title top -e btop"
+    findTop    = title =? "top"
+    manageTop  = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnRgr   = myTerminal ++ " --title ranger -e yazi"
+    findRgr    = title =? "ranger"
+    manageRgr  = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnVol   = "pavucontrol"
+    findVol    = className =? "Pavucontrol"
+    manageVol  = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnMpc   = "ymuse"
+    findMpc    = className =? "Ymuse"
+    manageMpc  = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnPass  = "1password"
+    findPass   = className =? "1Password"
+    managePass = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnNote  = "subl3"
+    findNote   = className =? "Sublime_text"
+    manageNote = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.6
+                 w = 0.6
+                 t = 0.8 - h
+                 l = 0.8 - w
+    spawnScrot  = "nsxiv --class NsxivScrot -t ~/Pictures/Screenshots"
+    findScrot   = resource =? "NsxivScrot"
+    manageScrot = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnWall  = "nsxiv --class NsxivWall -t -r ~/Pictures/Wallpapers"
+    findWall   = resource =? "NsxivWall"
+    manageWall = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 - h
+                 l = 0.95 - w
+    spawnCalc  = "qalculate-gtk"
+    findCalc   = className =? "Qalculate-gtk"
+    manageCalc = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.6
+                 w = 0.6
+                 t = 0.8 - h
+                 l = 0.8 - w
 -- }}}
 
 -- {{{ Window rules
@@ -230,11 +459,32 @@ myLayout = smartSpacing myUselessGap
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = composeAll
+myManageHook = namedScratchpadManageHook myScratchpads
+  <> composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
+    , className =? "dialog"         --> doFloat
+    , className =? "confirm"        --> doFloat
+    , className =? "error"          --> doFloat
+    , className =? "notification"   --> doFloat
+    , className =? "splash"         --> doFloat
+    , className =? "toolbar"        --> doFloat
+    , className =? "file_progress"  --> doFloat
+    , className =? "Yad"            --> doFloat
+    , className =? "Gsimplecal"     --> doFloat
+    , className =? "Espanso"        --> doFloat
+    , className =? "Nm-connection-editor" --> doFloat
+    , className =? "Blueman-manager" --> doFloat
+    , winName   =? "File Operation Progress" --> doFloat
+    , role      =? "pop-up"         --> doFloat
+    , role      =? "bubble"         --> doFloat
     , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
+    , resource  =? "kdesktop"       --> doIgnore
+    , isFullscreen --> doFullFloat
+    ]
+    where
+      role = stringProperty "WM_WINDOW_ROLE"
+      winName = stringProperty "WM_NAME"
 -- }}}
 
 -- {{{ Event handling
@@ -247,7 +497,7 @@ myManageHook = composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = mempty
+myEventHook = swallowEventHook (className =? "Alacritty" <||> className =? "kitty" <||> className =? "Xterm") (return True)
 -- }}}
 
 -- {{{ Status bars and logging
@@ -264,35 +514,92 @@ myLogHook = updatePointer (0.5, 0.5) (0, 0)
 ------------------------------------------------------------------------
 -- Startup hook
 
--- Perform an arbitrary action each time xmonad starts or is restarted
--- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
--- per-workspace layout choices.
---
--- By default, do nothing.
 myStartupHook :: X ()
 myStartupHook = do
-  let wallpaperCmd      = "feh --bg-scale " ++ myWallpaperPath
-      picomCmd          = "killall -9 picom; sleep 1 && picom -b &"
-      clipboardHistCmd  = "killall -9 greenclip; sleep 1 && greenclip daemon"
-      polkitCmd         = "killall -9 /usr/lib/polkit-kde-authentication-agent-1; sleep 1 && /usr/lib/polkit-kde-authentication-agent-1"
-      notifCmd          = "killall -9 dunst; sleep 1 && dunst &"
-      systrayCmd        = "killall -9 trayer; sleep 1 && trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 5 --transparent true --tint 0x000000 --height 18"
-      netManAppletCmd   = "killall -9 nm-applet; sleep 1 && nm-applet"
-      sndManAppletCmd   = "killall -9 pasystray; sleep 1 && pasystray"
-      blueManAppletCmd  = "killall -9 blueman; sleep 1 && blueman"
-      updManAppletCmd   = "killall -9 pamac-tray; sleep 1 && GDK_BACKEND=x11 pamac-tray"
+  let wallpaperCmd      = "feh --bg-scale " ++ myWallpaperPath ++ " " ++ myWallpaperPath
+      picomCmd          = "picom"
+      clipboardHistCmd  = "greenclip daemon"
+      polkitCmd         = "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+      notifCmd          = "wired"
+      systrayCmd        = "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 5 --transparent true --tint 0x000000 --height 18"
+      netManAppletCmd   = "nm-applet"
+      sndManAppletCmd   = "pasystray"
+      blueManAppletCmd  = "blueman"
+      updManAppletCmd   = "GDK_BACKEND=x11 pamac-tray"
+      autostartAllCmd   = "dex --autostart --environment XMonad"
+      cursorHiderCmd    = "unclutter --fork"
+      emojiPickerCmd    = "emote"
   sequence_ [
-      spawn wallpaperCmd
-    , spawn picomCmd
-    , spawn clipboardHistCmd
-    , spawn polkitCmd
-    , spawn notifCmd
-    , spawn systrayCmd
-    , spawn netManAppletCmd
-    , spawn sndManAppletCmd
-    , spawn blueManAppletCmd
-    , spawn updManAppletCmd
+      spawn     wallpaperCmd
+    , spawnOnce picomCmd
+    , spawnOnce clipboardHistCmd
+    , spawnOnce polkitCmd
+    , spawnOnce notifCmd
+    , spawnOnce systrayCmd
+    , spawnOnce netManAppletCmd
+    , spawnOnce sndManAppletCmd
+    -- , spawnOnce blueManAppletCmd
+    -- , spawnOnce updManAppletCmd
+    , spawnOnce cursorHiderCmd
+    , spawnOnce emojiPickerCmd
     ]
+-- }}}
+
+-- {{{ Color scheme
+-- https://edwardwibowo.com/blog/switching-themes-on-the-fly-with-xmonad/
+splitAtColon :: String -> Maybe (String, String)
+splitAtColon str = splitAtTrimming str <$> DL.elemIndex ':' str
+  where
+    splitAtTrimming :: String -> Int -> (String, String)
+    splitAtTrimming s idx = bimap trim (trim . tail) $ splitAt idx s
+    trim :: String -> String
+    trim = DL.dropWhileEnd DC.isSpace . DL.dropWhile DC.isSpace
+
+getFromXres :: String -> IO String
+getFromXres key = do
+  installSignalHandlers
+  fromMaybe "" . findValue key <$> runProcessWithInput "xrdb" ["-query"] ""
+  where
+    findValue :: String -> String -> Maybe String
+    findValue xresKey xres =
+      snd <$>
+      DL.find ((== xresKey) . fst) (catMaybes $ splitAtColon <$> lines xres)
+
+xProp :: String -> String
+xProp = unsafePerformIO . getFromXres
+
+xFont :: String
+xFont = xProp "*font"
+
+xColorFg :: String
+xColorFg = xProp "*foreground"
+
+xColorBg :: String
+xColorBg = xProp "*background"
+
+xColor :: String -> String
+xColor a = xProp $ "*color" ++ a
+
+color0  = xColor "0"
+color1  = xColor "1"
+color2  = xColor "2"
+color3  = xColor "3"
+color4  = xColor "4"
+color5  = xColor "5"
+color6  = xColor "6"
+color7  = xColor "7"
+color8  = xColor "8"
+color9  = xColor "9"
+color10 = xColor "10"
+color11 = xColor "11"
+color12 = xColor "12"
+color13 = xColor "13"
+color14 = xColor "14"
+color15 = xColor "15"
+
+-- Border colors for unfocused and focused windows, respectively.
+myNormalBorderColor  = color0
+myFocusedBorderColor = color12
 -- }}}
 
 -- {{{ Main
@@ -301,7 +608,14 @@ myStartupHook = do
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = xmonad . docks . ewmhFullscreen . ewmh . xmobarProp
+myFilter = filterOutWs [scratchpadWorkspaceTag]
+main = xmonad
+     $ addDescrKeys' ((mod4Mask, xK_F1), showKeybindings) myKeys
+     $ docks
+     . addEwmhWorkspaceSort (pure myFilter)
+     . ewmhFullscreen
+     . ewmh
+     . xmobarProp
      $ defaults
 
 -- A structure containing your configuration settings, overriding
@@ -322,7 +636,7 @@ defaults = def {
         focusedBorderColor = myFocusedBorderColor,
 
       -- key bindings
-        keys               = myAdditionalKeys,
+        keys               = myEssentialKeys,
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
@@ -332,59 +646,5 @@ defaults = def {
         logHook            = myLogHook,
         startupHook        = myStartupHook
     }
-    `additionalKeysP` myKeys
--- }}}
-
--- {{{ Help
--- | Finally, a copy of the default bindings in simple textual tabular format.
-help :: String
--- TODO Update according to my key bindings
-help = unlines ["The default modifier key is 'alt'. Default keybindings:",
-    "",
-    "-- launching and killing programs",
-    "mod-Shift-Enter  Launch xterminal",
-    "mod-p            Launch dmenu",
-    "mod-Shift-p      Launch gmrun",
-    "mod-Shift-c      Close/kill the focused window",
-    "mod-Space        Rotate through the available layout algorithms",
-    "mod-Shift-Space  Reset the layouts on the current workSpace to default",
-    "mod-n            Resize/refresh viewed windows to the correct size",
-    "",
-    "-- move focus up or down the window stack",
-    "mod-Tab        Move focus to the next window",
-    "mod-Shift-Tab  Move focus to the previous window",
-    "mod-j          Move focus to the next window",
-    "mod-k          Move focus to the previous window",
-    "mod-m          Move focus to the master window",
-    "",
-    "-- modifying the window order",
-    "mod-Return   Swap the focused window and the master window",
-    "mod-Shift-j  Swap the focused window with the next window",
-    "mod-Shift-k  Swap the focused window with the previous window",
-    "",
-    "-- resizing the master/slave ratio",
-    "mod-h  Shrink the master area",
-    "mod-l  Expand the master area",
-    "",
-    "-- floating layer support",
-    "mod-t  Push window back into tiling; unfloat and re-tile it",
-    "",
-    "-- increase or decrease number of windows in the master area",
-    "mod-comma  (mod-,)   Increment the number of windows in the master area",
-    "mod-period (mod-.)   Deincrement the number of windows in the master area",
-    "",
-    "-- quit, or restart",
-    "mod-Shift-q  Quit xmonad",
-    "mod-q        Restart xmonad",
-    "",
-    "-- Workspaces & screens",
-    "mod-[1..9]   Switch to workSpace N",
-    "mod-Shift-[1..9]   Move client to workspace N",
-    "mod-{w,e,r}        Switch to physical/Xinerama screens 1, 2, or 3",
-    "mod-Shift-{w,e,r}  Move client to screen 1, 2, or 3",
-    "",
-    "-- Mouse bindings: default actions bound to mouse events",
-    "mod-button1  Set the window to floating mode and move by dragging",
-    "mod-button2  Raise the window to the top of the stack",
-    "mod-button3  Set the window to floating mode and resize by dragging"]
+    -- `additionalKeysP` myKeys
 -- }}}
