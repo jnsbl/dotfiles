@@ -12,11 +12,22 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- Appearance
-  "bradcush/nvim-base16",
-  -- "RRethy/nvim-base16",
-  "tinted-theming/tinted-vim",
-  "kyazdani42/nvim-web-devicons",
+
+  ---------------------------------------------------- Appearance
+
+  {"bradcush/nvim-base16"},
+  {
+    "tinted-theming/tinted-vim",
+    config = function()
+      require("plugins.tinted-vim")
+    end,
+  },
+  {
+    "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("plugins.nvim-web-devicons")
+    end,
+  },
   {
     "nvim-lualine/lualine.nvim",
     dependencies = {
@@ -34,114 +45,174 @@ require("lazy").setup({
       require("sttusline").setup()
     end,
   },
-  -- "goolord/alpha-nvim",
-  "lukas-reineke/indent-blankline.nvim",
-  "kevinhwang91/nvim-bqf",
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("plugins.indent-blankline-nvim")
+    end,
+  },
+  {"kevinhwang91/nvim-bqf"},
 
-  -- Utilities
-  "nvim-lua/plenary.nvim",
-  "famiu/bufdelete.nvim",
-  "jghauser/mkdir.nvim",
-  "nkakouros-original/numbers.nvim",
-  "norcalli/nvim-colorizer.lua",
-  -- use "gennaro-tedesco/nvim-peekup"
-  "numToStr/Comment.nvim",
-  {"phaazon/hop.nvim", branch = "v2"},
-  "nacro90/numb.nvim",
-  "lewis6991/gitsigns.nvim",
-  "nvim-lua/popup.nvim",
-  "MunifTanjim/nui.nvim",
-  "vim-scripts/ReplaceWithRegister",
-  "kyazdani42/nvim-tree.lua",
+  ---------------------------------------------------- Utilities
+
+  {"nvim-lua/plenary.nvim"},
+  {"famiu/bufdelete.nvim"},
+  {"jghauser/mkdir.nvim"},
+  {
+    "nkakouros-original/numbers.nvim",
+    config = function()
+      require("plugins.numbers-nvim")
+    end,
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("plugins.nvim-colorizer")
+    end,
+  },
+  {
+    "numToStr/Comment.nvim",
+    config = function()
+      require("plugins.comment-nvim")
+    end,
+  },
+  {
+    "phaazon/hop.nvim",
+    branch = "v2",
+    config = function()
+      require("plugins.hop-nvim")
+    end,
+  },
+  {
+    "nacro90/numb.nvim",
+    config = function()
+      require("plugins.numb-nvim")
+    end,
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("plugins.gitsigns-nvim")
+    end,
+  },
+  {"nvim-lua/popup.nvim"},
+  {"MunifTanjim/nui.nvim"},
+  {"vim-scripts/ReplaceWithRegister"},
+  {
+    "kyazdani42/nvim-tree.lua",
+    config = function()
+      require("plugins.nvim-tree")
+    end,
+  },
   {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
+    config = function()
+      require("plugins.snacks-nvim")
+    end,
   },
 
-  -- Syntax
-  {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
-  "kylechui/nvim-surround",
-  "m-demare/hlargs.nvim",
-  "dag/vim-fish",
-  "ron-rs/ron.vim",
+  ---------------------------------------------------- Syntax
 
-  -- Language support
-  -- {"roxma/nvim-yarp", { build = "pip install -r requirements.txt" }},
+  {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+  {
+    "kylechui/nvim-surround",
+    config = function()
+      require("plugins.nvim-surround")
+    end,
+  },
+  {
+    "m-demare/hlargs.nvim",
+    config = function()
+      require("plugins.hlargs-nvim")
+    end,
+  },
+  {"dag/vim-fish"},
+  {"ron-rs/ron.vim"},
+
+  ---------------------------------------------------- Language support
+
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
   {
     "mrcjkb/haskell-tools.nvim",
     version = "^3",
     ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
   },
 
-  -- Fuzzy-finding and searching
-  "BurntSushi/ripgrep",
-  {"nvim-telescope/telescope.nvim", branch = "0.1.x"},
-  "jvgrootveld/telescope-zoxide",
-  "gelguy/wilder.nvim",
-  "kevinhwang91/nvim-hlslens",
-  -- {
-  --   "junegunn/fzf.vim",
-  --   dependencies = { "junegunn/fzf" },
-  -- },
+  ---------------------------------------------------- Fuzzy-finding and searching
+
+  {"BurntSushi/ripgrep"},
+  {
+    "nvim-telescope/telescope.nvim",
+    branch = "0.1.x",
+    config = function()
+      require("plugins.telescope-nvim")
+    end,
+  },
+  {"jvgrootveld/telescope-zoxide"},
+  {
+    "gelguy/wilder.nvim",
+    config = function()
+      require("plugins.wilder-nvim")
+    end,
+  },
+  {
+    "kevinhwang91/nvim-hlslens",
+    config = function()
+      require("plugins.nvim-hlslens")
+    end,
+  },
   {
     "ibhagwan/fzf-lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("plugins.fzf-lua")
+    end,
   },
 
-  -- File-type specific
-  "ellisonleao/glow.nvim",
+  ---------------------------------------------------- File-type specific
 
-  -- LSP
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
-  "neovim/nvim-lspconfig",
+  {
+    "ellisonleao/glow.nvim",
+    config = function()
+      require("plugins.glow-nvim")
+    end,
+  },
 
-  -- Code completion and snippets
-  "hrsh7th/cmp-nvim-lsp",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-path",
-  "hrsh7th/cmp-cmdline",
-  "L3MON4D3/LuaSnip",
-  "saadparwaiz1/cmp_luasnip",
-  "hrsh7th/nvim-cmp"
+  ---------------------------------------------------- LSP
+
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      require("plugins.lsp-mason-nvim")
+    end,
+  },
+  {"williamboman/mason-lspconfig.nvim"},
+  {"neovim/nvim-lspconfig"},
+
+  -- ------------------------------------------------- Code completion and snippets
+
+  {"hrsh7th/cmp-nvim-lsp"},
+  {"hrsh7th/cmp-buffer"},
+  {"hrsh7th/cmp-path"},
+  {"hrsh7th/cmp-cmdline"},
+  {"L3MON4D3/LuaSnip"},
+  {"saadparwaiz1/cmp_luasnip"},
+  {
+    "hrsh7th/nvim-cmp",
+    config = function()
+      require("plugins.nvim-cmp")
+    end,
+  }
 })
-
--- Appearance
--- require("plugins.base16-nvim")
--- require("plugins.nvim-base16")
-require("plugins.tinted-vim")
-require("plugins.nvim-web-devicons")
--- require("plugins.lualine-nvim")
--- require("plugins.alpha-nvim")
--- require("plugins.indent-blankline-nvim")
-
--- Utilities
-require("plugins.numbers-nvim")
-require("plugins.nvim-colorizer")
-require("plugins.comment-nvim")
-require("plugins.hop-nvim")
-require("plugins.numb-nvim")
-require("plugins.gitsigns-nvim")
-require("plugins.nvim-tree")
-require("plugins.snacks-nvim")
-
--- Syntax
-require("plugins.nvim-surround")
-require("plugins.hlargs-nvim")
-
--- Fuzzy-finding and searching
-require("plugins.telescope-nvim")
-require("plugins.wilder-nvim")
-require("plugins.nvim-hlslens")
--- require("plugins.fzf-vim")
-require("plugins.fzf-lua")
-
--- File-type specific
-require("plugins.glow-nvim")
-
--- LSP
-require("plugins.lsp-mason-nvim")
-
--- Code completion and snippets
-require("plugins.nvim-cmp")
