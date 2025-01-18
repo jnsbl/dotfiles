@@ -12,6 +12,8 @@ mason_lspconfig.setup {
     "pyright",
     "taplo",
     "yamlls",
+    "biome",
+    "ts_ls",
   }
 }
 
@@ -37,3 +39,5 @@ lspconfig.lua_ls.setup {
     },
   },
 }
+lspconfig.biome.setup {}
+lspconfig.ts_ls.setup {}

@@ -21,6 +21,11 @@ cmp.setup {
     { name = "luasnip" },
   }, {
     { name = "buffer" },
+    {
+      name = "lazydev",
+      group_index = 0,
+    },
+    { name = "fish" },
   })
 }
 
@@ -56,5 +61,8 @@ lspconfig["taplo"].setup {
   capabilities = capabilities
 }
 lspconfig["yamlls"].setup {
+  capabilities = capabilities
+}
+lspconfig["ts_ls"].setup {
   capabilities = capabilities
 }
