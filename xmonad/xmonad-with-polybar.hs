@@ -172,6 +172,7 @@ myKeys c =
   , ("M-p w", addName "Show wiki prompt" $ spawn "prompt-wiki -r")
   , ("M-p a", addName "Show audio prompt" $ spawn "prompt-audio -r")
   , ("M-p r", addName "Show resolution prompt" $ spawn "prompt-resolution -r")
+  , ("M-p m", addName "Show Xmonad bar prompt" $ spawn "prompt-xmonad -r")
   ]
 
   ^++^ subKeys "Favorite programs"
@@ -516,7 +517,7 @@ myLogHook = updatePointer (0.5, 0.5) (0, 0)
 myStartupHook :: X ()
 myStartupHook = do
   let wallpaperCmd      = "feh --bg-scale " ++ myWallpaperPath ++ " " ++ myWallpaperPath
-      polybarCmd        = "~/.config/polybar/launch.sh"
+      statusbarCmd        = "~/.config/polybar/launch.sh"
       picomCmd          = "picom"
       clipboardHistCmd  = "greenclip daemon"
       polkitCmd         = "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
@@ -531,7 +532,7 @@ myStartupHook = do
       emojiPickerCmd    = "emote"
   sequence_ [
       spawn     wallpaperCmd
-    , spawn     polybarCmd
+    , spawn     statusbarCmd
     , spawnOnce picomCmd
     , spawnOnce clipboardHistCmd
     , spawnOnce polkitCmd

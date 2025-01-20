@@ -517,6 +517,7 @@ myLogHook = updatePointer (0.5, 0.5) (0, 0)
 myStartupHook :: X ()
 myStartupHook = do
   let wallpaperCmd      = "feh --bg-scale " ++ myWallpaperPath ++ " " ++ myWallpaperPath
+      statusbarCmd        = "~/.config/xmobar/launch.sh"
       picomCmd          = "picom"
       clipboardHistCmd  = "greenclip daemon"
       polkitCmd         = "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
@@ -531,6 +532,7 @@ myStartupHook = do
       emojiPickerCmd    = "emote"
   sequence_ [
       spawn     wallpaperCmd
+    , spawn     statusbarCmd
     , spawnOnce picomCmd
     , spawnOnce clipboardHistCmd
     , spawnOnce polkitCmd
