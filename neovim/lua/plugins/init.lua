@@ -149,6 +149,10 @@ require("lazy").setup({
     version = "^3",
     ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
   },
+  {
+    "prettier/vim-prettier",
+    ft = { "javascrit", "typescript", "css", "scss", "json", "graphql", "markdown", "vue", "yaml", "html" },
+  },
 
   ---------------------------------------------------- Fuzzy-finding and searching
 
@@ -194,9 +198,9 @@ require("lazy").setup({
 
   {
     "williamboman/mason.nvim",
-    config = function()
-      require("plugins.lsp-mason-nvim")
-    end,
+    -- config = function()
+    --   require("plugins.lsp-mason-nvim")
+    -- end,
   },
   {"williamboman/mason-lspconfig.nvim"},
   {"neovim/nvim-lspconfig"},
@@ -204,6 +208,7 @@ require("lazy").setup({
   -- ------------------------------------------------- Code completion and snippets
 
   {"hrsh7th/cmp-nvim-lsp"},
+  {"hrsh7th/cmp-nvim-lsp-signature-help"},
   {"hrsh7th/cmp-buffer"},
   {"hrsh7th/cmp-path"},
   {"hrsh7th/cmp-cmdline"},
@@ -211,8 +216,10 @@ require("lazy").setup({
   {"saadparwaiz1/cmp_luasnip"},
   {
     "hrsh7th/nvim-cmp",
-    config = function()
-      require("plugins.nvim-cmp")
-    end,
+    -- config = function()
+    --   require("plugins.nvim-cmp")
+    -- end,
   }
 })
+
+require("plugins.lsp-cmp-snip")

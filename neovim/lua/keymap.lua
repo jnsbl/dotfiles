@@ -167,3 +167,9 @@ keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]])
 keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]])
 
 keymap("n", "<F2>",  ":NvimTreeToggle<CR>")
+
+-- LSP mappings
+keymap('n', '<space>d', vim.diagnostic.open_float)
+keymap('n', '[d', vim.diagnostic.goto_prev)
+keymap('n', ']d', vim.diagnostic.goto_next)
+keymap('n', '<space>q', vim.diagnostic.setloclist)
