@@ -46,6 +46,7 @@
     ~/.config/ulauncher/extensions.json: ulauncher/extensions.json
     ~/.config/ulauncher/settings.json: ulauncher/settings.json
     ~/.config/wired: wired
+    ~/.config/xmobar: xmobar
     ~/.config/xmonad/xmonad.hs: xmonad/xmonad.hs
     ~/.config/yazi: yazi
     ~/.dotfiles: ''

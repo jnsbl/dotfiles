@@ -41,6 +41,7 @@ import XMonad.Layout.ThreeColumns
 import XMonad.ManageHook
 
 import XMonad.Util.EZConfig
+import XMonad.Util.Loggers
 import XMonad.Util.NamedActions
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
@@ -508,6 +509,37 @@ myEventHook = swallowEventHook (className =? "Alacritty" <||> className =? "kitt
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
 myLogHook = updatePointer (0.5, 0.5) (0, 0)
+
+-- windowCount :: X (Maybe String)
+-- windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+--
+-- myLogHook = do
+--   xmproc0 <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/primary.config")
+--   xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/secondary.config")
+--   -- updatePointer (0.5, 0.5) (0, 0)
+--   dynamicLogWithPP $  filterOutWsPP ["NSP"] $ xmobarPP
+--           { ppOutput = \x -> hPutStrLn xmproc0 x   -- xmobar on monitor 1
+--                           >> hPutStrLn xmproc1 x   -- xmobar on monitor 2
+--           , ppCurrent = color6 "" . wrap
+--                         ("<box type=Bottom width=2 mb=2 color=" ++ color6 ++ ">") "</box>"
+--             -- Visible but not current workspace
+--           , ppVisible = color6 ""
+--             -- Hidden workspace
+--           , ppHidden = color5 "" . wrap
+--                        ("<box type=Top width=2 mt=2 color=" ++ color5 ++ ">") "</box>"
+--             -- Hidden workspaces (no windows)
+--           , ppHiddenNoWindows = color5 ""
+--             -- Title of active window
+--           , ppTitle = color15 "" . shorten 60
+--             -- Separator character
+--           , ppSep =  "<fc=" ++ color9 ++ "> <fn=1>|</fn> </fc>"
+--             -- Urgent workspace
+--           , ppUrgent = color8 "" . wrap "!" "!"
+--             -- Adding # of windows on current workspace to the bar
+--           , ppExtras  = [windowCount]
+--             -- order of things in xmobar
+--           , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+--           }
 -- }}}
 
 -- {{{ Startup hook
@@ -599,6 +631,18 @@ color13 = xColor "13"
 color14 = xColor "14"
 color15 = xColor "15"
 
+colBg      = xColorBg
+colComment = color8
+colFg      = xColorFg
+colRed     = color1
+colYellow  = color3
+colGreen   = color2
+colCyan    = color6
+colBlue    = color4
+colMagenta = color5
+colOrange  = xColor "16"
+colPink    = xColor "17"
+
 -- Border colors for unfocused and focused windows, respectively.
 myNormalBorderColor  = color0
 myFocusedBorderColor = color12
@@ -618,6 +662,8 @@ main = xmonad
      . ewmhFullscreen
      . ewmh
      . xmobarProp
+     -- TODO Replace withEasySB with dynamicSBs (https://xmonad.github.io/xmonad-docs/xmonad-contrib/XMonad-Hooks-StatusBar.html#g:4)
+     -- . withEasySB (statusBarProp "xmobar" (pure myXmobarPP)) defToggleStrutsKey
      $ defaults
 
 -- A structure containing your configuration settings, overriding
@@ -649,4 +695,32 @@ defaults = def {
         startupHook        = myStartupHook
     }
     -- `additionalKeysP` myKeys
+
+myXmobarPP :: PP
+myXmobarPP = def
+    { ppSep             = " | "
+    , ppTitleSanitize   = xmobarStrip
+    , ppCurrent         = yellow . wrap " " ""
+    , ppHidden          = white . wrap " " ""
+    , ppHiddenNoWindows = lowWhite . wrap " " ""
+    , ppUrgent          = red . wrap (yellow "!") (yellow "!")
+    , ppOrder           = \[ws, l, _, _] -> [ws, l]
+    , ppExtras          = [logTitles formatFocused formatUnfocused]
+    }
+  where
+    formatFocused   = wrap (white    "[") (white    "]") . magenta . ppWindow
+    formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue    . ppWindow
+
+    -- | Windows should have *some* title, which should not not exceed a
+    -- sane length.
+    ppWindow :: String -> String
+    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
+
+    blue, lowWhite, magenta, red, white, yellow :: String -> String
+    magenta  = xmobarColor colMagenta ""
+    blue     = xmobarColor colBlue ""
+    white    = xmobarColor color7 ""
+    yellow   = xmobarColor colYellow ""
+    red      = xmobarColor colRed ""
+    lowWhite = xmobarColor colComment ""
 -- }}}
