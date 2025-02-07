@@ -10,6 +10,7 @@ opt.number         = true
 opt.list           = true
 opt.listchars      = {tab = ">-", trail = "·"}
 opt.fillchars:append("vert:│")
+opt.cursorline     = true
 
 -- ----------------------------------------------------------------------------
 -- Options - Behaviour
@@ -50,6 +51,9 @@ opt.splitbelow     = true
 opt.splitright     = true
 
 opt.wildmode       = {list = "longest"}
+
+opt.updatetime     = 250
+opt.timeoutlen     = 300
 
 -- ----------------------------------------------------------------------------
 -- Options - Indents and Tabs

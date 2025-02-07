@@ -1,8 +1,5 @@
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
-local g = vim.g
-
-g.mapleader = ","
 
 keymap("n", "<space>s", ":w<CR>")
 
@@ -37,8 +34,8 @@ keymap("n", "<M-Right>", "<C-w>>")
 keymap("n", "vv", "<C-w>v")
 keymap("n", "ss", "<C-w>s")
 
--- Clear current search highlight by double tapping /
-keymap("n", "//", ":nohlsearch<CR>")
+-- Clear current search highlight by tapping Esc
+keymap("n", "<Esc>", ":nohlsearch<CR>")
 
 -- Type ,hl to toggle highlighting on/off, and show current value.
 keymap("n", "<leader>hl", ":set hlsearch! hlsearch?<CR>")
@@ -50,6 +47,7 @@ keymap("n", "<leader>vr", ":so %<CR>")
 -- ,qo to open it back up (rare)
 keymap("n", "<leader>qc", ":cclose<CR>")
 keymap("n", "<leader>qo", ":copen<CR>")
+keymap('n', '<leader>ql', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Move back and forth through previous and next buffers
 -- with ,y and ,x (I'm using qwertz keyboard)
@@ -97,67 +95,11 @@ keymap("n", "<leader>P", "\"+P")
 keymap("n", "<leader>d", "\"_dd")
 keymap("v", "<leader>d", "\"_d")
 
--- "st" for Startify
+-- "st" for Start
 -- keymap("n", "<leader>st", ":Alpha<CR>")
 keymap("n", "<leader>st", "<cmd>lua Snacks.dashboard()<CR>")
 
--- keymap("n", "<leader>T",  ":Telescope builtin<CR>")
--- keymap("n", "<leader>b",  ":Telescope buffers<CR>")
--- keymap("n", "<leader>F",  ":Telescope find_files<CR>")
--- keymap("n", "<leader>gf", ":Telescope git_files<CR>")
--- keymap("n", "<leader>gs", ":Telescope git_status<CR>")
--- keymap("n", "<leader>gc", ":Telescope git_commits<CR>")
--- keymap("n", "<leader>gb", ":Telescope git_bcommits<CR>")
--- keymap("n", "<leader>gB", ":Telescope git_branches<CR>")
--- keymap("n", "<leader>tm", ":Telescope man_pages<CR>")
--- keymap("n", "<leader>tc", ":Telescope colorscheme<CR>")
--- keymap("n", "<leader>tf", ":Telescope filetypes<CR>")
--- keymap("n", "<leader>ts", ":Telescope treesitter<CR>")
--- keymap("n", "<leader>tz", ":Telescope zoxide list<CR>")
--- keymap("n", "<leader>rg", ":Telescope live_grep<CR>")
-
-keymap("n", "<leader>T",  ":FzfLua builtin<CR>")
-keymap("n", "<leader>b",  ":FzfLua buffers<CR>")
-keymap("n", "<leader>F",  ":FzfLua files<CR>")
-keymap("n", "<leader>gf", ":FzfLua git_files<CR>")
-keymap("n", "<leader>gs", ":FzfLua git_status<CR>")
-keymap("n", "<leader>gc", ":FzfLua git_commits<CR>")
-keymap("n", "<leader>gb", ":FzfLua git_bcommits<CR>")
-keymap("n", "<leader>gB", ":FzfLua git_branches<CR>")
-keymap("n", "<leader>tm", ":FzfLua manpages<CR>")
-keymap("n", "<leader>tc", ":FzfLua colorschemes<CR>")
-keymap("n", "<leader>tf", ":FzfLua filetypes<CR>")
-keymap("n", "<leader>ts", ":FzfLua treesitter<CR>")
-keymap("n", "<leader>rg", ":FzfLua live_grep<CR>")
-
-keymap({ "n", "v", "i" }, "<C-x><C-f>",
-  function() require("fzf-lua").complete_path() end,
-  { silent = true, desc = "Fuzzy complete path" })
-
--- "ff" for File Finder
-keymap("n", "<leader>ff",  ":FzfLua files cwd=~/<CR>")
-
--- "fc" for Files in Code directory
-keymap("n", "<leader>fc",  ":FzfLua files cwd=~/code<CR>")
-
--- "fh" for Files in Hobby directory
-keymap("n", "<leader>fh",  ":FzfLua files cwd=~/code/hobby<CR>")
-
--- "fd" for Files in Dotfiles directory
-keymap("n", "<leader>fd",  ":FzfLua files cwd=~/code/hobby/dotfiles<CR>")
-
--- "fw" for Files in Work directory
-keymap("n", "<leader>fw",  ":FzfLua files cwd=~/code/work<CR>")
-
--- "fG" for Files in work Git directory
-keymap("n", "<leader>fG",  ":FzfLua files cwd=~/code/work/git<CR>")
-
--- "fg" for Files in confiG directory
-keymap("n", "<leader>fg",  ":FzfLua files cwd=~/.config<CR>")
-
 keymap("n", "-",  ":e .<CR>")
-
-keymap("n", "<space><space>", ":HopAnywhere<CR>")
 
 keymap('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]])
 keymap('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]])
@@ -168,8 +110,13 @@ keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]])
 
 keymap("n", "<F2>",  ":NvimTreeToggle<CR>")
 
--- LSP mappings
-keymap('n', '<space>d', vim.diagnostic.open_float)
-keymap('n', '[d', vim.diagnostic.goto_prev)
-keymap('n', ']d', vim.diagnostic.goto_next)
-keymap('n', '<space>q', vim.diagnostic.setloclist)
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.highlight.on_yank()`
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
