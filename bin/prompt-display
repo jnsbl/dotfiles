@@ -46,6 +46,7 @@ main() {
 
   ps cax | grep xmonad > /dev/null
   if [ $? -eq 0 ]; then
+    sleep 2
     xmonad --restart
   fi
 }
