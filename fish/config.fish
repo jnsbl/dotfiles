@@ -73,7 +73,10 @@ abbr guns 'git unstage'
 abbr hideFiles 'defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 abbr showFiles 'defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 
+abbr k9h 'k9s --context homelab'
+
 abbr l 'less'
+abbr lg 'lazygit'
 
 abbr md 'glow'
 abbr mon 'autorandr --change --default default'
@@ -110,7 +113,13 @@ abbr vtop 'vtop --theme monokai'
 abbr ysg 'yard server --gems'
 abbr ysr 'yard server --reload'
 
+alias k 'kubectl'
+
 alias lf 'lfub'
+
+# https://wiki.archlinux.org/title/PC_speaker#Less_pager
+alias less 'less --QUIET'
+alias man 'man --pager="less --QUIET"'
 
 if which eza > /dev/null
   alias ls 'eza --color=always --group-directories-first --icons'
