@@ -401,8 +401,8 @@ myScratchpads =
                  w = 0.9
                  t = 0.95 - h
                  l = 0.95 - w
-    spawnPass  = "1password"
-    findPass   = className =? "1Password"
+    spawnPass  = "proton-pass"
+    findPass   = className =? "Proton Pass"
     managePass = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
@@ -475,6 +475,7 @@ myManageHook = namedScratchpadManageHook myScratchpads
     , className =? "Espanso"        --> doFloat
     , className =? "Nm-connection-editor" --> doFloat
     , className =? "Blueman-manager" --> doFloat
+    , className =? "zoom"           --> doFloat
     , winName   =? "File Operation Progress" --> doFloat
     , role      =? "pop-up"         --> doFloat
     , role      =? "bubble"         --> doFloat
