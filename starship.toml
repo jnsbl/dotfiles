@@ -1,5 +1,14 @@
+# format = '$directory$kubernetes$all$character'
+# format = '$directory$all$character'
+
 [time]
 disabled = false
 format = '🕙[\[$time\]]($style) '
 time_format = "%T"
-utc_time_offset = "+1"
+
+# [kubernetes]
+# format = 'on [⛵ $context \($namespace\)](green) '
+# disabled = false
+# contexts = [
+#   { context_pattern = "homelab", symbol = "🏠️ " },
+# ]
