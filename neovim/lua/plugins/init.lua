@@ -34,11 +34,15 @@ require("lazy").setup({
   "vim-scripts/ReplaceWithRegister",
   require("plugins/nvim-tree"),
   require("plugins/snacks-nvim"),
+  require("plugins/mini-splitjoin"),
+  require("plugins/mini-files"),
+  require("plugins/mini-pairs"),
 
   ---------------------------------------------------- Syntax
 
   require("plugins/nvim-treesitter"),
-  require("plugins/nvim-surround"),
+  require("plugins/mini-surround"),
+  require("plugins/mini-ai"),
   "dag/vim-fish",
   "ron-rs/ron.vim",
 

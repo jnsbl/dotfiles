@@ -15,6 +15,7 @@ return {
     keymap("n", "<leader>gc", ":FzfLua git_commits<CR>", { desc = "[G]it [C]ommits" })
     keymap("n", "<leader>gb", ":FzfLua git_bcommits<CR>", { desc = "[G]it [B]uffer commits" })
     keymap("n", "<leader>gB", ":FzfLua git_branches<CR>", { desc = "[G]it [B]branches" })
+    keymap("n", "<leader>sh", ":FzfLua helptags<CR>", { desc = "[S]earch [H]elptags" })
     keymap("n", "<leader>sm", ":FzfLua manpages<CR>", { desc = "[S]earch [M]anpages" })
     keymap("n", "<leader>sc", ":FzfLua colorschemes<CR>", { desc = "[S]earch [C]olorschemes" })
     keymap("n", "<leader>sf", ":FzfLua filetypes<CR>", { desc = "[S]earch [F]iletypes" })
@@ -23,6 +24,7 @@ return {
     keymap("n", "<leader>sk", ":FzfLua keymaps<CR>", { desc = "[S]earch [K]eymap" })
     keymap("n", "<leader>ts", ":FzfLua treesitter<CR>", { desc = "[T]ree[S]itter" })
     keymap("n", "<leader>lg", ":FzfLua live_grep<CR>", { desc = "[L]ive [G]rep" })
+    keymap("n", "<leader>sg", ":FzfLua grep_project<CR>", { desc = "[S]earch with [G]rep" })
 
     keymap({ "n", "v", "i" }, "<C-x><C-f>", function()
       fzf.complete_path()
