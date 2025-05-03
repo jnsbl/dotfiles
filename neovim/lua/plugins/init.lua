@@ -15,8 +15,7 @@ require("lazy").setup({
 
   ---------------------------------------------------- Appearance
 
-  "bradcush/nvim-base16",
-  require("plugins/tinted-vim"),
+  require("plugins.catppuccin"),
   require("plugins/nvim-web-devicons"),
   require("plugins/sttusline"),
   require("plugins/indent-blankline-nvim"),
