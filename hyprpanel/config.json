@@ -1,0 +1,23 @@
+{
+  "terminal": "/usr/bin/kitty",
+  "theme.font.name": "JetBrainsMono Nerd Font",
+  "theme.font.label": "JetBrainsMono Nerd Font",
+  "theme.font.size": "1.0rem",
+  "theme.bar.floating": true,
+  "theme.bar.buttons.enableBorders": false,
+  "theme.bar.enableShadow": false,
+  "bar.launcher.autoDetectIcon": true,
+  "bar.workspaces.monitorSpecific": false,
+  "bar.workspaces.show_icons": true,
+  "bar.workspaces.show_numbered": false,
+  "bar.workspaces.numbered_active_indicator": "color",
+  "bar.network.showWifiInfo": false,
+  "bar.bluetooth.label": false,
+  "bar.clock.format": "%d.%m.  %H:%M:%S",
+  "theme.bar.buttons.media.enableBorder": false,
+  "notifications.active_monitor": false,
+  "menus.clock.time.military": true,
+  "menus.clock.weather.location": "Prague",
+  "menus.clock.weather.unit": "metric",
+  "bar.customModules.weather.unit": "metric"
+}

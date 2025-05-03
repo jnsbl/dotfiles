@@ -25,6 +25,8 @@
     ~/.config/flavours: flavours
     ~/.config/gitui: gitui
     ~/.config/gsimplecal: gsimplecal
+    ~/.config/hypr: hypr
+    ~/.config/hyprpanel: hyprpanel
     ~/.config/interception:
       if: '[ `uname` = Linux ]'
       path: interception
