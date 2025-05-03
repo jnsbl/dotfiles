@@ -181,7 +181,11 @@
         editor = nvim-qt
 [interactive]
         diffFilter = delta --color-only
+[include]
+        path = ~/.config/delta/themes/catppuccin.gitconfig
+
 [delta]
         navigate = true
         dark = true
+        features = catppuccin-mocha
 [global]

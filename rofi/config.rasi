@@ -12,7 +12,7 @@ configuration {
   kb-row-right:       "Alt+l";
 }
 /* @theme "/usr/share/rofi/themes/gruvbox-dark.rasi" */
-@import "base16_colors.rasi"
+@import "catppuccin-default.rasi"
 window {
   width: 600px;
 }

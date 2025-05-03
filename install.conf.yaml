@@ -18,10 +18,12 @@
     ~/.config/bat: bat
     ~/.config/betterlockscreen/betterlockscreenrc: betterlockscreenrc
     ~/.config/btop: btop
+    ~/.config/delta: delta
     ~/.config/dunst/dunstrc: dunstrc
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/conf.d: fish/conf.d
     ~/.config/fish/functions: fish/functions
+    ~/.config/fish/themes: fish/themes
     ~/.config/flavours: flavours
     ~/.config/gitui: gitui
     ~/.config/gsimplecal: gsimplecal
@@ -54,6 +56,7 @@
     ~/.config/xmobar: xmobar
     ~/.config/xmonad/xmonad.hs: xmonad/xmonad.hs
     ~/.config/yazi: yazi
+    ~/.config/zellij: zellij
     ~/.dotfiles: ''
     ~/.gemrc: ruby/gemrc
     ~/.gitconfig:
