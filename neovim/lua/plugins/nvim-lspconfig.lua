@@ -150,6 +150,14 @@ return {
           },
         },
       },
+      yaml = {
+        schemas = {
+          kubernetes = "k8s-*.yaml",
+          ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/**/*.{yml,yaml}",
+          ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+          ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+        },
+      },
     }
 
     -- Ensure the servers and tools above are installed
