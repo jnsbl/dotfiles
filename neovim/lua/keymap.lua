@@ -2,6 +2,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
 
 keymap("n", "<space>s", ":w<CR>")
+keymap("n", "<C-space>", ":e ~/")
 
 -- https://jovicailic.org/2015/05/saving-read-only-files-in-vim-sudo-trick/
 keymap("c", "w!!", "w !sudo tee % >/dev/null")
