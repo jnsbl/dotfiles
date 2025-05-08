@@ -48,6 +48,7 @@ abbr g 'git'
 abbr ga 'git add -A'
 abbr gc1 'git clone --depth=1'
 abbr gci 'git ci'
+abbr gcl 'git clone'
 abbr gcim 'git ci -m'
 abbr gco 'git co'
 abbr gcp 'git cherry-pick'
@@ -112,6 +113,8 @@ abbr vtop 'vtop --theme monokai'
 
 abbr ysg 'yard server --gems'
 abbr ysr 'yard server --reload'
+
+abbr zj 'zellij'
 
 alias k 'kubectl'
 
