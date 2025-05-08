@@ -1,4 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Set default X cursor
-Exec=xsetroot -cursor_name left_ptr

@@ -44,122 +44,117 @@ pamac install --no-confirm $DRY_RUN \
 
 echo "====> Installing hardware support packages"
 pamac install --no-confirm $DRY_RUN \
-    arandr \
-    autorandr \
     brightnessctl \
-    xorg-xrandr
+    nvidia-utils \
+    wireplumber
 pamac build --no-confirm $DRY_RUN \
     asoundconf \
     auto-cpufreq \
-    ideapad-cm \
-    mons
+    ideapad-cm
 
 echo "====> Installing command-line packages"
 pamac install --no-confirm $DRY_RUN \
     atool \
     bat \
+    bluez \
+    bluez-utils \
     btop \
     eza \
+    fastfetch \
     fd \
     fish \
     fisher \
     git-delta \
     glow \
+    grim \
+    gvfs \
     highlight \
     imagemagick \
     jq \
-    lf \
+    libgtop \
     libnotify \
     lua-language-server \
     lynx \
-    maim \
     mediainfo \
-    mpd \
     neovim \
+    networkmanager \
+    npm \
     ntp \
+    pacman-contrib \
     pandoc-cli \
     playerctl \
+    power-profiles-daemon \
     procs \
-    redshift \
+    python \
+    python-gpustat \
     ripgrep \
-    shotgun \
+    slurp \
     source-highlight \
     starship \
     tldr \
     trash-cli \
     tree \
-    xclip \
-    xdotool \
-    xorg-xinput \
+    upower \
+    wl-clipboard \
+    yazi \
     zoxide
 pamac build --no-confirm $DRY_RUN \
-    flavours \
     gibo \
-    mpd-mpris-bin \
-    paru-bin \
     pfetch \
-    ueberzugpp \
     vimv
 
 echo "====> Installing fonts"
 pamac install --no-confirm $DRY_RUN \
     noto-fonts-emoji \
     ttf-font-awesome \
+    ttf-recursive-nerd \
     ttf-mononoki-nerd
 pamac build --no-confirm $DRY_RUN \
-    ttf-recursive
+    ttf-monaspice-huhanme-nerd-font-bin
 
 echo "====> Installing GUI packages"
 pamac install --no-confirm $DRY_RUN \
-    dunst \
-    feh \
+    dart-sass \
+    egl-wayland \
     filelight \
-    ghc \
-    ghc-libs \
-    gsimplecal \
+    hyprcursor \
+    hypridle \
+    hyprland \
+    hyprlock \
+    hyprpaper \
+    hyprpicker \
+    hyprpolkitagent \
     interception-tools \
     kitty \
     kitty-shell-integration \
     kitty-terminfo \
-    libx11 \
-    libxft \
-    libxinerama \
-    libxss \
     meld \
     neovim-qt \
     nsxiv \
     obsidian \
-    pasystray \
-    polybar \
-    rofi \
+    proton-pass-bin \
+    rofi-wayland \
     qalculate-gtk \
-    unclutter \
-    xmonad-contrib-git \
-    xmonad-git \
-    xorg-apps \
-    xorg-server \
-    xorg-xinit \
-    xorg-xmessage \
-    xterm \
+    thunar \
+    thunar-archive-plugin \
+    thunar-media-tags-plugin \
+    thunar-volman \
+    wf-recorder \
+    xdg-desktop-portal-hyprland \
     yad
 pamac build --no-confirm $DRY_RUN \
-    1password \
-    audio-recorder \
-    betterlockscreen \
+    ags-hyprpanel-git \
+    aylurs-gtk-shell-git \
     brave-bin \
     dropbox \
-    espanso-bin \
-    gitahead \
+    espanso-wayland \
+    grimblast-git \
     insomnium-bin \
-    min \
-    picom-ftlabs-git \
-    polybar-themes-git \
+    min-browser-bin \
     rofi-greenclip \
-    skypeforlinux-stable-bin \
+    sourcegit-bin \
     spotify \
-    sublime-text-3 \
-    xinit-xsession \
-    ymuse-bin
+    sublime-text-3
 
 
 echo "_________________________________________________________________________"
@@ -179,15 +174,12 @@ echo "====> Enabling SysRq key (REISUB, REISUO)"
 echo kernel.sysrq=1 | sudo tee --append /etc/sysctl.d/99-sysctl.conf
 # See https://forum.manjaro.org/t/howto-reboot-turn-off-your-frozen-computer-reisub-reisuo/3855
 
-echo "====> Configuring keyboard"
-localectl --no-convert set-x11-keymap cz,us pc105 ,intl grp:rctrl_rshift_toggle,terminate:ctrl_alt_bks
-
 echo "====> Starting udevmon.service (for interception-tools to work)"
 systemctl enable udevmon.service
 systemctl start udevmon.service
 
 echo "====> Setting up interception-tools (vimproved)"
-sudo cp _etc/interception-vimproved/config.yaml /etc/interception-vimproved/
+sudo cp _etc/interception/vimproved-config.yaml /etc/interception/
 sudo cp _etc/interception/udevmon.d/vimproved.yml /etc/interception/udevmon.d/
 
 echo "====> Setting up laptop battery conservation mode"

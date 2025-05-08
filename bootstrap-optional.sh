@@ -17,24 +17,19 @@ echo "_________________________________________________________________________"
 
 echo "====> Installing command-line packages"
 pamac install --no-confirm $DRY_RUN \
-    arch-wiki-docs \
     cmatrix \
     dex \
     figlet \
-    glava \
     lazygit \
+    matugen-bin \
     mtr \
-    ncmpcpp \
     podman \
     thefuck \
-    tmux
+    zellij
 pamac build --no-confirm $DRY_RUN \
-    1password-cli \
     bonsai.sh-git \
-    gitflow-avh \
     pipes-rs-git \
-    youtube-dl \
-    zulu-jre-fx-bin
+    youtube-dl
 
 echo "====> Installing fonts"
 pamac install --no-confirm $DRY_RUN \
@@ -45,19 +40,17 @@ pamac install --no-confirm $DRY_RUN \
 
 echo "====> Installing GUI packages"
 pamac install --no-confirm $DRY_RUN \
-    alacritty \
     datovka \
-    dmenu \
     filezilla \
     font-manager \
     libreoffice-fresh \
-    nitrogen \
+    nwg-look \
     picard \
     virtualbox \
     virtualbox-guest-iso
 pamac build --no-confirm $DRY_RUN \
-    alacritty-themes \
     canon-pixma-mg5700-complete \
+    plexamp-appimage \
     vscodium-bin \
     vscodium-bin-marketplace
 

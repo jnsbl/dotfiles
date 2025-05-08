@@ -1,5 +1,0 @@
-# https://wiki.archlinux.org/title/Xorg/Keyboard_configuration
-xset r rate 200 35
-
-# See https://wiki.archlinux.org/title/Xinput
-xinput set-prop "ELAN06FA:00 04F3:327E Touchpad" "libinput Tapping Enabled" 1
