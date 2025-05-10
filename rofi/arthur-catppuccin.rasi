@@ -6,29 +6,10 @@
 @import "catppuccin-mocha"
 
 * {
-  foreground:                  @text;
-  backlight:                   @overlay2;
   background-color:            transparent;
-  dark:                        @base;
-  black:                       @surface0;
-  lightblack:                  @surface2;
   tlightblack:                 #313244cc; // @surface2 + alpha
-  // red:                         @red;
-  lightred:                    @maroon;
-  // green:                       @green;
-  lightgreen:                  @green;
-  // yellow:                      @yellow;
-  lightyellow:                 @yellow;
-  // blue:                        @blue;
-  lightblue:                   @blue;
-  magenta:                     @maroon;
-  lightmagenta:                @maroon;
-  cyan:                        @sky;
   tcyan:                       #89dcebde; // @sky + alpha
-  lightcyan:                   @sky;
-  white:                       @rosewater;
-  lightwhite:                  @rosewater;
-  highlight:                   underline bold #f38ba8; // @red
+  highlight:                   underline bold;
   transparent:                 rgba(0,0,0,0);
 }
 window {
@@ -38,7 +19,7 @@ window {
     padding: 10px;
     border:  0px;
     border-radius: 10px;
-    color: @magenta;
+    color: @maroon;
     background-color: @transparent;
     spacing: 0;
     children:  [mainbox];
@@ -49,7 +30,7 @@ mainbox {
     children: [ inputbar, message, listview ];
 }
 message {
-    border-color: @foreground;
+    border-color: @text;
     border:  0px 2px 2px 2px;
 //    border-radius: 10px;
     padding: 5;
@@ -57,7 +38,7 @@ message {
 }
 message {
     font: "Source Code Pro 8";
-    color: @black;
+    color: @surface0;
 }
 inputbar {
     color: @rosewater;
@@ -65,7 +46,7 @@ inputbar {
     background-color: @tlightblack;
     border: 2px 2px 2px 2px;
     border-radius:  15px 15px 0px 0px;
-    border-color: @foreground;
+    border-color: @text;
     font: "Source Code Pro 18";
 }
 entry,prompt,case-indicator {
@@ -78,7 +59,7 @@ prompt {
 listview {
     padding: 8px;
     border-radius: 0px 0px 15px 15px;
-    border-color: @foreground;
+    border-color: @text;
     border: 0px 2px 2px 2px;
     background-color: #1c1c1ccc;
     dynamic: false;
@@ -90,7 +71,7 @@ element {
 //    border: 2px;
     border-radius: 4px;
     background-color: transparent;
-    color: @foreground;
+    color: @text;
     font:inherit;
 }
 element-text {
@@ -102,26 +83,26 @@ element selected.normal {
     text-color: @base;
 }
 element normal active {
-    foreground: @lightblue;
+    foreground: @blue;
 }
 element normal urgent {
-    foreground: @lightred;
+    foreground: @red;
 }
 element alternate normal {
 }
 element alternate active {
-    foreground: @lightblue;
+    foreground: @blue;
 }
 element alternate urgent {
-    foreground: @lightred;
+    foreground: @red;
 }
 element selected active {
-    background-color: @lightblue;
-    foreground: @dark;
+    background-color: @blue;
+    foreground: @base;
 }
 element selected urgent {
-    background-color: @lightred;
-    foreground: @dark;
+    background-color: @red;
+    foreground: @base;
 }
 element normal normal {
 
@@ -145,20 +126,20 @@ button {
     border: 2px 0px 2px 2px;
     border-radius: 4px 0px 0px 4px;
     background-color: @tlightblack;
-    border-color: @foreground;
-    color: @foreground;
+    border-color: @text;
+    color: @text;
     horizontal-align: 0.5;
 }
 button selected normal {
-    color: @dark;
+    color: @base;
     border: 2px 0px 2px 2px;
-    background-color: @backlight;
-    border-color: @foreground;
+    background-color: @overlay2;
+    border-color: @text;
 }
 error-message {
     expand: true;
-    background-color: red;
-    border-color: darkred;
+    background-color: @red;
+    border-color: @red;
     border: 2px;
     padding: 1em;
 }
