@@ -76,7 +76,6 @@ abbr showFiles 'defaults write com.apple.finder AppleShowAllFiles YES; killall F
 
 abbr k9h 'k9s --context homelab'
 
-abbr l 'less'
 abbr lg 'lazygit'
 
 abbr md 'glow'
@@ -92,7 +91,7 @@ abbr rbv 'rbenv version'
 abbr rbvs 'rbenv versions'
 abbr rgr 'ranger'
 
-abbr sc 'nvim ~/.ssh/config'
+abbr sco 'nvim ~/.ssh/config'
 abbr sloc 'tokei'
 abbr smtr 'sudo mtr'
 
@@ -124,10 +123,15 @@ alias lf 'lfub'
 alias less 'less --QUIET'
 alias man 'man --pager="less --QUIET"'
 
-if which eza > /dev/null
-  alias ls 'eza --color=always --group-directories-first --icons'
-  alias ll 'eza -l --color=always --group-directories-first --icons'
-  alias la 'eza -la --color=always --group-directories-first --icons'
+if type -q eza
+  alias ls='eza $eza_params'
+  alias l='eza --git-ignore $eza_params'
+  alias ll='eza --all --header --long $eza_params'
+  alias llm='eza --all --header --long --sort=modified $eza_params'
+  alias la='eza -lbhHigUmuSa'
+  alias lx='eza -lbhHigUmuSa@'
+  alias lt='eza --tree $eza_params'
+  alias tree='eza --tree $eza_params'
 else
   switch (uname)
   case Linux
