@@ -49,6 +49,7 @@ require("lazy").setup({
 
   require("plugins/lazydev-nvim"),
   require("plugins/haskell-tools-nvim"),
+  require("plugins/elvish-vim"),
 
   ---------------------------------------------------- Fuzzy-finding and searching
 
