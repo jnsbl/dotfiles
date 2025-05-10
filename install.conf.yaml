@@ -29,6 +29,7 @@
     ~/.config/rofi: rofi
     ~/.config/starship.toml: starship.toml
     ~/.config/sxiv: nsxiv
+    ~/.config/tealdeer: tealdeer
     ~/.config/yazi: yazi
     ~/.config/zellij: zellij
     ~/.dotfiles: ''

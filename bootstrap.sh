@@ -91,7 +91,7 @@ pamac install --no-confirm $DRY_RUN \
     slurp \
     source-highlight \
     starship \
-    tldr \
+    tealdeer \
     trash-cli \
     tree \
     upower \
