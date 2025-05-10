@@ -3,7 +3,7 @@
 configuration {
   show-icons:         true;
   icon-theme:         "La Capitaine";
-  font:               "Recursive Mono Casual Static 12";
+  font:               "Play Regular 11";
   terminal:           "kitty";
 
   kb-row-left:        "Alt+h";
@@ -11,8 +11,7 @@ configuration {
   kb-row-up:          "Alt+k,Up,Control+p";
   kb-row-right:       "Alt+l";
 }
-/* @theme "/usr/share/rofi/themes/gruvbox-dark.rasi" */
-@import "catppuccin-default.rasi"
+@theme "arthur-catppuccin.rasi"
 window {
   width: 600px;
 }
