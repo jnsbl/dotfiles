@@ -106,11 +106,10 @@ pamac build --no-confirm $DRY_RUN \
 echo "====> Installing fonts"
 pamac install --no-confirm $DRY_RUN \
     noto-fonts-emoji \
+    otf-monaspace-nerd \
     ttf-font-awesome \
     ttf-recursive-nerd \
     ttf-mononoki-nerd
-pamac build --no-confirm $DRY_RUN \
-    ttf-monaspice-huhanme-nerd-font-bin
 
 echo "====> Installing GUI packages"
 pamac install --no-confirm $DRY_RUN \
