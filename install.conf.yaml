@@ -45,7 +45,6 @@
     ~/.local/bin/prompt-logout: bin/prompt-logout
     ~/.local/bin/prompt-screenshot: bin/prompt-screenshot
     ~/.local/bin/prompt-tldr: bin/prompt-tldr
-    ~/.local/bin/prompt-wiki: bin/prompt-wiki
     ~/.local/bin/reloadnvim: bin/reloadnvim
     ~/.pryrc: ruby/pryrc
     ~/.Xresources: xorg/Xresources
