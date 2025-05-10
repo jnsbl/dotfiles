@@ -1,6 +1,6 @@
 
 [greenclip]
-  blacklisted_applications = ["1password"]
+  blacklisted_applications = ["1password","proton-pass"]
   enable_image_support = false
   history_file = "/home/jnsbl/.cache/greenclip.history"
   image_cache_directory = "/tmp/greenclip"
