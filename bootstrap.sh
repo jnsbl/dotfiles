@@ -55,6 +55,7 @@ pamac build --no-confirm $DRY_RUN \
 echo "====> Installing command-line packages"
 pamac install --no-confirm $DRY_RUN \
     atool \
+    atuin \
     bat \
     bluez \
     bluez-utils \
