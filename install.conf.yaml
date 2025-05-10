@@ -13,10 +13,12 @@
     ~/.config/btop: btop
     ~/.config/delta: delta
     ~/.config/elvish: elvish
+    ~/.config/fish/completions: fish/completions
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/conf.d: fish/conf.d
     ~/.config/fish/functions: fish/functions
     ~/.config/fish/themes: fish/themes
+    ~/.config/fish/fish_plugins: fish/fish_plugins
     ~/.config/gitui: gitui
     ~/.config/gsimplecal: gsimplecal
     ~/.config/hypr: hypr
