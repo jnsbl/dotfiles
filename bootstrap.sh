@@ -85,7 +85,7 @@ pamac install --no-confirm $DRY_RUN \
     shotgun \
     source-highlight \
     starship \
-    tldr \
+    tealdeer \
     trash-cli \
     tree \
     xclip \

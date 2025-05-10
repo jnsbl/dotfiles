@@ -46,6 +46,7 @@
     ~/.config/rofi: rofi
     ~/.config/starship.toml: starship.toml
     ~/.config/sxiv: nsxiv
+    ~/.config/tealdeer: tealdeer
     ~/.config/ulauncher/extensions.json: ulauncher/extensions.json
     ~/.config/ulauncher/settings.json: ulauncher/settings.json
     ~/.config/wired: wired
