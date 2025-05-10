@@ -1,0 +1,1 @@
+/home/jnsbl/.local/share/broot/launcher/fish/br.fish
