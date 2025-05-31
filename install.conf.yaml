@@ -19,6 +19,7 @@
     ~/.config/betterlockscreen/betterlockscreenrc: betterlockscreenrc
     ~/.config/btop: btop
     ~/.config/dunst/dunstrc: dunstrc
+    ~/.config/fastfetch: fastfetch
     ~/.config/fish/completions: fish/completions
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/conf.d: fish/conf.d
