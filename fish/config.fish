@@ -114,6 +114,9 @@ abbr ysg 'yard server --gems'
 abbr ysr 'yard server --reload'
 
 abbr zj 'zellij'
+abbr zja 'zellij attach'
+abbr zjl 'zellij list-sessions'
+abbr zjs 'zellij --session'
 
 alias k 'kubectl'
 
