@@ -1,23 +1,23 @@
-# Base16 Espresso
-# Scheme author: Unknown. Maintained by Alex Mirrington (https://github.com/alexmirrington)
+# Base16 Monokai
+# Scheme author: Wimer Hazenberg (http://www.monokai.nl)
 # Template author: Tinted Theming (https://github.com/tinted-theming)
 
-set -l color00 '#2d2d2d'
-set -l color01 '#393939'
-set -l color02 '#515151'
-set -l color03 '#777777'
-set -l color04 '#b4b7b4'
-set -l color05 '#cccccc'
-set -l color06 '#e0e0e0'
-set -l color07 '#ffffff'
-set -l color08 '#d25252'
-set -l color09 '#f9a959'
-set -l color0A '#ffc66d'
-set -l color0B '#a5c261'
-set -l color0C '#bed6ff'
-set -l color0D '#6c99bb'
-set -l color0E '#d197d9'
-set -l color0F '#f97394'
+set -l color00 '#272822'
+set -l color01 '#383830'
+set -l color02 '#49483e'
+set -l color03 '#75715e'
+set -l color04 '#a59f85'
+set -l color05 '#f8f8f2'
+set -l color06 '#f5f4f1'
+set -l color07 '#f9f8f5'
+set -l color08 '#f92672'
+set -l color09 '#fd971f'
+set -l color0A '#f4bf75'
+set -l color0B '#a6e22e'
+set -l color0C '#a1efe4'
+set -l color0D '#66d9ef'
+set -l color0E '#ae81ff'
+set -l color0F '#cc6633'
 
 set -l FZF_NON_COLOR_OPTS
 

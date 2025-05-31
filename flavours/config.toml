@@ -1,12 +1,6 @@
 shell = "bash -c '{}'"
 
 [[item]]
-file = "~/.config/nvim/colors/base16.vim"
-template = "vim"
-rewrite = true
-hook = "~/.local/bin/reloadnvim"
-
-[[item]]
 file = "~/.config/nvim/lua/base16-colors.lua"
 template = "neovim"
 rewrite = true

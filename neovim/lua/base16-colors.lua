@@ -1,6 +1,6 @@
 -- bradcush/base16-nvim (https://github.com/bradcush/base16-nvim)
 -- by Bradley Cushing (https://github.com/bradcush)
--- Espresso scheme by Unknown. Maintained by Alex Mirrington (https://github.com/alexmirrington)
+-- Monokai scheme by Wimer Hazenberg (http://www.monokai.nl)
 -- Based on existing work with references below
 -- base16-vim (https://github.com/chriskempson/base16-vim)
 -- by Chris Kempson (http://chriskempson.com)
@@ -8,22 +8,22 @@
 -- by Adam P. Regasz-Rethy (https://github.com/RRethy)
 -- Base16 color variables
 local colors = {
-    base00 = "#2d2d2d",
-    base01 = "#393939",
-    base02 = "#515151",
-    base03 = "#777777",
-    base04 = "#b4b7b4",
-    base05 = "#cccccc",
-    base06 = "#e0e0e0",
-    base07 = "#ffffff",
-    base08 = "#d25252",
-    base09 = "#f9a959",
-    base0A = "#ffc66d",
-    base0B = "#a5c261",
-    base0C = "#bed6ff",
-    base0D = "#6c99bb",
-    base0E = "#d197d9",
-    base0F = "#f97394"
+    base00 = "#272822",
+    base01 = "#383830",
+    base02 = "#49483e",
+    base03 = "#75715e",
+    base04 = "#a59f85",
+    base05 = "#f8f8f2",
+    base06 = "#f5f4f1",
+    base07 = "#f9f8f5",
+    base08 = "#f92672",
+    base09 = "#fd971f",
+    base0A = "#f4bf75",
+    base0B = "#a6e22e",
+    base0C = "#a1efe4",
+    base0D = "#66d9ef",
+    base0E = "#ae81ff",
+    base0F = "#cc6633"
 }
 
 -- Highlighting for indiividual groups
@@ -46,7 +46,7 @@ local setup = function(collections)
     -- Setting highlighting and syntax
     vim.cmd('highlight clear')
     vim.cmd('syntax reset')
-    vim.g.colors_name = "base16-espresso"
+    vim.g.colors_name = "base16-monokai"
 
     -- Loop through highlighting collections
     for _, collection in pairs(collections) do

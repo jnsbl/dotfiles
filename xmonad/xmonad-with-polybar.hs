@@ -60,13 +60,13 @@ import Graphics.X11.ExtraTypes.XorgDefault
 -- certain contrib modules.
 myTerminal      = "kitty"
 
-myBrowser       = "min"
+myBrowser       = "waterfox"
 myFileManager   = "thunar"
 myEditor        = "nvim-qt"
 
 -- Path to wallpaper to set at startup
 myWallpaperPath :: String
-myWallpaperPath = "~/Pictures/Wallpapers/Wallhaven/2024-07/wallhaven-0pepv3.jpg"
+myWallpaperPath = "~/Pictures/Wallpapers/WallpaperAccess/monokai/16294553.png"
 
 -- Useless gap around and among windows
 myUselessGap    = 10
