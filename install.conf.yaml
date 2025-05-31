@@ -84,7 +84,7 @@
     ~/.local/bin/reloadnvim: bin/reloadnvim
     ~/.local/bin/rifle: bin/rifle
     ~/.local/bin/toggle_dunst.sh: bin/toggle_dunst.sh
-    ~/.local/share/nvim/site/pack/packer/start/packer.nvim: ext/packer.nvim
+    ~/.p10k.zsh: zsh/p10k.zsh
     ~/.pryrc: ruby/pryrc
     ~/.tmux.conf:
     ~/.uu/config/uu-client: uu/uu-client
@@ -92,6 +92,7 @@
     ~/.xinitrc: xorg/xinitrc
     ~/.Xresources: xorg/Xresources
     ~/.Xresources.d: xorg/Xresources.d
+    ~/.zshrc: zsh/zshrc
     '~/Library/Application Support/Code/User/settings.json':
       if: '[ `uname` = Darwin ]'
       path: vscode/settings-mac.json
