@@ -47,10 +47,10 @@ pamac install --no-confirm $DRY_RUN \
     arandr \
     autorandr \
     brightnessctl \
+    power-profiles-daemon \
     xorg-xrandr
 pamac build --no-confirm $DRY_RUN \
     asoundconf \
-    auto-cpufreq \
     ideapad-cm \
     mons
 
