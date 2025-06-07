@@ -18,8 +18,6 @@ fi
 source "${ZINIT_HOME}/zinit.zsh"
 
 # Add prompt
-# zinit ice pick"async.zsh" src"pure.zsh"
-# zinit light sindresorhus/pure
 zinit ice depth"1"
 zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -43,14 +41,8 @@ if [[ $_fzf_installed = "true" ]]; then
 fi
 
 # # Add in snippets
-# zinit snippet OMZL::git.zsh
-# zinit snippet OMZP::git
 zinit snippet OMZP::sudo
-# zinit snippet OMZP::archlinux
-# zinit snippet OMZP::aws
-# zinit snippet OMZP::kubectl
-# zinit snippet OMZP::kubectx
-# zinit snippet OMZP::command-not-found
+zinit snippet OMZP::systemadmin
 
 # Load completions
 autoload -Uz compinit && compinit
@@ -82,7 +74,9 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 if [[ $_fzf_installed = "true" ]]; then
   zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-  zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+  if [[ $_zoxide_installed = "true" ]]; then
+    zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+  fi
 fi
 
 # Aliases
