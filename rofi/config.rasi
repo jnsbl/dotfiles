@@ -3,7 +3,7 @@
 configuration {
   show-icons:         true;
   icon-theme:         "La Capitaine";
-  font:               "Recursive Mono Casual Static 12";
+  font:               "Atkinson Hyperlegible 12";
   terminal:           "kitty";
 
   kb-row-left:        "Alt+h";
