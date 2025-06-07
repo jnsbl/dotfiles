@@ -1,3 +1,10 @@
+# Greeting
+if command -v fastfetch >/dev/null 2>&1; then
+  fastfetch
+elif command -v pfetch >/dev/null 2>&1; then
+  pfetch
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -87,8 +94,70 @@ alias e=$EDITOR
 
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
+alias g='git'
+alias ga='git add -A'
+alias gc1='git clone --depth=1'
+alias gci='git ci'
+alias gcl='git clone'
+alias gcim='git ci -m'
+alias gco='git co'
+alias gcp='git cherry-pick'
+alias gd='git diff'
+alias gdc='git diff --cached -w'
+alias gds='git diff --staged -w'
+alias gdt='git difftool'
+alias gdtc='git difftool --cached'
+alias gf='git fetch'
+alias gi='e .gitignore'
+alias gl='git l'
+alias gnb='git nb' # new branch aka checkout -b
+alias gpl='git pull'
+alias gplr='git pull --rebase'
+alias gps='git push'
+alias grb='git recent-branches'
+alias grs='git reset'
+alias grsh='git reset --hard'
+alias gs='git status'
+alias gunc='git uncommit'
+alias guns='git unstage'
+
+alias k='kubectl'
+alias k9h='k9s --context homelab'
+
+alias less='less --QUIET' # https://wiki.archlinux.org/title/PC_speaker#Less_pager
 alias lg='lazygit'
-alias ls='ls --color'
+
+if command -v eza >/dev/null 2>&1; then
+  alias ls='eza $eza_params'
+  alias l='eza --git-ignore $eza_params'
+  alias ll='eza --all --header --long $eza_params'
+  alias llm='eza --all --header --long --sort=modified $eza_params'
+  alias la='eza -lbhHigUmuSa'
+  alias lx='eza -lbhHigUmuSa@'
+  alias lt='eza --tree $eza_params'
+  alias tree='eza --tree $eza_params'
+else
+  case $(uname) in
+    Linux)
+      alias ll='ls -alh --color=auto'
+      alias ls='ls --color=auto'
+      ;;
+    Darwin)
+      alias ll='ls -alGh'
+      alias ls='ls -Gh'
+      ;;
+  esac
+fi
+
+alias man 'man --pager="less --QUIET"' # https://wiki.archlinux.org/title/PC_speaker#Less_pager
+alias md='glow'
+
+alias smtr='sudo mtr'
+
+alias zj='zellij'
+alias zja='zellij attach'
+alias zjl='zellij list-sessions'
+alias zjs='zellij --session'
 
 alias y='yazi'
 
