@@ -86,8 +86,17 @@ if [[ $_fzf_installed = "true" ]]; then
 fi
 
 # Aliases
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
+alias e=$EDITOR
+
+alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
+
+alias lg='lazygit'
 alias ls='ls --color'
-alias e='nvim'
+
+alias y='yazi'
 
 # Shell integrations
 if [[ $_fzf_installed = "true" ]]; then

@@ -94,6 +94,8 @@
     ~/.xinitrc: xorg/xinitrc
     ~/.Xresources: xorg/Xresources
     ~/.Xresources.d: xorg/Xresources.d
+    ~/.zprofile: zsh/zprofile
+    ~/.zshenv: zsh/zshenv
     ~/.zshrc: zsh/zshrc
     '~/Library/Application Support/Code/User/settings.json':
       if: '[ `uname` = Darwin ]'
