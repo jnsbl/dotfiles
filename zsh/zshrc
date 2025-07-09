@@ -1,16 +1,9 @@
-# Greeting
-if command -v fastfetch >/dev/null 2>&1; then
-  fastfetch
-elif command -v pfetch >/dev/null 2>&1; then
-  pfetch
-fi
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# # Initialization code that may require console input (password prompts, [y/n]
+# # confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -25,9 +18,13 @@ fi
 source "${ZINIT_HOME}/zinit.zsh"
 
 # Add prompt
-zinit ice depth"1"
-zinit light romkatv/powerlevel10k
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# zinit ice depth"1"
+# zinit light romkatv/powerlevel10k
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
 
 # Check optional commands
 _fzf_installed="false"
@@ -123,6 +120,7 @@ alias guns='git unstage'
 
 alias k='kubectl'
 alias k9h='k9s --context homelab'
+alias kubens='kubectl config set-context --current --namespace '
 
 alias less='less --QUIET' # https://wiki.archlinux.org/title/PC_speaker#Less_pager
 alias lg='lazygit'
@@ -152,6 +150,7 @@ fi
 alias man 'man --pager="less --QUIET"' # https://wiki.archlinux.org/title/PC_speaker#Less_pager
 alias md='glow'
 
+alias s='kitten ssh'
 alias smtr='sudo mtr'
 
 alias zj='zellij'
