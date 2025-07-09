@@ -3,7 +3,7 @@
 configuration {
   show-icons:         true;
   icon-theme:         "La Capitaine";
-  font:               "Atkinson Hyperlegible 12";
+  font:               "AtkinsonHyperlegibleMono Nerd Font 10";
   terminal:           "kitty";
 
   kb-row-left:        "Alt+h";
@@ -15,4 +15,7 @@ configuration {
 @import "base16_colors.rasi"
 window {
   width: 600px;
+}
+button {
+  font: "";
 }

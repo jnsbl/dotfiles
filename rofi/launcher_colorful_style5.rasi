@@ -8,7 +8,7 @@
  */
 
 configuration {
-    font:                           "Atkinson Hyperlegible 12";
+    font:                           "Hack Nerd Font Propo 10";
     show-icons:                     true;
     icon-theme:                     "Papirus";
     display-drun:                   "";
@@ -42,10 +42,10 @@ window {
 
 prompt {
     enabled:                        true;
-    padding:                        0.30% 1% 0% -0.5%;
+    padding:                        0.30% 1% 0% 0%;
     background-color:               @al;
     text-color:                     @bg;
-    font:                           "Atkinson Hyperlegible 12";
+    font:                           "Hack Nerd Font Propo 10";
 }
 
 entry {
