@@ -66,7 +66,7 @@ myEditor        = "nvim-qt"
 
 -- Path to wallpaper to set at startup
 myWallpaperPath :: String
-myWallpaperPath = "~/Pictures/Wallpapers/WallpaperAccess/monokai/16294553.png"
+myWallpaperPath = "~/Pictures/Wallpapers/WallpaperAccess/monokai/16294513.jpg"
 
 -- Useless gap around and among windows
 myUselessGap    = 10
@@ -240,10 +240,10 @@ myKeys c =
   [ ("<XF86AudioMute>", addName "Mute audio" $ spawn "bash -c 'pactl set-sink-mute $(pactl get-default-sink) toggle'")
   , ("<XF86AudioRaiseVolume>", addName "Increase volume" $ spawn "bash -c 'pactl set-sink-volume $(pactl get-default-sink) +3%'")
   , ("<XF86AudioLowerVolume>", addName "Decrease volume" $ spawn "bash -c 'pactl set-sink-volume $(pactl get-default-sink) -3%'")
-  , ("<XF86AudioPlay>", addName "Play/pause" $ spawn "playerctl --player=spotify,mpd play-pause")
-  , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl --player=spotify,mpd stop")
-  , ("<XF86AudioPrev>", addName "Skip to prev track" $ spawn "playerctl --player=spotify,mpd previous")
-  , ("<XF86AudioNext>", addName "Skip to next track" $ spawn "playerctl --player=spotify,mpd next")
+  , ("<XF86AudioPlay>", addName "Play/pause" $ spawn "playerctl --player=plexamp,spotify,mpd play-pause")
+  , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl --player=plexamp,spotify,mpd stop")
+  , ("<XF86AudioPrev>", addName "Skip to prev track" $ spawn "playerctl --player=plexamp,spotify,mpd previous")
+  , ("<XF86AudioNext>", addName "Skip to next track" $ spawn "playerctl --player=plexamp,spotify,mpd next")
   ]
 
   ^++^ subKeys "Systray"
