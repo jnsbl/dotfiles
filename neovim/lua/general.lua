@@ -5,7 +5,7 @@ local opt = vim.opt
 -- Options - Appearance
 
 opt.termguicolors  = true
-opt.relativenumber = true
+opt.relativenumber = false
 opt.number         = true
 opt.list           = true
 opt.listchars      = {tab = ">-", trail = "·"}
