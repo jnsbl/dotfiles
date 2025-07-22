@@ -16,6 +16,7 @@ time_format = "%T"
 
 [os]
 disabled = false
+style = "cyan"
 
 [os.symbols]
 Alpaquita = " "
