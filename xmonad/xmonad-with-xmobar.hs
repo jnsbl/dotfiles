@@ -59,7 +59,7 @@ import Graphics.X11.ExtraTypes.XorgDefault
 -- {{{ Variable definitions
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
-myTerminal      = "kitty"
+myTerminal      = "wezterm"
 
 myBrowser       = "waterfox"
 myFileManager   = "thunar"
