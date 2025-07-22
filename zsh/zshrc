@@ -58,6 +58,7 @@ bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
+bindkey '^[[3~' delete-char # https://superuser.com/questions/997593/why-does-zsh-insert-a-when-i-press-the-delete-key
 
 # History
 HISTSIZE=10000
