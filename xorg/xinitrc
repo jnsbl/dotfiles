@@ -30,7 +30,7 @@ if [ -f "$usermodmap" ]; then
 fi
 
 # https://wiki.archlinux.org/title/Xorg/Keyboard_configuration
-xset r rate 200 35
+xset r rate 200 25
 
 # start some nice programs
 
