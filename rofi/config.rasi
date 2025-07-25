@@ -3,7 +3,7 @@
 configuration {
   show-icons:         true;
   icon-theme:         "La Capitaine";
-  font:               "Play Regular 11";
+  font:               "Space Grotesk Regular 11";
   terminal:           "kitty";
 
   kb-row-left:        "Alt+h";

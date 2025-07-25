@@ -1,7 +1,7 @@
 {
   "terminal": "/usr/bin/ghostty",
-  "theme.font.name": "Maple Mono NF",
-  "theme.font.label": "Maple Mono NF Italic",
+  "theme.font.name": "Space Grotesk",
+  "theme.font.label": "Space Grotesk",
   "theme.font.size": "1.0rem",
   "theme.bar.floating": true,
   "theme.bar.buttons.enableBorders": false,
@@ -79,5 +79,5 @@
   "bar.customModules.storage.paths": [
     "/"
   ],
-  "theme.font.style": "italic"
+  "theme.font.style": "normal"
 }
