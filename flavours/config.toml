@@ -14,16 +14,16 @@ rewrite = true
 hook = "touch ~/.config/kitty/kitty.conf"
 
 [[item]]
-file = "~/.config/alacritty/alacritty.yml"
-template = "alacritty"
-subtemplate = "default-256"
-start = "# color_start"
-end = "# color_end"
+file = "~/.config/wezterm/colors/base16.toml"
+template = "wezterm"
+subtemplate = "default"
+rewrite = true
+hook = "touch ~/.config/wezterm/wezterm.lua"
 
 [[item]]
 file = "~/.Xresources.d/base16"
 template = "xresources"
-subtemplate = "default-256"
+subtemplate = "base16"
 hook = "xrdb -merge ~/.Xresources; awesome-client 'awesome.restart()'; xmonad --restart"
 light = false
 start = "! Start flavours"
@@ -43,7 +43,7 @@ rewrite = true
 [[item]]
 file = "~/.config/fish/conf.d/base16-fzf.fish"
 template = "fzf"
-subtemplate = "fish"
+subtemplate = "base16-fish"
 rewrite = true
 
 [[item]]
