@@ -31,7 +31,7 @@ require("lazy").setup({
   require("plugins/numb-nvim"),
   require("plugins/gitsigns-nvim"),
   "vim-scripts/ReplaceWithRegister",
-  require("plugins/nvim-tree"),
+  require("plugins/oil-nvim"),
   require("plugins/snacks-nvim"),
   require("plugins/mini-splitjoin"),
   require("plugins/mini-files"),

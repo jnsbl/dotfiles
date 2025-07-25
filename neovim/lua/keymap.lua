@@ -109,7 +109,7 @@ keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]])
 keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]])
 keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]])
 
-keymap("n", "<F2>",  ":NvimTreeToggle<CR>")
+keymap("n", "<F2>",  ":Oil<CR>")
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode

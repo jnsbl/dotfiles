@@ -19,6 +19,7 @@
     ~/.config/fish/functions: fish/functions
     ~/.config/fish/themes: fish/themes
     ~/.config/fish/fish_plugins: fish/fish_plugins
+    ~/.config/ghostty: ghostty
     ~/.config/gitui: gitui
     ~/.config/greenclip.toml: greenclip.toml
     ~/.config/gsimplecal: gsimplecal
@@ -27,12 +28,13 @@
     ~/.config/interception:
     ~/.config/kitty: kitty
     ~/.config/lazygit: lazygit
-    ~/.config/nvim: neovim
+    ~/.config/nvim: lazyvim
     ~/.config/nsxiv: nsxiv
     ~/.config/rofi: rofi
     ~/.config/starship.toml: starship.toml
     ~/.config/sxiv: nsxiv
     ~/.config/tealdeer: tealdeer
+    ~/.config/wezterm: wezterm
     ~/.config/yazi: yazi
     ~/.config/zellij: zellij
     ~/.dotfiles: ''
@@ -53,6 +55,9 @@
     ~/.pryrc: ruby/pryrc
     ~/.Xresources: xorg/Xresources
     ~/.Xresources.d: xorg/Xresources.d
+    ~/.zprofile: zsh/zprofile
+    ~/.zshenv: zsh/zshenv
+    ~/.zshrc: zsh/zshrc
 
 - shell:
   -
