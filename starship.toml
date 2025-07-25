@@ -3,7 +3,8 @@
 
 [time]
 disabled = false
-format = '🕙[$time]($style) '
+format = '🕙[\[$time\]]($style) '
+# format = '🕙[\[](white)[$time]($style)[\]](white) '
 time_format = "%T"
 
 # [kubernetes]
