@@ -1,84 +1,84 @@
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = "!"
 run  = 'shell "$SHELL" --interactive --block'
 desc = "Open shell here"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "r"]
 run  = "cd /"
 desc = "Cd to /"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "f"]
 run  = "cd ~/.config"
 desc = "Cd to ~/.config"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "d"]
 run  = "cd ~/Downloads"
 desc = "Cd to ~/Downloads"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "D"]
 run  = "cd ~/Documents"
 desc = "Cd to ~/Documents"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "B"]
 run  = "cd ~/Documents/Obsidian/Second\\ Brain/"
 desc = "Cd to ~/Documents"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "P"]
 run  = "cd ~/Pictures"
 desc = "Cd to ~/Pictures"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "W"]
 run  = "cd ~/Pictures/Wallpapers"
 desc = "Cd to ~/Pictures/Wallpapers"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "w"]
 run  = "cd ~/code/work"
 desc = "Cd to ~/code/work"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "G"]
 run  = "cd ~/code/work/git"
 desc = "Cd to ~/code/work/git"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "p"]
 run  = "cd ~/code/playground"
 desc = "Cd to ~/code/playground"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "H"]
 run  = "cd ~/code/hobby"
 desc = "Cd to ~/code/hobby"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "."]
 run  = "cd ~/code/hobby/dotfiles"
 desc = "Cd to ~/code/hobby/dotfiles"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = ["g", "T"]
 run  = "cd ~/code/thirdparty"
 desc = "Cd to ~/code/thirdparty"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = "T"
 run  = "plugin max-preview"
 desc = "Maximize or restore preview"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "c", "m" ]
 run  = "plugin chmod"
 desc = "Chmod on selected files"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = "l"
 run  = "plugin smart-enter"
 desc = "Enter the child directory, or open the file"
