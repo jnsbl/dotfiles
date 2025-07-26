@@ -40,7 +40,7 @@
     ~/.config/lazygit: lazygit
     ~/.config/lf: lf
     ~/.config/mpd/mpd.conf: mpd/mpd.conf
-    ~/.config/nvim: neovim
+    ~/.config/nvim: lazyvim
     ~/.config/nsxiv: nsxiv
     ~/.config/picom.conf: picom.conf
     ~/.config/polybar: polybar
