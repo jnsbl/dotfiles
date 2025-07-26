@@ -1,0 +1,11 @@
+{
+  "name": "extra-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "yaml",
+        "path": "./k8s-snippets.json"
+      }
+    ]
+  }
+}
