@@ -52,6 +52,7 @@
     ~/.config/starship.toml: starship.toml
     ~/.config/sxiv: nsxiv
     ~/.config/tealdeer: tealdeer
+    ~/.config/tmux/tmux.reset.conf: tmux/tmux.reset.conf
     ~/.config/ulauncher/extensions.json: ulauncher/extensions.json
     ~/.config/ulauncher/settings.json: ulauncher/settings.json
     ~/.config/wezterm: wezterm
@@ -90,7 +91,7 @@
     ~/.local/bin/update-lockscreen: bin/update-lockscreen
     ~/.p10k.zsh: zsh/p10k.zsh
     ~/.pryrc: ruby/pryrc
-    ~/.tmux.conf:
+    ~/.tmux.conf: tmux/tmux.conf
     ~/.uu/config/uu-client: uu/uu-client
     ~/.vim: neovim
     ~/.xinitrc: xorg/xinitrc
