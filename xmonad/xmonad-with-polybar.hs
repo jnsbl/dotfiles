@@ -351,7 +351,7 @@ myScratchpads :: [NamedScratchpad]
 myScratchpads =
   [ NS "term"   spawnTerm findTerm manageTerm
   , NS "top"    spawnTop  findTop  manageTop
-  , NS "files"  spawnRgr  findRgr  manageRgr
+  , NS "files"  spawnFm   findFm   manageFm
   , NS "volume" spawnVol  findVol  manageVol
   , NS "mpc"    spawnMpc  findMpc  manageMpc
   , NS "pass"   spawnPass findPass managePass
@@ -361,25 +361,25 @@ myScratchpads =
   , NS "calc"   spawnCalc findCalc manageCalc
   ]
   where
-    spawnTerm  = myTerminal ++ " --title scratchpad"
-    findTerm   = title =? "scratchpad"
+    spawnTerm  = myTerminal ++ " start --class scratchpad"
+    findTerm   = className =? "scratchpad"
     manageTerm = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
                  w = 0.9
                  t = 0.95 - h
                  l = 0.95 - w
-    spawnTop   = myTerminal ++ " --title top -e btop"
-    findTop    = title =? "top"
+    spawnTop   = myTerminal ++ " start --class top -e btop"
+    findTop    = className =? "top"
     manageTop  = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
                  w = 0.9
                  t = 0.95 - h
                  l = 0.95 - w
-    spawnRgr   = myTerminal ++ " --title ranger -e yazi"
-    findRgr    = title =? "ranger"
-    manageRgr  = customFloating $ W.RationalRect l t w h
+    spawnFm    = myTerminal ++ " start --class files -e yazi"
+    findFm     = className =? "files"
+    manageFm   = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
                  w = 0.9
