@@ -1,9 +1,5 @@
 [user]
         name = Jan Sibil
-[includeIf "gitdir:hobby/"]
-        path = .gitconfig-hobby
-[includeIf "gitdir:work/"]
-        path = .gitconfig-work
 [alias]
         # add
         a = add                           # add
