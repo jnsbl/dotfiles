@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# taken from https://github.com/Misterio77/dotfiles/blob/sway/home/bin/reloadnvim
-# requires https://github.com/mhinz/neovim-remote
-
-nvr --serverlist | \
-while read line; do
-  nvr --nostart -cc ':colorscheme base16' --servername $line & \
-done
