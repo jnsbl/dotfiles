@@ -4,7 +4,7 @@ Dotfiles use [GNU Stow](https://www.gnu.org/software/stow/) for installation.
 
 ## Prerequisites
 
-1. Install [Omarchy](https://omarchy.org/) (not required to actually use these dotfiles but that's what I use as daily driver)
+1. Install [Omarchy](https://omarchy.org/) _(not required to actually use these dotfiles but that's what I use as daily driver)_
 2. Install additional packages
 
   ```bash
