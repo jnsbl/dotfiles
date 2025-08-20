@@ -18,13 +18,13 @@ yay -S --noconfirm --needed \
 echo "====> Installing CLI/TUI packages"
 yay -S --noconfirm --needed \
   stow less tmux yazi glow git-delta procs cmatrix \
-  zsh starship \
+  zsh starship npm \
   markdownlint-cli2
 
 echo "====> Installing GUI packages"
 yay -S --noconfirm --needed \
   filelight ghostty meld espanso-wayland sourcegit-bin insomnium-bin \
-  vscodium-bin vscodium-bin-marketplace
+  proton-pass-bin vscodium-bin vscodium-bin-marketplace
 
 echo "_________________________________________________________________________"
 echo "                                                                         "
