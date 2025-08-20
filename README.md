@@ -20,7 +20,7 @@ Example:
 
 ```bash
 cd path/to/dotfiles/repo
-stow zsh starship git lazygit bat btop lazyvim tmux hypr alacritty
+stow zsh starship git lazygit bat btop lazyvim tmux hypr alacritty -t ~
 ```
 
 ## Features
@@ -29,7 +29,7 @@ stow zsh starship git lazygit bat btop lazyvim tmux hypr alacritty
 
 - [zsh](https://www.zsh.org/), using [starship](https://starship.rs/) prompt
 - [fish](https://fishshell.com/) configured with [fisher](https://github.com/jorgebucaran/fisher), using [starship](https://starship.rs/) prompt and lots of [abbreviations](https://github.com/jnsbl/dotfiles/blob/master/fish/config.fish) for less typing
-- [neovim](https://neovim.io/) ([LazyVim](https://www.lazyvim.org/)) as the main editor
+- [neovim](https://neovim.io/) ([lazyvim](https://www.lazyvim.org/)) as the main editor
 - [yazi](https://yazi-rs.github.io/) command-line file manager
 - [gfzfg](https://github.com/junegunn/fzf) fuzzy finder
 - [zoxide](https://github.com/ajeetdsouza/zoxide) smart `cd` alternative
