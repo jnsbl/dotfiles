@@ -1,0 +1,52 @@
+#!/usr/bin/env sh
+
+# wlprop - Hyprland
+#
+# Licensed under the MIT license
+# Copyright © 2022 bjosephmitchell@gmail.com
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the “Software”), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+# 
+# Dependencies:
+# - hyprctl
+# - jq
+# - slurp
+# - awk
+
+# Dependencies
+cmd_failures=''
+for cmd in hyprctl jq slurp awk; do
+  command -v "${cmd}" >/dev/null 2>&1 || cmd_failures="${cmd_failures},${cmd}"
+done
+
+if (( "${#cmd_failures}" > 0 )); then
+  printf -- '%s\n' "The following dependencies are missing: ${cmd_failures/,/}" >&2
+  exit 1
+fi
+
+# Get all clients and selection (point) region via slurp
+TREE=$(hyprctl clients -j | jq -r '.[] | select(.hidden==false and .mapped==true)')
+SELECTION=$(echo $TREE | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | slurp -r)
+
+# Get individual coordinates
+X=$(echo $SELECTION | awk -F'[, x]' '{print $1}')
+Y=$(echo $SELECTION | awk -F'[, x]' '{print $2}')
+W=$(echo $SELECTION | awk -F'[, x]' '{print $3}')
+H=$(echo $SELECTION | awk -F'[, x]' '{print $4}')
+
+echo $TREE | jq -r --argjson x $X --argjson y $Y --argjson w $W --argjson h $H '. | select(.at[0]==$x and .at[1]==$y and .size[0]==$w and.size[1]==$h)'
