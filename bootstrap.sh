@@ -39,6 +39,14 @@ ideapad-cm enable
 
 echo "_________________________________________________________________________"
 echo "                                                                         "
+echo "                              Clean up                                   "
+echo "          Uninstall unused applications shipped with Omarchy             "
+echo "_________________________________________________________________________"
+
+yay -Rns 1password-beta 1password-cli kdenlive pinta typora xournalpp
+
+echo "_________________________________________________________________________"
+echo "                                                                         "
 echo "                  REQUIRED PACKAGES HAVE BEEN INSTALLED                  "
 echo "                                Enjoy :)                                 "
 echo "_________________________________________________________________________"
