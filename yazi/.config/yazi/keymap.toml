@@ -69,6 +69,11 @@ run  = "cd ~/code/thirdparty"
 desc = "Cd to ~/code/thirdparty"
 
 [[mgr.prepend_keymap]]
+on   = ["g", "o"]
+run  = "cd ~/.local/share/omarchy"
+desc = "Cd to ~/.local/share/omarchy"
+
+[[mgr.prepend_keymap]]
 on   = "T"
 run  = "plugin max-preview"
 desc = "Maximize or restore preview"
