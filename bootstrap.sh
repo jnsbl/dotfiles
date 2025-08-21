@@ -13,7 +13,7 @@ echo "_________________________________________________________________________"
 echo "====> Installing system utilities"
 yay -S --noconfirm --needed \
   grub-btrfs inotify-tools os-prober timeshift-autosnap \
-  ideapad-cm
+  ideapad-cm k9s
 
 echo "====> Installing CLI/TUI packages"
 yay -S --noconfirm --needed \
