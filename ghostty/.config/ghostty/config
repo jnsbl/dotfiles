@@ -1,2 +1,9 @@
 theme = "omarchy-tokyo-night"
 confirm-close-surface = false
+
+font-family = ""
+font-family = "DankMono Nerd Font"
+# font-family = "Symbols Nerd Font"
+# font-family = "DankMono-Regular"
+# font-family-bold = "DankMono-Bold"
+# font-family-italic = "DankMono-Italic"
