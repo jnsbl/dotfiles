@@ -1,0 +1,15 @@
+theme "tokyo-night"
+simplified_ui true
+pane_frames false
+ 
+// default_mode "locked"
+ 
+scroll_buffer_size 50000
+ 
+copy_command "wl-copy"
+ 
+session_serialization true
+serialization_interval 300
+ 
+web_server false
+show_startup_tips false
