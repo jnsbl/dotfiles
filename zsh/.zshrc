@@ -154,6 +154,11 @@ alias md='glow'
 alias s='kitten ssh'
 alias smtr='sudo mtr'
 
+alias t='tmux'
+alias ta='tmux attach -t'
+alias tl='tmux ls'
+alias tn='tmux new -t'
+
 alias zj='zellij'
 alias zja='zellij attach'
 alias zjl='zellij list-sessions'
