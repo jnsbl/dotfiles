@@ -1,0 +1,20 @@
+[pyprland]
+plugins = [
+  "scratchpads",
+]
+
+[scratchpads.term]
+animation = "fromTop"
+command = "alacritty --class alacritty-dropterm"
+class = "alacritty-dropterm"
+size = "75% 60%"
+max_size = "1920px 100%"
+margin = 50
+
+[scratchpads.files]
+animation = "fromBottom"
+command = "alacritty --class alacritty-filemanager -e yazi"
+class = "alacritty-filemanager"
+size = "85% 60%"
+max_size = "1920px 100%"
+margin = 50
