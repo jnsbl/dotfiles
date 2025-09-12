@@ -1,0 +1,23 @@
+general.import = [ "~/.config/omarchy/current/theme/alacritty.toml" ]
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+# normal = { family = "Mononoki Nerd Font" }
+# bold = { family = "Mononoki Nerd Font" }
+# italic = { family = "Mononoki Nerd Font" }
+normal = { family = "Mononoki Nerd Font" }
+bold = { family = "Mononoki Nerd Font" }
+italic = { family = "Mononoki Nerd Font" }
+size = 9
+
+[window]
+padding.x = 14
+padding.y = 14
+decorations = "None"
+
+[keyboard]
+bindings = [
+{ key = "F11", action = "ToggleFullscreen" }
+]
