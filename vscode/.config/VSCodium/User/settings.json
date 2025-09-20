@@ -10,7 +10,7 @@
     "ruby.lint": {
         "ruby": true
     },
-    "editor.fontFamily": "'Recursive Mono Casual Static', 'CommitMono Nerd Font', 'Input Nerd Font', 'mononoki Nerd Font', 'JetBrainsMono Nerd Font','FantasqueSansMono Nerd Font', 'FiraCode Nerd Font', Hack, 'Noto Mono', 'DejaVu Sans Mono', 'Courier New', monospace",
+    "editor.fontFamily": "'JetBrainsMono Nerd Font', 'CaskaydiaMono Nerd Font', 'mononoki Nerd Font', 'CommitMono Nerd Font', 'Recursive Mono Casual Static', 'Input Nerd Font', 'FantasqueSansMono Nerd Font', 'FiraCode Nerd Font', Hack, 'Noto Mono', 'DejaVu Sans Mono', 'Courier New', monospace",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.iconTheme": "ayu",
     "vsicons.dontShowNewVersionMessage": true,
@@ -32,7 +32,6 @@
     "workbench.colorTheme": "Default Light Modern",
     "terminal.external.linuxExec": "alacritty",
     "terminal.integrated.defaultProfile.linux": "fish",
-    "editor.fontSize": 15,
     "editor.guides.indentation": false,
     "editor.fontLigatures": true,
     "git.openRepositoryInParentFolders": "never",
