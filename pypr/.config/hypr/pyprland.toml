@@ -10,6 +10,7 @@ class = "alacritty-dropterm"
 size = "75% 60%"
 max_size = "1920px 100%"
 margin = 50
+lazy = true
 
 [scratchpads.files]
 animation = "fromBottom"
@@ -18,3 +19,12 @@ class = "alacritty-filemanager"
 size = "85% 60%"
 max_size = "1920px 100%"
 margin = 50
+lazy = true
+
+# [scratchpads.notes]
+# command = "subl3"
+# match_by = "class"
+# class = "sublime_text"
+# size = "60% 60%"
+# lazy = true
+# force_monitor = "eDP-1"
