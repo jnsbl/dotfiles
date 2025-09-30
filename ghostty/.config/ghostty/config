@@ -7,3 +7,4 @@ font-family = "DankMono Nerd Font"
 # font-family = "DankMono-Regular"
 # font-family-bold = "DankMono-Bold"
 # font-family-italic = "DankMono-Italic"
+keybind = shift+enter=text:\x1b\r
