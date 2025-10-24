@@ -10,7 +10,7 @@
     "ruby.lint": {
         "ruby": true
     },
-    "editor.fontFamily": "'JetBrainsMono Nerd Font', 'CaskaydiaMono Nerd Font', 'mononoki Nerd Font', 'CommitMono Nerd Font', 'Recursive Mono Casual Static', 'Input Nerd Font', 'FantasqueSansMono Nerd Font', 'FiraCode Nerd Font', Hack, 'Noto Mono', 'DejaVu Sans Mono', 'Courier New', monospace",
+    "editor.fontFamily": "'Maple Mono NF', 'Operator Mono Semi-Light', 'MonoLisa', 'JetBrainsMono Nerd Font', 'Dank Mono', 'CaskaydiaMono Nerd Font', 'mononoki Nerd Font', 'CommitMono Nerd Font', 'Recursive Mono Casual Static', 'Input Nerd Font', 'FantasqueSansMono Nerd Font', 'FiraCode Nerd Font', Hack, 'Noto Mono', 'DejaVu Sans Mono', 'Courier New', monospace",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.iconTheme": "ayu",
     "vsicons.dontShowNewVersionMessage": true,
@@ -29,11 +29,11 @@
     "gitlens.defaultDateShortFormat": "DD.MM.YYYY",
     "gitlens.defaultDateFormat": "DD.MM.YYYY HH:mm",
     "gitlens.codeLens.enabled": false,
-    "workbench.colorTheme": "Default Light Modern",
     "terminal.external.linuxExec": "alacritty",
     "terminal.integrated.defaultProfile.linux": "fish",
     "editor.guides.indentation": false,
     "editor.fontLigatures": true,
     "git.openRepositoryInParentFolders": "never",
-    "workbench.editor.empty.hint": "hidden"
+    "workbench.editor.empty.hint": "hidden",
+    "workbench.colorTheme": "Tokyo Night"
 }
