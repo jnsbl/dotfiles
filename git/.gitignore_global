@@ -53,3 +53,8 @@ Session.vim
 .rbenv-gemsets
 
 .ruby-version
+
+# Claude Code
+# ----------------------------------------------------------------------------------------------
+**/.claude/settings.local.json
+**/CLAUDE.local.md
