@@ -35,5 +35,6 @@
     "editor.fontLigatures": true,
     "git.openRepositoryInParentFolders": "never",
     "workbench.editor.empty.hint": "hidden",
-    "workbench.colorTheme": "Tokyo Night"
+    "workbench.colorTheme": "Default Light+",
+    "redhat.telemetry.enabled": false
 }
