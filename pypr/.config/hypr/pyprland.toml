@@ -21,6 +21,15 @@ max_size = "1920px 100%"
 margin = 50
 lazy = true
 
+[scratchpads.pass]
+animation = "fromRight"
+command = "proton-pass"
+class = "Proton Pass"
+size = "85% 85%"
+max_size = "1920px 100%"
+margin = 50
+lazy = true
+
 # [scratchpads.notes]
 # command = "subl3"
 # match_by = "class"
