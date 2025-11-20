@@ -171,5 +171,6 @@ if [[ $_fzf_installed = "true" ]]; then
   eval "$(fzf --zsh)"
 fi
 if [[ $_zoxide_installed = "true" ]]; then
+  export _ZO_ECHO='1'
   eval "$(zoxide init --cmd cd zsh)"
 fi
