@@ -18,7 +18,7 @@
     },
     {
       "type": "host",
-      "key": " PC",
+      "key": "  PC",
       "keyColor": "green"
     },
     {
@@ -102,7 +102,7 @@
     },
     {
       "type": "de",
-      "key": " DE",
+      "key": "  DE",
       "keyColor": "blue"
     },
     {
