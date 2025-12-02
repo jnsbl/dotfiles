@@ -5,8 +5,8 @@ plugins = [
 
 [scratchpads.term]
 animation = "fromTop"
-command = "alacritty --class alacritty-dropterm"
-class = "alacritty-dropterm"
+command = "kitty --class scratchpad-dropterm"
+class = "scratchpad-dropterm"
 size = "75% 60%"
 max_size = "1920px 100%"
 margin = 50
@@ -14,8 +14,8 @@ lazy = true
 
 [scratchpads.files]
 animation = "fromBottom"
-command = "alacritty --class alacritty-filemanager -e yazi"
-class = "alacritty-filemanager"
+command = "kitty --class scratchpad-filemanager -e yazi"
+class = "scratchpad-filemanager"
 size = "85% 60%"
 max_size = "1920px 100%"
 margin = 50
