@@ -35,6 +35,10 @@ _zoxide_installed="false"
 if command -v zoxide >/dev/null 2>&1; then
   _zoxide_installed="true"
 fi
+_arkade_installed="false"
+if command -v arkade >/dev/null 2>&1; then
+  _arkade_installed="true"
+fi
 
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
@@ -88,6 +92,8 @@ fi
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
+alias ark='arkade'
+
 alias e=$EDITOR
 
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
@@ -124,6 +130,7 @@ alias k9h='k9s --context homelab'
 alias kubens='kubectl config set-context --current --namespace '
 
 alias less='less --QUIET' # https://wiki.archlinux.org/title/PC_speaker#Less_pager
+alias ld='lazydocker'
 alias lg='lazygit'
 
 if command -v eza >/dev/null 2>&1; then
@@ -173,4 +180,7 @@ fi
 if [[ $_zoxide_installed = "true" ]]; then
   export _ZO_ECHO='1'
   eval "$(zoxide init --cmd cd zsh)"
+fi
+if [[ $_arkade_installed = "true" ]]; then
+  eval "$(arkade completion zsh)"
 fi
