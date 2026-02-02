@@ -4,12 +4,7 @@ general.import = [ "~/.config/omarchy/current/theme/alacritty.toml" ]
 TERM = "xterm-256color"
 
 [font]
-# normal = { family = "Mononoki Nerd Font" }
-# bold = { family = "Mononoki Nerd Font" }
-# italic = { family = "Mononoki Nerd Font" }
-normal = { family = "Mononoki Nerd Font" }
-bold = { family = "Mononoki Nerd Font" }
-italic = { family = "Mononoki Nerd Font" }
+# font is set in ~/.config/fontconfig/fonts.conf
 size = 9
 
 [window]

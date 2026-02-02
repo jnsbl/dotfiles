@@ -1,9 +1,6 @@
 config-file = "~/.config/omarchy/current/theme/ghostty.conf"
 confirm-close-surface = false
 
-font-family = "Maple Mono NF"
+# font-family is set in ~/.config/fontconfig/fonts.conf
 font-size = 9
 keybind = shift+enter=text:\x1b\r
-
-# Slowdown mouse scrolling
-mouse-scroll-multiplier = 0.95
