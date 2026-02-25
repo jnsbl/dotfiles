@@ -182,3 +182,5 @@
         navigate = true
         dark = true
 [global]
+[diff-so-fancy]
+	markEmptyLines = false
