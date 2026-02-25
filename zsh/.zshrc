@@ -63,6 +63,12 @@ bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
 bindkey '^[[3~' delete-char # https://superuser.com/questions/997593/why-does-zsh-insert-a-when-i-press-the-delete-key
+bindkey ' ' magic-space
+# https://gist.github.com/elliottminns/09a598082d77f795c88e93f7f73dba61
+# Edit command buffer
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
 
 # History
 HISTSIZE=10000
@@ -87,6 +93,11 @@ if [[ $_fzf_installed = "true" ]]; then
     zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
   fi
 fi
+
+# Advanced batch rename/move/copy/link
+autoload -Uz zmv
+alias zcp='zmv -C'  # Copy with patterns
+alias zln='zmv -L'  # Link with patterns
 
 # Aliases
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
@@ -173,12 +184,34 @@ alias zjs='zellij --session'
 
 alias y='yazi'
 
+# Global Aliases
+
+# Redirect stderr to /dev/null
+alias -g NE='2>/dev/null'
+
+# Redirect stdout to /dev/null
+alias -g NO='>/dev/null'
+
+# Redirect both stdout and stderr to /dev/null
+alias -g NUL='>/dev/null 2>&1'
+
+# Pipe to jq
+alias -g J='| jq'
+
+# Copy output to clipboard (macOS)
+alias -g C='| wlcopy'
+
+# Hooks
+chpwd() {
+  ls
+}
+
 # Shell integrations
 if [[ $_fzf_installed = "true" ]]; then
   eval "$(fzf --zsh)"
 fi
 if [[ $_zoxide_installed = "true" ]]; then
-  export _ZO_ECHO='1'
+  # export _ZO_ECHO='1'
   eval "$(zoxide init --cmd cd zsh)"
 fi
 if [[ $_arkade_installed = "true" ]]; then
