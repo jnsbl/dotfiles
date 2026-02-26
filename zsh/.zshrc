@@ -169,6 +169,9 @@ fi
 alias man 'man --pager="less --QUIET"' # https://wiki.archlinux.org/title/PC_speaker#Less_pager
 alias md='glow'
 
+alias npm='uunpm'
+alias npx='uunpx'
+
 alias s='kitten ssh'
 alias smtr='sudo mtr'
 
