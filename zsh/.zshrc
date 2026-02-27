@@ -48,9 +48,10 @@ if [[ $_fzf_installed = "true" ]]; then
   zinit light Aloxaf/fzf-tab
 fi
 
-# # Add in snippets
+# Add in snippets
 zinit snippet OMZP::sudo
 zinit snippet OMZP::systemadmin
+zinit snippet https://github.com/jnsbl/dotfiles/blob/main/zsh/.config/zsh/functions/tmux.zsh
 
 # Load completions
 autoload -Uz compinit && compinit
@@ -100,9 +101,6 @@ alias zcp='zmv -C'  # Copy with patterns
 alias zln='zmv -L'  # Link with patterns
 
 # Aliases
-alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
-alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
-
 alias ark='arkade'
 
 alias e=$EDITOR
