@@ -1,4 +1,4 @@
-# Create a Tmux Dev Layout with editor, file manager, ai, and terminal
+# Create a Tmux Dev Layout with editor, file manager, ai, terminal, and a separate window with lazygit
 # Usage: tdl [<ai>]
 tdl() {
   [[ -z $TMUX ]] && { echo "You must start tmux to use tdl."; return 1; }
@@ -30,7 +30,10 @@ tdl() {
   tmux select-pane -t "$fm_pane" && sleep 1
   tmux send-keys -t "$fm_pane" "$fm >/dev/null 2>&1" C-m
 
-  # Run nvim in the left pane and give it focus
+  # Create a new window after the first one (do not select it), and run "lazygit" in its single pane
+  tmux new-window -n "git" -a -d "lazygit"
+
+  # Run editor in the left pane and give it focus
   tmux send-keys -t "$editor_pane" "$EDITOR ." C-m
   tmux select-pane -t "$editor_pane"
 }
