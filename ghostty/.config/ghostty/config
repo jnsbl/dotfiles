@@ -4,3 +4,6 @@ confirm-close-surface = false
 # font-family is set in ~/.config/fontconfig/fonts.conf
 font-size = 9
 keybind = shift+enter=text:\x1b\r
+
+# Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
+async-backend = epoll
