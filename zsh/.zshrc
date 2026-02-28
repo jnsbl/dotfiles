@@ -200,7 +200,7 @@ alias -g NUL='>/dev/null 2>&1'
 alias -g J='| jq'
 
 # Copy output to clipboard (macOS)
-alias -g C='| wlcopy'
+alias -g C='| wl-copy'
 
 # Hooks
 chpwd() {
