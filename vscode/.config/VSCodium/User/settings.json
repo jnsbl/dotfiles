@@ -10,7 +10,7 @@
     "ruby.lint": {
         "ruby": true
     },
-    "editor.fontFamily": "'VictorMono Nerd Font Medium', 'Maple Mono NF', 'Operator Mono Semi-Light', 'MonoLisa', 'JetBrainsMono Nerd Font', 'Dank Mono', 'CaskaydiaMono Nerd Font', 'mononoki Nerd Font', 'CommitMono Nerd Font', 'Recursive Mono Casual Static', 'Input Nerd Font', 'FantasqueSansMono Nerd Font', 'FiraCode Nerd Font', Hack, 'Noto Mono', 'DejaVu Sans Mono', 'Courier New', monospace",
+    "editor.fontFamily": "'DankMono Nerd Font', 'VictorMono Nerd Font', 'Maple Mono NF', 'Operator Mono Semi-Light', 'MonoLisa Nerd Font Mono', 'JetBrainsMono Nerd Font', 'Dank Mono', 'CaskaydiaMono Nerd Font', 'mononoki Nerd Font', 'CommitMono Nerd Font', 'Recursive Mono Casual Static', 'Input Nerd Font', 'FantasqueSansMono Nerd Font', 'FiraCode Nerd Font', Hack, 'Noto Mono', 'DejaVu Sans Mono', 'Courier New', monospace",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.iconTheme": "ayu",
     "vsicons.dontShowNewVersionMessage": true,
@@ -37,6 +37,6 @@
     "workbench.editor.empty.hint": "hidden",
     "workbench.colorTheme": "Catppuccin Mocha",
     "redhat.telemetry.enabled": false,
-    "editor.fontSize": 12,
+    "editor.fontSize": 13,
     "terminal.integrated.fontSize": 12
 }
