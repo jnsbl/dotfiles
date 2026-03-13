@@ -178,12 +178,13 @@ alias ta='tmux attach -t'
 alias tl='tmux ls'
 alias tn='tmux new -t'
 
+alias y='yazi'
+
+alias zed='zeditor'
 alias zj='zellij'
 alias zja='zellij attach'
 alias zjl='zellij list-sessions'
 alias zjs='zellij --session'
-
-alias y='yazi'
 
 # Global Aliases
 
