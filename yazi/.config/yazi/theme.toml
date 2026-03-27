@@ -1,3 +1,6 @@
 [mgr]
 hovered         = { reversed = true }
 preview_hovered = { reversed = true }
+
+[flavor]
+dark            = "tokyo-night"

@@ -18,5 +18,7 @@ use = "yazi-rs/plugins:jump-to-char"
 rev = "63f9650"
 hash = "30fc0b37f03a597b92d387268319450f"
 
-[flavor]
-deps = []
+[[flavor.deps]]
+use = "BennyOe/tokyo-night"
+rev = "8e6296f"
+hash = "d9da921c3bd37ba32ee27a8a7a40461f"
