@@ -10,25 +10,23 @@ echo "                             APPLICATIONS                                "
 echo "        Install must-have applications for various common tasks          "
 echo "_________________________________________________________________________"
 
-echo "====> Installing system utilities"
-yay -S --noconfirm --needed \
-  grub-btrfs inotify-tools os-prober timeshift-autosnap \
-  ideapad-cm
-
 echo "====> Installing CLI/TUI packages"
 yay -S --noconfirm --needed \
-  stow less tmux yazi glow git-delta procs cmatrix \
-  zsh starship \
-  markdownlint-cli2
+  stow less tmux yazi glow diff-so-fancy procs cmatrix \
+  zsh starship keyd mtr television \
+  markdownlint-cli2 cliphist dive dnslookup-bin
 
 echo "====> Installing development packages"
 yay -S --noconfirm --needed \
-  npm kubectl k9s minikube
+  npm kubectl k9s minikube helm jless ijq k3sup ansible \
+  kubectx kubent-bin openvpn openvpn-update-systemd-resolved \
+  vi-mongo
 
 echo "====> Installing GUI packages"
 yay -S --noconfirm --needed \
-  filelight ghostty meld espanso-wayland sourcegit-bin insomnium-bin \
-  proton-pass-bin vscodium-bin vscodium-bin-marketplace
+  brave-bin filelight kitty meld espanso-wayland sourcegit-bin insomnium-bin \
+  proton-pass-bin vscodium-bin vscodium-bin-marketplace \
+  font-manager headlamp-bin isoimagewriter pyprland
 
 echo "====> Installing webapps"
 omarchy-webapp-install "Kubernetes YAML Generator" https://k8syaml.com/ https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/kubernetes.png
@@ -40,9 +38,6 @@ echo "_________________________________________________________________________"
 
 echo "====> Using zsh as default shell"
 chsh -s /usr/bin/zsh
-
-echo "====> Setting up laptop battery conservation mode"
-ideapad-cm enable
 
 echo "_________________________________________________________________________"
 echo "                                                                         "
