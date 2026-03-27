@@ -219,3 +219,9 @@ fi
 if [[ $_arkade_installed = "true" ]]; then
   eval "$(arkade completion zsh)"
 fi
+if command -v try >/dev/null 2>&1; then
+  eval "$(try init ~/code/tries)"
+fi
+if command -v tv >/dev/null 2>&1; then
+  eval "$(tv init zsh)"
+fi
