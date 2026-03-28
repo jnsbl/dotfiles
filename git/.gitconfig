@@ -131,7 +131,7 @@
         autocrlf = false
         excludesfile = ~/.gitignore_global
         editor = nvim
-        pager = delta
+        pager = diff-so-fancy
 [apply]
         whitespace = nowarn
 [mergetool]
@@ -176,11 +176,6 @@
 	defaultBranch = main
 [gui]
         editor = nvim-qt
-[interactive]
-        diffFilter = delta --color-only
-[delta]
-        navigate = true
-        dark = true
 [global]
 [diff-so-fancy]
 	markEmptyLines = false
