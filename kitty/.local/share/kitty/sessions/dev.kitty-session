@@ -1,0 +1,24 @@
+# Dev layout (approximates tdl tmux function):
+#   Left 70%: editor (nvim)
+#   Right 30%: yazi (top ~85%) + terminal strip (bottom ~15%)
+#   Tab 2: lazygit
+#
+# Usage: kitty --session ~/.local/share/kitty/sessions/dev.kitty-session
+#    or: kitty --session dev.kitty-session  (if KITTY_CONFIG_DIRECTORY is set)
+
+new_tab dev
+layout splits
+
+# Editor pane — left 70%, focused
+launch --cwd current nvim .
+focus
+
+# File manager — right 30% (vsplit from editor; new window gets --bias %)
+launch --location=vsplit --bias=30 --cwd current yazi
+
+# Terminal strip — bottom of right column (~15% of tab height)
+launch --location=hsplit --bias=50 --cwd current
+
+new_tab git
+layout splits
+launch --cwd current lazygit
