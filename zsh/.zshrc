@@ -53,6 +53,14 @@ zinit snippet OMZP::sudo
 zinit snippet OMZP::systemadmin
 zinit snippet https://github.com/jnsbl/dotfiles/blob/main/zsh/.config/zsh/functions/tmux.zsh
 
+# Tool completions
+if [[ $_arkade_installed = "true" ]]; then
+  eval "$(arkade completion zsh)"
+fi
+if command -v git-gtr >/dev/null 2>&1; then
+  eval "$(git gtr completion zsh)"
+fi
+
 # Load completions
 autoload -Uz compinit && compinit
 
@@ -215,9 +223,6 @@ fi
 if [[ $_zoxide_installed = "true" ]]; then
   # export _ZO_ECHO='1'
   eval "$(zoxide init --cmd cd zsh)"
-fi
-if [[ $_arkade_installed = "true" ]]; then
-  eval "$(arkade completion zsh)"
 fi
 if command -v try >/dev/null 2>&1; then
   eval "$(try init ~/code/tries)"
