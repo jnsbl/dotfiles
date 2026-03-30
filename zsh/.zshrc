@@ -52,6 +52,7 @@ fi
 zinit snippet OMZP::sudo
 zinit snippet OMZP::systemadmin
 zinit snippet https://github.com/jnsbl/dotfiles/blob/main/zsh/.config/zsh/functions/tmux.zsh
+zinit snippet ~/.config/zsh/functions/mcd.zsh
 
 # Tool completions
 if [[ $_arkade_installed = "true" ]]; then
