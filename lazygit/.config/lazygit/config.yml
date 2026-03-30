@@ -2,3 +2,7 @@ git:
   pagers:
     - colorArg: always
       pager: diff-so-fancy
+gui:
+  theme:
+    selectedLineBgColor:
+      - reverse
