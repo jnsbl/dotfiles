@@ -111,6 +111,9 @@ alias zln='zmv -L'  # Link with patterns
 # Aliases
 alias ark='arkade'
 
+alias c='claude'
+alias cu='cursor'
+
 alias e=$EDITOR
 
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
@@ -177,6 +180,8 @@ alias md='glow'
 
 alias npm='uunpm'
 alias npx='uunpx'
+
+alias oc='opencode'
 
 alias s='kitten ssh'
 alias smtr='sudo mtr'
