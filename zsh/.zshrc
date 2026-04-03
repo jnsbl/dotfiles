@@ -117,6 +117,7 @@ alias cu='cursor'
 
 alias e=$EDITOR
 
+alias f='spf' # "f" for "file manager"
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
 alias g='git'
