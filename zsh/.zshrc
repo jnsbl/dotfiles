@@ -213,6 +213,8 @@ alias ta='tmux attach -t'
 alias tl='tmux ls'
 alias tn='tmux new -t'
 
+alias x="chmod +x (ls | gum filter --limit 1 --header 'chmod +x')"
+
 alias y='yazi'
 
 alias zad="ls -d */ | xargs -I {} zoxide add {}"
