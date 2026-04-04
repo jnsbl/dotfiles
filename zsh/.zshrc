@@ -51,7 +51,7 @@ fi
 # Add in snippets
 zinit snippet OMZP::sudo
 zinit snippet OMZP::systemadmin
-zinit snippet https://github.com/jnsbl/dotfiles/blob/main/zsh/.config/zsh/functions/tmux.zsh
+zinit snippet ~/.config/zsh/functions/tmux.zsh
 zinit snippet ~/.config/zsh/functions/mcd.zsh
 
 # Tool completions
@@ -63,6 +63,7 @@ if command -v git-gtr >/dev/null 2>&1; then
 fi
 
 # Load completions
+fpath=(~/.config/zsh/completions $fpath)
 autoload -Uz compinit && compinit
 
 zinit cdreplay -q
@@ -79,6 +80,25 @@ bindkey ' ' magic-space
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^X^E' edit-command-line
+
+# sesh keybindings
+function sesh-sessions() {
+  {
+    exec </dev/tty
+    exec <&1
+    local session
+    session=$(sesh list -d -c -t -T -z | fzf --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ' --preview-window 'right:75%' --preview 'sesh preview {}')
+    # session=$(sesh list -t -c | gum filter --limit 1 --no-sort --fuzzy --placeholder ' sesh' --height 10 --prompt='⚡')
+    zle reset-prompt > /dev/null 2>&1 || true
+    [[ -z "$session" ]] && return
+    sesh connect $session
+  }
+}
+
+zle     -N             sesh-sessions
+bindkey -M emacs '\es' sesh-sessions
+bindkey -M vicmd '\es' sesh-sessions
+bindkey -M viins '\es' sesh-sessions
 
 # History
 HISTSIZE=10000
@@ -195,6 +215,7 @@ alias tn='tmux new -t'
 
 alias y='yazi'
 
+alias zad="ls -d */ | xargs -I {} zoxide add {}"
 alias zed='zeditor'
 alias zj='zellij'
 alias zja='zellij attach'

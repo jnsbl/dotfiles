@@ -1,0 +1,10 @@
+#:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
+blacklist = ["scratch"]
+
+[[wildcard]]
+pattern = "~/code/hobby/*"
+startup_command = "tdl"
+
+[[wildcard]]
+pattern = "~/code/work/git/*"
+startup_command = "tdl"
