@@ -4,8 +4,7 @@ tdl() {
   [[ -z $TMUX ]] && { echo "You must start tmux to use tdl."; return 1; }
 
   local current_dir="${PWD}"
-  local editor_pane fm_pane ai_pane
-  local fm="yazi"
+  local editor_pane ai_pane
   local ai="$1"
 
   # Use TMUX_PANE for the pane we're running in (stable even if active window changes)
@@ -17,18 +16,11 @@ tdl() {
   # Split window vertically - top 85%, bottom 15% (target editor pane explicitly)
   tmux split-window -v -l '15%' -t "$editor_pane" -c "$current_dir"
 
-  # Split editor pane horizontally - file manager on right 30% (capture new pane ID directly)
-  fm_pane=$(tmux split-window -h -l '30%' -t "$editor_pane" -c "$current_dir" -P -F '#{pane_id}')
-
-  # If AI provided, split the file manager pane vertically
+  # If AI provided, split the editor pane horizontally - AI on right 30%
   if [[ -n $ai ]]; then
-    ai_pane=$(tmux split-window -v -t "$fm_pane" -c "$current_dir" -P -F '#{pane_id}')
+    ai_pane=$(tmux split-window -h -l '30%' -t "$editor_pane" -c "$current_dir" -P -F '#{pane_id}')
     tmux send-keys -t "$ai_pane" "$ai" C-m
   fi
-
-  # Run file manager in the right pane; select file manager pane first so its terminal queries are routed back to it
-  tmux select-pane -t "$fm_pane" && sleep 1
-  tmux send-keys -t "$fm_pane" "$fm >/dev/null 2>&1" C-m
 
   # Create a new window after the first one (do not select it), and run "lazygit" in its single pane
   tmux new-window -n "git" -a -d "lazygit"
@@ -36,6 +28,9 @@ tdl() {
   # Run editor in the left pane and give it focus
   tmux send-keys -t "$editor_pane" "$EDITOR ." C-m
   tmux select-pane -t "$editor_pane"
+
+  # Create a new window after the first one (do not select it), and run "lazygit" in its single pane
+  tmux new-window -n "files" -a -d "yazi"
 }
 
 # Create a Tmux Ops Layout with remote shell, local shell, file manager, and a separate window with k9s
