@@ -8,3 +8,8 @@ startup_command = "tdl"
 [[wildcard]]
 pattern = "~/code/work/git/*"
 startup_command = "tdl"
+
+[[session]]
+name = "azure-devops"
+path = "~/Work/azure-devops"
+startup_command = "tol"
