@@ -87,8 +87,7 @@ function sesh-sessions() {
     exec </dev/tty
     exec <&1
     local session
-    session=$(sesh list -d -c -t -T -z | fzf --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ' --preview-window 'right:75%' --preview 'sesh preview {}')
-    # session=$(sesh list -t -c | gum filter --limit 1 --no-sort --fuzzy --placeholder ' sesh' --height 10 --prompt='⚡')
+    session=$(sesh list --icons -d -c -t -T -z | fzf --ansi --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ' --preview-window 'right:75%' --preview 'sesh preview {}')
     zle reset-prompt > /dev/null 2>&1 || true
     [[ -z "$session" ]] && return
     sesh connect $session
