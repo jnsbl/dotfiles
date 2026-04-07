@@ -6,6 +6,7 @@ tdl() {
   local current_dir="${PWD}"
   local editor_pane ai_pane
   local ai="$1"
+  local fm="yazi"
 
   # Use TMUX_PANE for the pane we're running in (stable even if active window changes)
   editor_pane="$TMUX_PANE"
@@ -29,8 +30,8 @@ tdl() {
   tmux send-keys -t "$editor_pane" "$EDITOR ." C-m
   tmux select-pane -t "$editor_pane"
 
-  # Create a new window after the first one (do not select it), and run "lazygit" in its single pane
-  tmux new-window -n "files" -a -d "yazi"
+  # Create a new window after the first one (do not select it), and run file manager in its single pane
+  tmux new-window -n "files" -a -d "$fm"
 }
 
 # Create a Tmux Ops Layout with remote shell, local shell, file manager, and a separate window with k9s
@@ -51,15 +52,11 @@ tol() {
   # Split window vertically - top 70%, bottom 30% (capture new pane ID directly)
   local_shell_pane=$(tmux split-window -v -l '30%' -t "$main_pane" -c "$current_dir" -P -F '#{pane_id}')
 
-  # Split local shell pane horizontally - file manager on right 50% (capture new pane ID directly)
-  fm_pane=$(tmux split-window -h -l '50%' -t "$local_shell_pane" -c "$current_dir" -P -F '#{pane_id}')
-
-  # Run file manager in the right pane; select file manager pane first so its terminal queries are routed back to it
-  tmux select-pane -t "$fm_pane" && sleep 1
-  tmux send-keys -t "$fm_pane" "$fm >/dev/null 2>&1" C-m
-
   # Create a new window after the first one (do not select it), and run "k9s" in its single pane
   tmux new-window -n "k9s" -a -d "k9s"
+
+  # Create a new window after the first one (do not select it), and run file manager in its single pane
+  tmux new-window -n "files" -a -d "$fm"
 
   # Select the main pane for focus
   tmux select-pane -t "$main_pane"
