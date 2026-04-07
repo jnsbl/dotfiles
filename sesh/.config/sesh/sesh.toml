@@ -13,3 +13,8 @@ startup_command = "tdl"
 name = "azure-devops"
 path = "~/Work/azure-devops"
 startup_command = "tol"
+
+[[session]]
+name = "media"
+path = "/run/media"
+startup_command = "yazi"
