@@ -176,6 +176,8 @@
 	defaultBranch = main
 [gui]
         editor = nvim-qt
+[delta]
+  true-color = always
 [global]
 [diff-so-fancy]
 	markEmptyLines = false
