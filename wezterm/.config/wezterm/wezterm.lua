@@ -4,10 +4,12 @@ require("smart-splits")
 
 local config = wezterm.config_builder()
 
-config.font = wezterm.font("Maple Mono NF")
-config.font_size = 11
+config.enable_wayland = false
 
-config.color_scheme = "Monokai (base16)"
+-- font-family is set in ~/.config/fontconfig/fonts.conf
+config.font_size = 13
+
+config.color_scheme = "Tokyo Night"
 
 config.window_padding = {
 	left = "0.5cell",
