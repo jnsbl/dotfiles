@@ -54,19 +54,22 @@ zinit snippet OMZP::systemadmin
 zinit snippet ~/.config/zsh/functions/tmux.zsh
 zinit snippet ~/.config/zsh/functions/mcd.zsh
 
-# Tool completions
+# Load completions
+fpath=(~/.config/zsh/completions $fpath)
+autoload -Uz compinit && compinit
+
+zinit cdreplay -q
+
+# Tool completions (must run after compinit — these scripts call compdef directly)
 if [[ $_arkade_installed = "true" ]]; then
   eval "$(arkade completion zsh)"
 fi
 if command -v git-gtr >/dev/null 2>&1; then
   eval "$(git gtr completion zsh)"
 fi
-
-# Load completions
-fpath=(~/.config/zsh/completions $fpath)
-autoload -Uz compinit && compinit
-
-zinit cdreplay -q
+if command -v k3d >/dev/null 2>&1; then
+  eval "$(k3d completion zsh)"
+fi
 
 # Keybindings
 bindkey -e
