@@ -1,3 +1,8 @@
+# Prevent commands invoked by AI agents from hanging
+if [[ "$TERM_PROGRAM" == "claude" ]] || [[ "$TERM_PROGRAM" == "vscode" || "$TERM_PROGRAM" == "cursor" ]]; then
+  return
+fi
+
 # # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # # Initialization code that may require console input (password prompts, [y/n]
 # # confirmations, etc.) must go above this block; everything else may go below.
@@ -135,6 +140,7 @@ alias zln='zmv -L'  # Link with patterns
 alias ark='arkade'
 
 alias c='claude'
+alias cs='claude-sandbox'
 alias cu='cursor'
 
 alias e=$EDITOR
@@ -258,4 +264,7 @@ if [[ $_zoxide_installed = "true" ]]; then
 fi
 if command -v try >/dev/null 2>&1; then
   eval "$(try init ~/code/tries)"
+fi
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
 fi
