@@ -2,7 +2,8 @@
 {
     "editor.tabSize": 2,
     "editor.rulers": [
-      80, 100
+        80,
+        100
     ],
     "telemetry.enableTelemetry": false,
     "telemetry.enableCrashReporter": false,
@@ -21,8 +22,8 @@
     "vim.neovimPath": "/usr/bin/nvim",
     "vim.enableNeovim": true,
     "gitProjectManager.baseProjectsFolders": [
-      "/home/jnsbl/code/hobby",
-      "/home/jnsbl/code/work/git"
+        "/home/jnsbl/code/hobby",
+        "/home/jnsbl/code/work/git"
     ],
     "gitProjectManager.storeRepositoriesBetweenSessions": true,
     "gitlens.defaultTimeFormat": "HH:mm",
@@ -38,5 +39,6 @@
     "workbench.colorTheme": "Tokyo Night",
     "redhat.telemetry.enabled": false,
     "editor.fontSize": 13,
-    "terminal.integrated.fontSize": 12
+    "terminal.integrated.fontSize": 12,
+    "claudeCode.useTerminal": true
 }
