@@ -41,3 +41,7 @@ settings = "prefix+shift+s"
 [keys.indexed]
 # alt+1..9 switches tabs (mirrors tmux M-1..9)
 tabs = "alt"
+
+[theme]
+name = "tokyo-night"
+auto_switch = false
