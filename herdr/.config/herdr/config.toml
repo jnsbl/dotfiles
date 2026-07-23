@@ -1,0 +1,43 @@
+[keys]
+prefix = "ctrl+a"
+
+# Structural controls
+reload_config = "prefix+q"
+detach        = "prefix+d"
+
+# Pane splitting (prefix+h = stacked, prefix+v = side-by-side)
+split_horizontal = ["prefix+h", "alt+enter"]
+split_vertical   = ["prefix+v", "alt+shift+enter"]
+close_pane       = ["prefix+x", "alt+escape"]
+
+# Pane navigation — vim-tmux-navigator style, no prefix
+focus_pane_left  = "ctrl+h"
+focus_pane_down  = "ctrl+j"
+focus_pane_up    = "ctrl+k"
+focus_pane_right = "ctrl+l"
+
+# Resize mode (prefix+r claimed by rename_tab)
+resize_mode = "prefix+e"
+
+# Tab (window) management
+new_tab      = "prefix+c"
+rename_tab   = "prefix+,"
+close_tab    = "prefix+k"
+previous_tab = "prefix+p"
+next_tab     = "prefix+n"
+switch_tab   = "prefix+1..9"
+
+# Workspace (session) management
+new_workspace      = "prefix+shift+c"
+rename_workspace   = "prefix+shift+r"
+close_workspace    = "prefix+shift+k"
+previous_workspace = "prefix+shift+p"
+next_workspace     = "prefix+shift+n"
+
+# Session navigator (replaces sesh picker on prefix+s)
+goto     = "prefix+s"
+settings = "prefix+shift+s"
+
+[keys.indexed]
+# alt+1..9 switches tabs (mirrors tmux M-1..9)
+tabs = "alt"
