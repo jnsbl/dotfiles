@@ -141,7 +141,7 @@ alias ark='arkade'
 
 alias c='claude'
 alias cs='claude-sandbox'
-alias cu='cursor'
+alias cu='agent --sandbox enabled'
 
 alias e=$EDITOR
 
