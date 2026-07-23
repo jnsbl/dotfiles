@@ -25,7 +25,7 @@ rename_tab   = "prefix+,"
 close_tab    = "prefix+k"
 previous_tab = "prefix+p"
 next_tab     = "prefix+n"
-switch_tab   = "prefix+1..9"
+switch_tab   = ["prefix+1..9", "alt+1..9"]
 
 # Workspace (session) management
 new_workspace      = "prefix+shift+c"
@@ -37,10 +37,6 @@ next_workspace     = "prefix+shift+n"
 # Session navigator (replaces sesh picker on prefix+s)
 goto     = "prefix+s"
 settings = "prefix+shift+s"
-
-[keys.indexed]
-# alt+1..9 switches tabs (mirrors tmux M-1..9)
-tabs = "alt"
 
 [theme]
 name = "tokyo-night"
