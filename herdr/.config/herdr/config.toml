@@ -1,3 +1,4 @@
+onboarding = false
 [keys]
 prefix = "ctrl+a"
 
@@ -41,3 +42,6 @@ settings = "prefix+shift+s"
 [theme]
 name = "tokyo-night"
 auto_switch = false
+
+[ui]
+agent_panel_sort = "spaces"
