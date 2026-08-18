@@ -40,8 +40,8 @@ desc = "Cd to ~/Pictures/Wallpapers"
 
 [[mgr.prepend_keymap]]
 on   = ["g", "w"]
-run  = "cd ~/code/work"
-desc = "Cd to ~/code/work"
+run  = "cd ~/Work"
+desc = "Cd to ~/Work"
 
 [[mgr.prepend_keymap]]
 on   = ["g", "G"]
