@@ -5,17 +5,17 @@ blacklist = ["scratch"]
 pattern = "~/code/hobby/*"
 startup_command = "tdl"
 
-# [[wildcard]]
-# pattern = "~/code/work/git/*"
-# startup_command = "tdl"
+[[wildcard]]
+pattern = "~/code/work/git/uucloud/*"
+startup_command = "tdl"
 
 [[session]]
 pattern = "~/code/work/git/uusandbox"
 startup_command = "tdlm"
 
-[[session]]
-pattern = "~/code/work/git/uucloud"
-startup_command = "tdlm"
+# [[session]]
+# pattern = "~/code/work/git/uucloud"
+# startup_command = "tdlm"
 
 [[session]]
 name = "azure-devops"
