@@ -1,7 +1,3 @@
--- Copied verbatim from /usr/share/omarchy/default/hypr/bindings/clipboard.lua @ Omarchy 4.0.0.
--- Omarchy default bindings are disabled (omarchy_default_bindings = false);
--- re-diff this against the upstream file after each `omarchy update`.
-
 -- Send with explicit mods to the focused surface by omitting the window target,
 -- so universal clipboard shortcuts reach both normal windows and focused
 -- layer-shell surfaces such as Omarchy panels. A virtual keyboard (wtype) won't
@@ -49,4 +45,4 @@ end
 o.bind("SUPER + C", "Universal copy", universal_clipboard_shortcut("CTRL", "C", "CTRL", "Insert"))
 o.bind("SUPER + V", "Universal paste", universal_clipboard_shortcut("CTRL", "V", "SHIFT", "Insert"))
 o.bind("SUPER + X", "Universal cut", send_shortcut_once("CTRL", "X"))
-o.bind("SUPER + CTRL + V", "Clipboard manager", "omarchy-shell shell toggle omarchy.clipboard")
+o.bind("SUPER + ALT + V", "Clipboard manager", "omarchy-shell shell toggle omarchy.clipboard")

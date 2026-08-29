@@ -1,8 +1,13 @@
 -- Personal application launchers. Loaded after the verbatim Omarchy binding
 -- modules, so keys they already claim are unbound first.
 
-hl.unbind("SUPER + CTRL + N") -- was: Toggle nightlight (still on the Toggle menu, SUPER+CTRL+O)
-hl.unbind("SUPER + CTRL + P") -- was: Power panel (still on the Toggle menu / SUPER+Q system menu)
+hl.unbind("SUPER + CTRL + N")       -- was: Toggle nightlight (still on the Toggle menu, SUPER+CTRL+O)
+hl.unbind("SUPER + CTRL + P")       -- was: Power panel (still on the Toggle menu / SUPER+Q system menu)
+hl.unbind("SUPER + SPACE")          -- was: Omarchy menu
+hl.unbind("SUPER + ALT + SPACE")    -- was: Apps menu
+
+o.bind("SUPER + ALT + SPACE", "Omarchy menu", "omarchy-menu toggle")
+o.bind("SUPER + SPACE", "Apps menu", "omarchy-menu toggle apps")
 
 o.bind("SUPER + RETURN", "Terminal", "omarchy-launch-terminal")
 o.bind("SUPER + ALT + RETURN", "Tmux", "omarchy-launch-terminal tmux new")

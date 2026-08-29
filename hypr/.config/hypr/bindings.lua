@@ -8,7 +8,7 @@
 -- See current bindings and descriptions:
 --   omarchy menu keybindings --print
 
--- Verbatim copies of Omarchy 4.0.0 defaults (re-diff on upgrade).
+-- More-or-less verbatim copies of Omarchy 4.0.0 defaults (re-diff on upgrade).
 require("hypr.bindings.media")
 require("hypr.bindings.clipboard")
 require("hypr.bindings.utilities")

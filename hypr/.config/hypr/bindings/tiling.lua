@@ -26,6 +26,16 @@ o.bind("SUPER + right", "Switch to next workspace", hl.dsp.focus({ workspace = "
 o.bind("SUPER + SHIFT + left", "Move window to previous workspace", hl.dsp.window.move({ workspace = "-1" }))
 o.bind("SUPER + SHIFT + right", "Move window to next workspace", hl.dsp.window.move({ workspace = "+1" }))
 
+-- Switch to a workspace on the current monitor.
+-- Works on non-english keyboard layouts.
+for ws = 1, 10 do
+  local key = "SUPER + code:" .. tostring(ws + 9)
+  if ws <= 9 then
+    hl.unbind(key)
+  end
+  o.bind(key, "Switch to workspace " .. ws, hl.dsp.focus({ workspace = ws }))
+end
+
 -- Force-switch to a workspace on the current monitor. Unbind Omarchy's
 -- SUPER+CTRL+1..9 bar-panel binds (code:10..18) first.
 for ws = 1, 10 do
