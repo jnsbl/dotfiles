@@ -10,4 +10,4 @@ o.window({ class = "chromium", title = "(Untitled - Chromium)" }, { float = true
 o.window("[Ss]ignal", { tag = "-default-opacity", opacity = "1 1" })
 
 -- Proton Pass: exclude from screen sharing and screenshots.
-o.window("^(ProtonPass)$", { no_screen_share = true })
+o.window("^(Proton Pass)$", { no_screen_share = true })
