@@ -1,4 +1,4 @@
-config-file = "~/.config/omarchy/current/theme/ghostty.conf"
+config-file = "~/.local/state/omarchy/current/theme/ghostty.conf"
 confirm-close-surface = false
 
 # font-family is set in ~/.config/fontconfig/fonts.conf
@@ -7,3 +7,6 @@ keybind = shift+enter=text:\x1b\r
 
 # Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
 async-backend = epoll
+
+# Legacy encoding sends Alt+Shift+Enter the same as Alt+Enter; send CSI-u so tmux can match M-S-Enter.
+keybind = alt+shift+enter=csi:13;4u
