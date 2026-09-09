@@ -26,24 +26,13 @@ o.bind("SUPER + right", "Switch to next workspace", hl.dsp.focus({ workspace = "
 o.bind("SUPER + SHIFT + left", "Move window to previous workspace", hl.dsp.window.move({ workspace = "-1" }))
 o.bind("SUPER + SHIFT + right", "Move window to next workspace", hl.dsp.window.move({ workspace = "+1" }))
 
+-- Workspace/window bindings that work on non-english keyboard layouts.
 -- Switch to a workspace on the current monitor.
--- Works on non-english keyboard layouts.
 for ws = 1, 10 do
-  local key = "SUPER + code:" .. tostring(ws + 9)
-  if ws <= 9 then
-    hl.unbind(key)
-  end
-  o.bind(key, "Switch to workspace " .. ws, hl.dsp.focus({ workspace = ws }))
-end
-
--- Force-switch to a workspace on the current monitor. Unbind Omarchy's
--- SUPER+CTRL+1..9 bar-panel binds (code:10..18) first.
-for ws = 1, 10 do
-  local key = "SUPER + CTRL + code:" .. tostring(ws + 9)
-  if ws <= 9 then
-    hl.unbind(key)
-  end
-  o.bind(key, "Force switch to workspace " .. ws, hl.dsp.focus({ workspace = ws, on_current_monitor = true }))
+  local key = "code:" .. tostring(ws + 9)
+  o.bind("SUPER + " .. key, "Switch to workspace " .. ws, hl.dsp.focus({ workspace = ws }))
+  o.bind("SUPER + CTRL + " .. key, "Force switch to workspace " .. ws, hl.dsp.focus({ workspace = ws, on_current_monitor = true }))
+  o.bind("SUPER + SHIFT + " .. key, "Move current window to workspace " .. ws, hl.dsp.window.move({ workspace = tostring(ws), follow = false }))
 end
 
 -- Layout.
@@ -70,8 +59,27 @@ o.bind("SUPER + ALT + Home", "Save window width", "omarchy-hyprland-window-width
 o.bind("SUPER + G", "Toggle window grouping", hl.dsp.group.toggle())
 o.bind("SUPER + ALT + G", "Move active window out of group", hl.dsp.window.move({ out_of_group = true }))
 
-o.bind("CTRL + ALT + TAB", "Focus on next monitor", hl.dsp.focus({ monitor = "+1" }))
-o.bind("CTRL + ALT + SHIFT + TAB", "Focus on previous monitor", hl.dsp.focus({ monitor = "-1" }))
+o.bind("SUPER + ALT + LEFT", "Move window to group on left", hl.dsp.window.move({ into_group = "l" }))
+o.bind("SUPER + ALT + RIGHT", "Move window to group on right", hl.dsp.window.move({ into_group = "r" }))
+o.bind("SUPER + ALT + UP", "Move window to group on top", hl.dsp.window.move({ into_group = "u" }))
+o.bind("SUPER + ALT + DOWN", "Move window to group on bottom", hl.dsp.window.move({ into_group = "d" }))
+
+o.bind("SUPER + ALT + TAB", "Next window in group", hl.dsp.group.next())
+o.bind("SUPER + ALT + SHIFT + TAB", "Previous window in group", hl.dsp.group.prev())
+
+o.bind("SUPER + CTRL + LEFT", "Move grouped window focus left", hl.dsp.group.prev())
+o.bind("SUPER + CTRL + RIGHT", "Move grouped window focus right", hl.dsp.group.next())
+
+o.bind("SUPER + ALT + mouse_down", "Next window in group", hl.dsp.group.next())
+o.bind("SUPER + ALT + mouse_up", "Previous window in group", hl.dsp.group.prev())
+
+for index = 1, 5 do
+  o.bind(
+    "SUPER + ALT + code:" .. tostring(index + 9),
+    "Switch to group window " .. index,
+    hl.dsp.group.active({ index = index })
+  )
+end
 
 o.bind("SUPER + SLASH", "Monitor scaling up", "omarchy-hyprland-monitor-scaling up")
 o.bind("SUPER + ALT + SLASH", "Monitor scaling down", "omarchy-hyprland-monitor-scaling down")
