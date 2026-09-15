@@ -1,6 +1,6 @@
 onboarding = false
 [keys]
-prefix = "ctrl+a"
+prefix = "ctrl+s"
 
 # Structural controls
 reload_config = "prefix+q"
