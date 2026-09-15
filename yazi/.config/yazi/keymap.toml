@@ -45,8 +45,8 @@ desc = "Cd to ~/Work"
 
 [[mgr.prepend_keymap]]
 on   = ["g", "G"]
-run  = "cd ~/code/work/git"
-desc = "Cd to ~/code/work/git"
+run  = "cd ~/Work/git"
+desc = "Cd to ~/Work/git"
 
 [[mgr.prepend_keymap]]
 on   = ["g", "p"]
