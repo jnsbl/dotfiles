@@ -50,7 +50,8 @@ o.bind("SUPER + ALT + J", "Toggle split", hl.dsp.layout("togglesplit"))
 o.bind("SUPER + ALT + P", "Pseudo window", hl.dsp.window.pseudo())
 o.bind("SUPER + ALT + L", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
 o.bind("SUPER + M", "Maximize window", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
-o.bind("SUPER + CTRL + M", "Maximize column (scrolling layout)", hl.dsp.layout("togglefit"))
+o.bind("SUPER + CTRL + M", "Increase column size (scrolling layout)", hl.dsp.layout("colresize +conf"))
+o.bind("SUPER + CTRL + SHIFT + M", "Decrease column size (scrolling layout)", hl.dsp.layout("colresize -conf"))
 
 -- Pyprland scratchpads (pypr is started from hypr/autostart.lua).
 o.bind("SUPER + Y", "Scratchpad terminal (pypr)", "pypr toggle term")
