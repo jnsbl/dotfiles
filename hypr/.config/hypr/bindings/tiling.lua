@@ -30,9 +30,18 @@ o.bind("SUPER + SHIFT + right", "Move window to next workspace", hl.dsp.window.m
 -- Switch to a workspace on the current monitor.
 for ws = 1, 10 do
   local key = "code:" .. tostring(ws + 9)
-  o.bind("SUPER + " .. key, "Switch to workspace " .. ws, hl.dsp.focus({ workspace = ws }))
-  o.bind("SUPER + CTRL + " .. key, "Force switch to workspace " .. ws, hl.dsp.focus({ workspace = ws, on_current_monitor = true }))
-  o.bind("SUPER + SHIFT + " .. key, "Move current window to workspace " .. ws, hl.dsp.window.move({ workspace = tostring(ws), follow = false }))
+
+  local keybind = "SUPER + " .. key
+  hl.unbind(keybind)
+  o.bind(keybind, "Switch to workspace " .. ws, hl.dsp.focus({ workspace = ws }))
+
+  local keybind = "SUPER + CTRL + " .. key
+  hl.unbind(keybind)
+  o.bind(keybind, "Force switch to workspace " .. ws, hl.dsp.focus({ workspace = ws, on_current_monitor = true }))
+
+  local keybind = "SUPER + SHIFT + " .. key
+  hl.unbind(keybind)
+  o.bind(keybind, "Move current window to workspace " .. ws, hl.dsp.window.move({ workspace = tostring(ws), follow = true }))
 end
 
 -- Layout.
