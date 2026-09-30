@@ -40,5 +40,21 @@
     "redhat.telemetry.enabled": false,
     "editor.fontSize": 13,
     "terminal.integrated.fontSize": 12,
-    "claudeCode.useTerminal": true
+    "claudeCode.useTerminal": true,
+    "uuAiMarketplace.mcpInputs": {
+        "uu-business-products-mp/uubookkit": {
+            "uuBookKitMainUrl": "https://uuapp.plus4u.net/uu-aichat-maing01/a8399ed55f6fba3904925769a62bc4c7/uuAssistant/mcp?instructionSetOid=69c918456da6fe7f289bea91",
+            "uuComponentCatalogueUrl": "https://uuapp.plus4u.net/uu-aichat-maing01/a8399ed55f6fba3904925769a62bc4c7/uuAssistant/mcp?instructionSetOid=69c909206da6fe7f289be657",
+            "__selectedPreset": "USO Terri"
+        },
+        "uu-business-products-mp/uumanagementkit": {
+            "uuManagementKitEccUrl": "https://uuapp.plus4u.net/uu-aichat-maing01/a8399ed55f6fba3904925769a62bc4c7/uuAssistant/mcp?instructionSetOid=6a390322e8233af890b0884b",
+            "uuComponentCatalogueUrl": "https://uuapp.plus4u.net/uu-aichat-maing01/a8399ed55f6fba3904925769a62bc4c7/uuAssistant/mcp?instructionSetOid=69c909206da6fe7f289be657",
+            "__selectedPreset": "USO Terri"
+        }
+    },
+    "uuAiMarketplace.targetTools": [
+        "cursor",
+        "claude"
+    ]
 }
