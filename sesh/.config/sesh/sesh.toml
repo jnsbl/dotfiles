@@ -6,11 +6,15 @@ pattern = "~/code/hobby/*"
 startup_command = "tdl"
 
 [[wildcard]]
-pattern = "~/code/work/git/uucloud/*"
+pattern = "~/Work/git/uucloud/*"
+startup_command = "tdl"
+
+[[wildcard]]
+pattern = "~/Work/git/monitoring/*"
 startup_command = "tdl"
 
 [[session]]
-pattern = "~/code/work/git/uusandbox"
+pattern = "~/Work/git/uusandbox"
 startup_command = "tdlm"
 
 # [[session]]
