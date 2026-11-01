@@ -1,0 +1,4 @@
+#!/bin/bash
+# AUR builds must use system python, not mise's
+PATH=$(tr ':' '\n' <<<"$PATH" | grep -v '/mise/' | paste -sd:)
+exec /usr/bin/yay "$@"
