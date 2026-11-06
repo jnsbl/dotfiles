@@ -106,3 +106,4 @@ awesome/secrets.lua
 neovim/plugin/
 tmux/.config/tmux/plugins/*
 !tmux/.config/tmux/plugins/.gitkeep
+worktrunk/.config/worktrunk/config.toml.lock
