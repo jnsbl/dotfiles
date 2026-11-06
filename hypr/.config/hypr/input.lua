@@ -16,7 +16,7 @@ hl.config({
     --     -- Change speed of keyboard repeat. Omarchy's default repeat_rate is 40;
     --     -- its default repeat_delay is 250, so only the delay is overridden here.
     --     repeat_rate = 40,
-    repeat_delay = 600,
+    --     repeat_delay = 600,
     --
     --     -- Start with numlock on by default.
     --     numlock_by_default = true,
