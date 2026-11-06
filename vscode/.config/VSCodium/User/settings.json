@@ -36,7 +36,7 @@
     "editor.fontLigatures": true,
     "git.openRepositoryInParentFolders": "never",
     "workbench.editor.empty.hint": "hidden",
-    "workbench.colorTheme": "Tokyo Night",
+    "workbench.colorTheme": "Omarchy",
     "redhat.telemetry.enabled": false,
     "editor.fontSize": 13,
     "terminal.integrated.fontSize": 12,
@@ -55,6 +55,8 @@
     },
     "uuAiMarketplace.targetTools": [
         "cursor",
-        "claude"
-    ]
+        "claude-native"
+    ],
+    "terminal.integrated.initialHint": false,
+    "update.showReleaseNotes": false
 }
