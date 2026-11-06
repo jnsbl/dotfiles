@@ -10,6 +10,7 @@ opt.softtabstop = 2
 opt.tabstop = 2
 opt.expandtab = true
 opt.relativenumber = false
+vim.g.autoformat = false
 
 -- ----------------------------------------------------------------------------
 -- Options - Diagnostic
